@@ -1,0 +1,8 @@
+target/
+.settings/
+.checkstyle
+.classpath
+.pmd
+.pmdruleset
+.project
+.DS_Store
