@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.google.developers.gdgfirenze</groupId>
+		<artifactId>sensormix-parent</artifactId>
+		<version>1-SNAPSHOT</version>
+		<relativePath>parent</relativePath>
+	</parent>
+
+	
+	<version>1.0.0-SNAPSHOT</version>
+	<artifactId>sensormix-main-project</artifactId>
+	<packaging>pom</packaging>
+	<name>GDG Firenze :: Sensormix Main project</name>
+
+	<modules>
+		<!--<module>sensormix-data-model</module>-->
+		<!--<module>sensormix-webgui-bundle</module>-->
+		<!--<module>sensormix-dataservice-bundle</module>-->
+		<!--<module>sensormix-datawebservice-bundle</module>-->
+		<!--<module>sensormix-websim-bundle</module>-->
+		<!--<module>sensormix-integration-bundle</module>-->
+		<!--<module>sensormix-deploy-features</module>-->
+		<!--<module>sensormix-deploy-dist</module>-->
+	</modules>
+	
+</project>

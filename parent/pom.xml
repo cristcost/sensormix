@@ -1,0 +1,238 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<name>GDG Firenze :: Sensormix Team and Maven Config</name>
+
+	<groupId>com.google.developers.gdgfirenze</groupId>
+	<artifactId>sensormix-parent</artifactId>
+	<packaging>pom</packaging>
+	<version>1-SNAPSHOT</version>
+
+	<organization>
+		<name>GDG Firenze</name>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>ccostantini</id>
+			<name>Cristiano Costantini</name>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>ggerla</id>
+			<name>Giuseppe Gerla</name>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>mficarra</id>
+			<name>Michele Ficarra</name>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>scigheri</id>
+			<name>Stefano Cigheri</name>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>sciampi</id>
+			<name>Sergio Ciampi</name>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+
+	<properties>
+
+		<!-- Generic properties -->
+		<java.version>1.6</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- Artifacts versions -->
+		<activemq.version>5.7.0</activemq.version>
+		<apacheds.version>1.5.7</apacheds.version>
+		<base64.version>2.3.8</base64.version>
+		<batik-transcoder.version>1.7-cristcost-00</batik-transcoder.version>
+		<batik.version>1.7</batik.version>
+		<camel.version>2.10.6</camel.version>
+		<commons-cli.version>1.2</commons-cli.version>
+		<commons-fileupload.version>1.2</commons-fileupload.version>
+		<commons-io.version>2.0</commons-io.version>
+		<cxf.version>2.6.8</cxf.version>
+		<easymock.version>3.1</easymock.version>
+		<eclipselink.version>2.5.0</eclipselink.version>
+		<gin.version>2.0.0</gin.version>
+		<guava.version>13.0</guava.version>
+		<guice.version>3.0</guice.version>
+		<gwt.version>2.5.1</gwt.version>
+		<hadoop.version>1.1.0</hadoop.version>
+		<hamcrest.version>1.3</hamcrest.version>
+		<hbase.version>0.94.2</hbase.version>
+		<hsqldb.version>2.2.9</hsqldb.version>
+		<javax.validation.version>1.0.0.GA</javax.validation.version>
+		<jaxb.schemagen.version>1.2</jaxb.schemagen.version>
+		<jaxb.version>2.2.4</jaxb.version>
+		<jaxws.version>2.2.6</jaxws.version>
+		<jdom.version>1.1</jdom.version>
+		<jetty.version>7.6.12.v20130726</jetty.version><!--stable: 6.1.26,  NEWEST 8.1.8.v20121106-->
+		<jetty-jstl.version>1.2.0.v201105211821</jetty-jstl.version>
+		<jpa.eclipselink.version>2.1.0</jpa.eclipselink.version>
+		<jpa.version>1.0</jpa.version>
+		<json-simple.version>1.1.1</json-simple.version>
+		<json.version>20090211</json.version>
+		<jsr330.version>1</jsr330.version>
+		<jts.version>1.12</jts.version>
+		<junit.version>4.11</junit.version>
+		<karaf.version>2.2.11</karaf.version>
+		<kryo.version>2.21</kryo.version>
+		<mockito.version>1.9.5</mockito.version>
+		<mysql.connector.version>5.1.26</mysql.connector.version>
+		<oracle.version>1.0.0</oracle.version>
+		<osgi.version>4.2.0</osgi.version>
+		<powermock.version>1.4.12</powermock.version>
+		<selenium.version>2.4.0</selenium.version>
+		<servicemix.version>4.5.2</servicemix.version>
+		<servlet-api.version>2.5</servlet-api.version>
+		<slf4j.version>1.7.5</slf4j.version>
+		<smx-common-dbcp.version>1.4_3</smx-common-dbcp.version>
+		<smx-jsr330.version>1_2</smx-jsr330.version>
+		<smx-snmp4j.version>1.8.1_4</smx-snmp4j.version> <!-- 2.1.0_1 -->
+		<smx-xmlrpc-client.version>3.1.3_1</smx-xmlrpc-client.version>
+		<smx-xmlrpc-server.version>3.1.3_3</smx-xmlrpc-server.version>
+		<smx-ws-commons-util.version>1.0.2_2</smx-ws-commons-util.version>
+		<spring-osgi.version>1.2.1</spring-osgi.version>
+		<spring.version>3.0.7.RELEASE</spring.version>
+		<xmlrpc.version>3.1.3</xmlrpc.version>
+		<xmlunit.version>1.4</xmlunit.version>
+		<xstream.version>1.4.4</xstream.version>
+		<zxing.version>2.1</zxing.version>
+        <dozer.version>5.4.0</dozer.version>
+		
+		<!-- Maven plugins version -->
+		<assembly.plugin.version>2.4</assembly.plugin.version>
+		<build-helper.plugin.version>1.8</build-helper.plugin.version>
+		<bundle.plugin.version>2.3.7</bundle.plugin.version>
+		<checkstyle.plugin.version>2.9.1</checkstyle.plugin.version>
+		<clean.plugin.version>2.5</clean.plugin.version>
+		<compiler.plugin.version>3.1</compiler.plugin.version>
+		<cxf.plugin.version>2.6.8</cxf.plugin.version>
+		<eclipse.plugin.version>2.9</eclipse.plugin.version>
+		<features.plugin.version>2.2.11</features.plugin.version>
+		<gwt.plugin.version>2.5.1</gwt.plugin.version>
+		<javancss.plugin.version>2.0</javancss.plugin.version>
+		<jaxws.plugin.version>2.2</jaxws.plugin.version>
+		<jetty.plugin.version>7.6.12.v20130726</jetty.plugin.version><!--stable: 6.1.26,  NEWEST 8.1.8.v20121106-->
+		<pmd.plugin.version>2.7.1</pmd.plugin.version>
+		<resources.plugin.version>2.6</resources.plugin.version>
+		<surefire.plugin.version>2.15</surefire.plugin.version>
+		<verifier.plugin.version>1.0</verifier.plugin.version>
+		<war.plugin.version>2.1.1</war.plugin.version>
+	</properties>
+
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${compiler.plugin.version}</version>
+					<configuration>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>${clean.plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>${checkstyle.plugin.version}</version>
+					<configuration>
+						<encoding>UTF-8</encoding>
+					</configuration>
+					<executions>
+						<execution>
+							<id>validate</id>
+							<phase>validate</phase>
+							<configuration>
+								<configLocation>config/sun_checks.xml</configLocation>
+								<consoleOutput>true</consoleOutput>
+								<failsOnError>true</failsOnError>
+								<linkXRef>false</linkXRef>
+								<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+							</configuration>
+							<goals>
+								<goal>checkstyle</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-pmd-plugin</artifactId>
+					<version>${pmd.plugin.version}</version>
+					<configuration>
+						<rulesets>
+							<!-- <ruleset>need extra rules?</ruleset> -->
+						</rulesets>
+						<sourceEncoding>UTF-8</sourceEncoding>
+						<targetJdk>1.6</targetJdk>
+						<linkXRef>false</linkXRef>
+						<includeTests>false</includeTests>
+						<verbose>true</verbose>
+						<excludeRoots>
+							<excludeRoot>${basedir}/src/main/generated</excludeRoot>
+						</excludeRoots>
+					</configuration>
+					<executions>
+						<execution>
+							<id>validate</id>
+							<phase>validate</phase>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	
+	
+	<profiles>
+		<profile>
+			<id>nochecks</id>
+			<properties>
+				<sourcecheck.skip>true</sourcecheck.skip>
+				<pmd.skip>true</pmd.skip>
+				<checkstyle.skip>true</checkstyle.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>sourcecheck</id>
+			<activation>
+				<property>
+					<name>!sourcecheck.skip</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-checkstyle-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-pmd-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>
+
