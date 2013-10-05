@@ -11,13 +11,32 @@
 	</parent>
 
 	<artifactId>sensormix-mockep-app</artifactId>
-
 	<name>GDG Firenze :: Sensormix :: Mock Endpoints application</name>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+
 	<dependencies>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jetty</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-velocity</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
