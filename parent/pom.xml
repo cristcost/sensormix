@@ -75,7 +75,8 @@
 		<jaxb.version>2.2.4</jaxb.version>
 		<jaxws.version>2.2.6</jaxws.version>
 		<jdom.version>1.1</jdom.version>
-		<jetty.version>7.6.12.v20130726</jetty.version><!--stable: 6.1.26,  NEWEST 8.1.8.v20121106-->
+		<jetty.version>7.6.12.v20130726</jetty.version><!--stable: 6.1.26, NEWEST 
+			8.1.8.v20121106 -->
 		<jetty-jstl.version>1.2.0.v201105211821</jetty-jstl.version>
 		<jpa.eclipselink.version>2.1.0</jpa.eclipselink.version>
 		<jpa.version>1.0</jpa.version>
@@ -107,8 +108,8 @@
 		<xmlunit.version>1.4</xmlunit.version>
 		<xstream.version>1.4.4</xstream.version>
 		<zxing.version>2.1</zxing.version>
-        <dozer.version>5.4.0</dozer.version>
-		
+		<dozer.version>5.4.0</dozer.version>
+
 		<!-- Maven plugins version -->
 		<assembly.plugin.version>2.4</assembly.plugin.version>
 		<build-helper.plugin.version>1.8</build-helper.plugin.version>
@@ -122,7 +123,8 @@
 		<gwt.plugin.version>2.5.1</gwt.plugin.version>
 		<javancss.plugin.version>2.0</javancss.plugin.version>
 		<jaxws.plugin.version>2.2</jaxws.plugin.version>
-		<jetty.plugin.version>7.6.12.v20130726</jetty.plugin.version><!--stable: 6.1.26,  NEWEST 8.1.8.v20121106-->
+		<jetty.plugin.version>7.6.12.v20130726</jetty.plugin.version><!--stable: 
+			6.1.26, NEWEST 8.1.8.v20121106 -->
 		<pmd.plugin.version>2.7.1</pmd.plugin.version>
 		<resources.plugin.version>2.6</resources.plugin.version>
 		<surefire.plugin.version>2.15</surefire.plugin.version>
@@ -202,8 +204,8 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-	
-	
+
+
 	<profiles>
 		<profile>
 			<id>nochecks</id>
@@ -222,14 +224,14 @@
 			</activation>
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-checkstyle-plugin</artifactId>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-pmd-plugin</artifactId>
-					</plugin>
+					<!-- <plugin> -->
+					<!-- <groupId>org.apache.maven.plugins</groupId> -->
+					<!-- <artifactId>maven-checkstyle-plugin</artifactId> -->
+					<!-- </plugin> -->
+					<!-- <plugin> -->
+					<!-- <groupId>org.apache.maven.plugins</groupId> -->
+					<!-- <artifactId>maven-pmd-plugin</artifactId> -->
+					<!-- </plugin> -->
 				</plugins>
 			</build>
 		</profile>
