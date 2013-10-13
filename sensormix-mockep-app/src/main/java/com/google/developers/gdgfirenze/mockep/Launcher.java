@@ -22,6 +22,11 @@ public class Launcher {
         .end()
         .setHeader("Content-Type", constant("application/json"))
         .to("velocity:response_template.vm");
+        
+        // Arduino route
+        from("mina2:udp://0.0.0.0:8888")
+        .to("log:dump?showAll=true")
+        .to("file:target/incoming?fileName=msg-${date:now:yyyyMMdd_HHmmss_SSS}.js");
       }
     });
 
