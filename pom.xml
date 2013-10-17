@@ -19,14 +19,14 @@
 
 	<modules>
 		<module>sensormix-datamodel-api</module>
-		<!--<module>sensormix-webgui-bundle</module>-->
+		<module>sensormix-webgui-bundle</module>
 		<!--<module>sensormix-dataservice-bundle</module>-->
 		<!--<module>sensormix-datawebservice-bundle</module>-->
 		<!--<module>sensormix-websim-bundle</module>-->
 		<!--<module>sensormix-integration-bundle</module>-->
 		<!--<module>sensormix-deploy-features</module>-->
 		<!--<module>sensormix-deploy-dist</module>-->
-    <module>sensormix-mockep-app</module>
+    	<module>sensormix-mockep-app</module>
   </modules>
 	
 </project>
