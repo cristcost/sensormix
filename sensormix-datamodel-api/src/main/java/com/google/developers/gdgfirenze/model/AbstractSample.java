@@ -25,6 +25,7 @@ public abstract class AbstractSample {
 	private Date time;
 
 	@XmlAttribute(required = false, name = "type")
+	@XmlSchemaType(name = "anyURI")
 	private String type;
 	
 	public String getSensorId() {
