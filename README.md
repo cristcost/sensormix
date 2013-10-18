@@ -1,7 +1,7 @@
 Sensormix
 =========
 
-Demo of an architecture based on OSGi, Camel, Spring and GWT.
+Demo of an Integrated  OSGi architecture based on Apache Karaf, Apache Camel, Spring and GWT.
 
 Project developed for the monthly meeting event of the GDG Firenze.
 
