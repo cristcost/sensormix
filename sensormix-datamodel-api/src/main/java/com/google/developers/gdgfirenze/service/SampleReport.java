@@ -2,11 +2,12 @@ package com.google.developers.gdgfirenze.service;
 
 import java.util.List;
 
-public class ToBeRenamedOveralStatistics {
+public class SampleReport {
 
   public String sensorId;
   public String sampleType;
 
-  public List<ToBeRenamedDaylyStatistic> samples;
+  // no wrapper
+  public List<DailySampleReport> dailySampleReports;
 
 }

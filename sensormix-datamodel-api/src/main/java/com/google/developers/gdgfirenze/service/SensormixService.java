@@ -50,13 +50,13 @@ public interface SensormixService {
       @WebParam(name = "sampleType") String sampleType, @WebParam(name = "from") Date from,
       @WebParam(name = "to") Date to);
 
-  @WebMethod(action = "urn:#countSamples")
-  @RequestWrapper(localName = "countSamplesIn",
+  @WebMethod(action = "urn:#getSampleReport")
+  @RequestWrapper(localName = "getSampleReportIn",
       targetNamespace = "http://developers.google.com/gdgfirenze/ns/service")
-  @ResponseWrapper(localName = "countSamplesOut",
+  @ResponseWrapper(localName = "getSampleReportOut",
       targetNamespace = "http://developers.google.com/gdgfirenze/ns/service")
-  @WebResult(name = "daylySamples")
-  ToBeRenamedOveralStatistics daylySamples(@WebParam(name = "sensorId") String sensorId,
+  @WebResult(name = "sampleReport")
+  SampleReport getSampleReport(@WebParam(name = "sensorId") String sensorId,
       @WebParam(name = "sampleType") String sampleType, @WebParam(name = "from") Date from,
       @WebParam(name = "to") Date to);
   
