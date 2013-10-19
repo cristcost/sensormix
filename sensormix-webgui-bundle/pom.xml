@@ -14,9 +14,15 @@
 	<packaging>bundle</packaging>
 	<name>GDG Firenze :: Sensormix :: Web GUI OSGi Bundle</name>
 
-	<properties>
-		<gwt.version>2.6.0-alpha-00</gwt.version>
-	</properties>
+	<profiles>
+		<profile>
+			<id>gwtalpha</id>
+			<properties>
+				<gwt.version>2.6.0-alpha-00</gwt.version>
+			</properties>
+		</profile>
+	</profiles>
+	
 
 	<dependencies>
 		<dependency>
