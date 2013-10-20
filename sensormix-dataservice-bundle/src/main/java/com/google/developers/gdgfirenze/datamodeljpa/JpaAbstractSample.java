@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="sensor")
+@Table(name="abstractsample")
 @Access(AccessType.FIELD)
 public class JpaAbstractSample {
 
