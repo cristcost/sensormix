@@ -31,7 +31,7 @@ public class JpaSensor {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="lastSeen")
-	public Date lastSeen;
+	private Date lastSeen;
 
 	@Column(name="lat")
 	private Double lat;
