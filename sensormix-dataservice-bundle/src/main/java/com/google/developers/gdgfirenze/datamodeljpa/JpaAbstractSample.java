@@ -6,23 +6,32 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="abstractsample")
+@Table(name = "abstractsample")
 @Access(AccessType.FIELD)
 public class JpaAbstractSample {
 
-	@Column(name="sensorId", nullable=false)
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	@Column(name = "sensorId", nullable = false)
 	private String sensorId;
 
-	@Column(name="time", nullable=false)
+	@Temporal(TemporalType.DATE)
+	@Column(name = "time", nullable = false)
 	private Date time;
 
-	@Column(name="type", nullable=false)
+	@Column(name = "type", nullable = false)
 	private String type;
-	
-	@Column(name="sample", nullable=false)
+
+	@Column(name = "sample", nullable = false)
 	private byte[] value;
 
 	public String getSensorId() {

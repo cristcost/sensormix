@@ -1,15 +1,18 @@
 package com.google.developers.gdgfirenze.datamodeljpa;
 
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="sensor")
@@ -26,6 +29,7 @@ public class JpaSensor {
 	@Column(name="description", nullable=false)
 	private String description;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name="lastSeen")
 	public Date lastSeen;
 
@@ -35,7 +39,8 @@ public class JpaSensor {
 	@Column(name="lng")
 	private Double lng;
 	
-	@OneToMany(targetEntity=JpaAbstractSample.class, mappedBy="sensorId")
+	@OneToMany
+	@JoinColumn(name="sensorId")
 	private List<JpaAbstractSample> samples;
 	
 	public List<JpaAbstractSample> getSamples() {
