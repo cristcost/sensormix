@@ -11,6 +11,7 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -46,10 +47,14 @@ public class SensormixServiceJpaImpl implements SensormixService {
 	@WebResult(name = "sensorId")
 	public List<String> listSensorsIds() {
 		EntityManager em = entityManagerFactory.createEntityManager();
-		TypedQuery<String> q = em.createQuery("SELECT s.id FROM Sensor s",
+		TypedQuery<String> q = em.createQuery("SELECT s.id FROM JpaSensor s",
 				String.class);
+		
+		List<String> result = q.getResultList();
+		
 		em.close();
-		return q.getResultList();
+		
+		return result; 
 	}
 
 	@Override
@@ -351,7 +356,11 @@ public class SensormixServiceJpaImpl implements SensormixService {
 			s.setLng(sensor.getLng());
 
 			EntityManager em = entityManagerFactory.createEntityManager();
+			EntityTransaction tx = em.getTransaction();
+			tx.begin();
 			em.merge(s);
+			tx.commit();
+			em.close();
 		} else {
 			// TODO
 		}
@@ -365,6 +374,8 @@ public class SensormixServiceJpaImpl implements SensormixService {
 			@WebParam(name = "sample") List<AbstractSample> samples) {
 		if (samples != null) {
 			EntityManager em = entityManagerFactory.createEntityManager();
+			EntityTransaction transaction=em.getTransaction();
+			transaction.begin();
 			for (AbstractSample sample : samples) {
 				JpaAbstractSample s = new JpaAbstractSample();
 				s.setSensorId(sample.getSensorId());
@@ -374,6 +385,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 
 				em.merge(s);
 			}
+			transaction.commit();
 			em.close();
 		} else {
 			// TODO
