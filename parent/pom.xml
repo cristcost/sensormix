@@ -207,6 +207,7 @@
 
 
 	<profiles>
+		<!-- Profiles for Style check -->
 		<profile>
 			<id>nochecks</id>
 			<properties>
@@ -235,6 +236,61 @@
 				</plugins>
 			</build>
 		</profile>
+
+		<!-- Profiles for integration tests --> 
+		<profile>
+			<id>unittests</id>
+			<activation>
+				<property>
+					<name>!integration.tests</name>
+				</property>
+			</activation>
+			<build>				
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<artifactId>maven-surefire-plugin</artifactId>
+							<version>${surefire.plugin.version}</version>
+							<configuration>
+								<excludes>
+									<exclude>**/*IntegrationTest.java</exclude>
+									<exclude>**/*DebugTest.java</exclude>
+								</excludes>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+		<profile>
+			<id>inttests</id>
+			<activation>
+				<property>
+					<name>integration.tests</name>
+				</property>
+			</activation>
+			<properties>
+				<integration.tests>true</integration.tests>
+			</properties>
+			<build>				
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<artifactId>maven-surefire-plugin</artifactId>
+							<version>${surefire.plugin.version}</version>
+							<configuration>
+								<excludes>
+									<exclude>**/*DebugTest.java</exclude>
+								</excludes>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
 	</profiles>
+
+
+
 </project>
 
