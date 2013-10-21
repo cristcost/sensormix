@@ -15,6 +15,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
@@ -49,12 +50,12 @@ public class SensormixServiceJpaImpl implements SensormixService {
 		EntityManager em = entityManagerFactory.createEntityManager();
 		TypedQuery<String> q = em.createQuery("SELECT s.id FROM JpaSensor s",
 				String.class);
-		
+
 		List<String> result = q.getResultList();
-		
+
 		em.close();
-		
-		return result; 
+
+		return result;
 	}
 
 	@Override
@@ -69,7 +70,9 @@ public class SensormixServiceJpaImpl implements SensormixService {
 
 		List<AbstractSample> samples = new ArrayList<>();
 		try {
-			if (from.before(to)) {
+			if (from != null && to != null && !from.before(to)) {
+				// TODO
+			} else {
 				EntityManager em = entityManagerFactory.createEntityManager();
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 
@@ -126,8 +129,6 @@ public class SensormixServiceJpaImpl implements SensormixService {
 					samples.add(Serializer.deserialize(u.getValue()));
 				}
 				em.close();
-			} else {
-				// TODO
 			}
 		} catch (Exception e) {
 			// TODO
@@ -218,40 +219,41 @@ public class SensormixServiceJpaImpl implements SensormixService {
 			@WebParam(name = "sampleType") String sampleType,
 			@WebParam(name = "from") Date from, @WebParam(name = "to") Date to) {
 
-		SampleReport sr=new SampleReport();
+		SampleReport sr = new SampleReport();
 		sr.setSensorId(sensorId);
 		sr.setSampleType(sampleType);
 		sr.setDailySampleReports(new ArrayList<DailySampleReport>());
-		
+
 		try {
 			if (from != null && to != null && from.before(to)) {
 				EntityManager em = entityManagerFactory.createEntityManager();
-				
+
 				Calendar start = Calendar.getInstance();
 				Calendar end = Calendar.getInstance();
 				start.set(from.getYear(), from.getMonth(), from.getDay());
 				end.set(to.getYear(), to.getMonth(), to.getDay());
-				
+
 				while (start.before(end)) {
 					Date internalStart = start.getTime();
 					start.add(Calendar.DAY_OF_MONTH, 1);
 					Date internalEnd = start.getTime();
-					
+
 					CriteriaBuilder cb = em.getCriteriaBuilder();
 
 					CriteriaQuery<JpaAbstractSample> cq = cb
 							.createQuery(JpaAbstractSample.class);
-					Root<JpaAbstractSample> jas = cq.from(JpaAbstractSample.class);
+					Root<JpaAbstractSample> jas = cq
+							.from(JpaAbstractSample.class);
 					cq.multiselect(cb.count(jas));
 					List<Predicate> criteria = new ArrayList<Predicate>();
 					if (sensorId != null && !"".equals(sensorId)) {
-						ParameterExpression<String> p = cb.parameter(String.class,
-								"sensorId");
+						ParameterExpression<String> p = cb.parameter(
+								String.class, "sensorId");
 						criteria.add(cb.equal(jas.get("sensorId"), p));
 					}
 					if (sampleType != null && !"".equals(sampleType)) {
-						ParameterExpression<String> p = cb.parameter(String.class,
-								"type");
+						ParameterExpression<String> p = cb.parameter(
+								String.class, "type");
 						criteria.add(cb.equal(jas.get("type"), p));
 					}
 					if (internalStart != null) {
@@ -287,8 +289,8 @@ public class SensormixServiceJpaImpl implements SensormixService {
 						q.setParameter("time", internalEnd);
 					}
 					Object jass = q.getSingleResult();
-					
-					DailySampleReport dsr=new DailySampleReport();
+
+					DailySampleReport dsr = new DailySampleReport();
 					dsr.setDate(internalStart);
 					dsr.setSampleCount(0);
 				}
@@ -317,8 +319,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 			CriteriaQuery<JpaSensor> cq = cb.createQuery(JpaSensor.class);
 			Root<JpaSensor> js = cq.from(JpaSensor.class);
 			cq.select(js);
-			ParameterExpression<String> p = cb.parameter(String.class,
-					"sensorId");
+			Expression<String> p = js.get("id");
 			Predicate criteria = p.in(sensorIds);
 			cq.where(criteria);
 			TypedQuery<JpaSensor> q = em.createQuery(cq);
@@ -336,7 +337,8 @@ public class SensormixServiceJpaImpl implements SensormixService {
 			}
 			em.close();
 		} catch (Exception e) {
-
+			// TODO
+			System.out.println("error");
 		}
 		return sensors;
 	}
@@ -373,17 +375,35 @@ public class SensormixServiceJpaImpl implements SensormixService {
 	public void recordSamples(
 			@WebParam(name = "sample") List<AbstractSample> samples) {
 		if (samples != null) {
+			List<String> checkList = listSensorsIds();
+
 			EntityManager em = entityManagerFactory.createEntityManager();
-			EntityTransaction transaction=em.getTransaction();
+			EntityTransaction transaction = em.getTransaction();
 			transaction.begin();
 			for (AbstractSample sample : samples) {
+				if (!checkList.contains(sample.getSensorId())) {
+					Sensor s = new Sensor();
+					s.setId(sample.getSensorId());
+					s.setName("Unknown");
+					s.setDescription("Unknown");
+
+					registerSensor(s);
+					checkList.add(sample.getSensorId());
+				} else {
+					List<String> sensorList = new ArrayList<String>();
+					sensorList.add(sample.getSensorId());
+					Sensor s = getSensors(sensorList).get(0);
+					s.setLastSeen(sample.getTime());
+
+					registerSensor(s);
+				}
 				JpaAbstractSample s = new JpaAbstractSample();
 				s.setSensorId(sample.getSensorId());
 				s.setTime(sample.getTime());
 				s.setType(sample.getType());
 				s.setValue(Serializer.serialize(sample));
 
-				em.merge(s);
+				em.persist(s);
 			}
 			transaction.commit();
 			em.close();

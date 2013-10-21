@@ -1,5 +1,7 @@
 package com.google.developers.gdgfirenze.serializer;
 
+import java.io.ByteArrayOutputStream;
+
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
@@ -9,7 +11,8 @@ public class Serializer {
 
 	public static byte[] serialize(AbstractSample orig) {
         Kryo k=new Kryo();
-        Output buffer = new Output();
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        Output buffer = new Output(bos);
         k.writeClassAndObject(buffer, orig);
         return buffer.getBuffer();
     }
