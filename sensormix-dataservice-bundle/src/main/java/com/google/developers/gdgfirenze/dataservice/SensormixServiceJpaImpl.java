@@ -93,13 +93,13 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				}
 				if (from != null) {
 					ParameterExpression<Date> p = cb.parameter(Date.class,
-							"time");
+							"from");
 					Path<Date> datePath = jas.get("time");
 					criteria.add(cb.greaterThanOrEqualTo(datePath, p));
 				}
 				if (to != null) {
 					ParameterExpression<Date> p = cb.parameter(Date.class,
-							"time");
+							"to");
 					Path<Date> datePath = jas.get("time");
 					criteria.add(cb.lessThanOrEqualTo(datePath, p));
 				}
@@ -118,10 +118,10 @@ public class SensormixServiceJpaImpl implements SensormixService {
 					q.setParameter("type", sampleType);
 				}
 				if (from != null) {
-					q.setParameter("time", from);
+					q.setParameter("from", from);
 				}
 				if (to != null) {
-					q.setParameter("time", to);
+					q.setParameter("to", to);
 				}
 				List<JpaAbstractSample> jass = q.getResultList();
 				for (Iterator<?> i = jass.iterator(); i.hasNext();) {
