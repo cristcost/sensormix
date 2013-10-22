@@ -125,6 +125,7 @@
 		<jaxws.plugin.version>2.2</jaxws.plugin.version>
 		<jetty.plugin.version>7.6.12.v20130726</jetty.plugin.version><!--stable: 
 			6.1.26, NEWEST 8.1.8.v20121106 -->
+		<jdepend.maven.plugin>2.0-beta-2</jdepend.maven.plugin>
 		<pmd.plugin.version>2.7.1</pmd.plugin.version>
 		<resources.plugin.version>2.6</resources.plugin.version>
 		<surefire.plugin.version>2.15</surefire.plugin.version>
@@ -290,7 +291,15 @@
 		</profile>
 	</profiles>
 
-
+	<reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+                <version>${jdepend.maven.plugin}</version>
+            </plugin>
+        </plugins>
+    </reporting>
 
 </project>
 
