@@ -310,7 +310,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 	@ResponseWrapper(localName = "getSensorsOut", targetNamespace = "http://developers.google.com/gdgfirenze/ns/service")
 	@WebResult(name = "sensor")
 	public List<Sensor> getSensors(
-			@WebParam(name = "sensorId") List<String> sensorIds) {
+			@WebParam(name = "sensorId") List<String> sensorIds, Date from, Date to) {
 		List<Sensor> sensors = new ArrayList<Sensor>();
 		try {
 			EntityManager em = entityManagerFactory.createEntityManager();
@@ -392,7 +392,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				} else {
 					List<String> sensorList = new ArrayList<String>();
 					sensorList.add(sample.getSensorId());
-					Sensor s = getSensors(sensorList).get(0);
+					Sensor s = getSensors(sensorList, null, null).get(0);
 					s.setLastSeen(sample.getTime());
 
 					registerSensor(s);
@@ -410,6 +410,12 @@ public class SensormixServiceJpaImpl implements SensormixService {
 		} else {
 			// TODO
 		}
+	}
+
+	@Override
+	public List<String> listSamplesTypes() {
+		// Sergio FROCIO!
+		return null;
 	}
 
 }
