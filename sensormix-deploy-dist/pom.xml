@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.google.developers.gdgfirenze</groupId>
+		<artifactId>sensormix-main-project</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>sensormix-deploy-dist</artifactId>
+
+	<packaging>pom</packaging>
+	<name>GDG Firenze :: Sensormix :: Karaf Distribution Repository</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.developers.gdgfirenze</groupId>
+			<artifactId>sensormix-deploy-features</artifactId>
+			<version>${project.version}</version>
+			<type>xml</type>
+			<classifier>features</classifier>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.karaf.tooling</groupId>
+				<artifactId>features-maven-plugin</artifactId>
+				<version>${features.plugin.version}</version>
+				<executions>
+					<execution>
+					<id>add-features-to-repo</id>
+					<phase>package</phase>
+					<goals>
+						<goal>add-features-to-repo</goal>
+					</goals>
+					<configuration>
+						<descriptors>
+							<descriptor>mvn:${project.groupId}/sensormix-deploy-features/${project.version}/xml/features</descriptor>
+						</descriptors>
+						<features>
+							<feature>sensormix-externals/${project.version}</feature>
+							<feature>sensormix/${project.version}</feature>
+						</features>
+						<repository>target/${project.artifactId}-repo</repository>
+					</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

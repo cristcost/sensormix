@@ -24,8 +24,11 @@
 		<!--<module>sensormix-datawebservice-bundle</module>-->
 		<!--<module>sensormix-websim-bundle</module>-->
 		<module>sensormix-integration-bundle</module>
-		<!--<module>sensormix-deploy-features</module>-->
-		<!--<module>sensormix-deploy-dist</module>-->
+		<!--<module>sensormix-karafcli-bundle</module>-->
+
+		<module>sensormix-deploy-features</module>
+		<module>sensormix-deploy-dist</module>
+
     	<module>sensormix-mockep-app</module>
   </modules>
 	

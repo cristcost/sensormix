@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<features name='sensormix-${project.version}'>
+
+  
+  <repository>mvn:org.apache.servicemix/apache-servicemix/${servicemix.version}/xml/features</repository>
+  <repository>mvn:org.apache.camel.karaf/apache-camel/${camel.version}/xml/features</repository>
+
+
+  <feature name="sensormix-externals" version="${project.version}">
+    <bundle>mvn:mysql/mysql-connector-java/${mysql.connector.version}</bundle>
+
+    <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.commons-dbcp/${smx-common-dbcp.version}</bundle>
+    <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.javax-inject/${smx-jsr330.version}</bundle>
+    <bundle>mvn:com.esotericsoftware.kryo/kryo/${kryo.version}</bundle>
+
+    <bundle>mvn:org.eclipse.persistence/javax.persistence/${jpa.eclipselink.version}</bundle>
+    <bundle>mvn:org.eclipse.persistence/org.eclipse.persistence.antlr/${eclipselink.version}</bundle>
+    <bundle>mvn:org.eclipse.persistence/org.eclipse.persistence.asm/${eclipselink.version}</bundle>
+    <bundle>mvn:org.eclipse.persistence/org.eclipse.persistence.core/${eclipselink.version}</bundle>
+    <bundle>mvn:org.eclipse.persistence/org.eclipse.persistence.jpa.jpql/${eclipselink.version}</bundle>
+    <bundle>mvn:org.eclipse.persistence/org.eclipse.persistence.jpa/${eclipselink.version}</bundle>
+
+    <feature>spring-orm</feature>
+    <feature>camel-jaxb</feature>
+    <feature>camel-velocity</feature>
+    <feature>spring-dm-web</feature>
+  </feature>
+
+  <feature name="sensormix" version="${project.version}">
+
+    <feature>sensormix-externals</feature>
+
+    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-datamodel-api/${project.version}</bundle>
+    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-webgui-bundle/${project.version}</bundle>
+    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-dataservice-bundle/${project.version}</bundle>
+    <!--<bundle>mvn:com.google.developers.gdgfirenze/sensormix-datawebservice-bundle/${project.version}</bundle>-->
+    <!--<bundle>mvn:com.google.developers.gdgfirenze/sensormix-websim-bundle/${project.version}</bundle>-->
+    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-integration-bundle/${project.version}</bundle>
+    <!--<bundle>mvn:com.google.developers.gdgfirenze/sensormix-karafcli-bundle/${project.version}</bundle>-->
+    
+  </feature>
+
+
+</features>
