@@ -5,10 +5,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebResult;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -20,8 +19,6 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.xml.ws.RequestWrapper;
-import javax.xml.ws.ResponseWrapper;
 
 import com.google.developers.gdgfirenze.datamodeljpa.JpaAbstractSample;
 import com.google.developers.gdgfirenze.datamodeljpa.JpaSensor;
@@ -34,6 +31,19 @@ import com.google.developers.gdgfirenze.service.SensormixService;
 
 public class SensormixServiceJpaImpl implements SensormixService {
 
+	private static Logger logger = Logger
+			.getLogger(SensormixServiceJpaImpl.class.getName());
+
+	private static final ThreadLocal<Serializer> localSerializer = new ThreadLocal<Serializer>() {
+		@Override
+		protected Serializer initialValue() {
+			logger.log(Level.INFO, "Initializing a new Kryo instance");
+			Serializer serializer = new Serializer();
+
+			return serializer;
+		}
+	};
+
 	private EntityManagerFactory entityManagerFactory;
 
 	public void setEntityManagerFactory(
@@ -42,31 +52,27 @@ public class SensormixServiceJpaImpl implements SensormixService {
 	}
 
 	@Override
-	@WebMethod(action = "urn:#listSensorsIds")
-	@RequestWrapper(localName = "listSensorsIdsIn", targetNamespace = "http://developers.google.com/gdgfirenze/ns/service")
-	@ResponseWrapper(localName = "listSensorsIdsOut", targetNamespace = "http://developers.google.com/gdgfirenze/ns/service")
-	@WebResult(name = "sensorId")
 	public List<String> listSensorsIds() {
-		EntityManager em = entityManagerFactory.createEntityManager();
-		TypedQuery<String> q = em.createQuery("SELECT s.id FROM JpaSensor s",
-				String.class);
+		List<String> result = new ArrayList<String>();
 
-		List<String> result = q.getResultList();
+		try {
+			EntityManager em = entityManagerFactory.createEntityManager();
+			TypedQuery<String> q = em.createQuery(
+					"SELECT s.id FROM JpaSensor s", String.class);
 
-		em.close();
+			result = q.getResultList();
+
+			em.close();
+		} catch (Exception e) {
+			// TODO
+		}
 
 		return result;
 	}
 
 	@Override
-	@WebMethod(action = "urn:#getSamples")
-	@RequestWrapper(localName = "getSamplesIn", targetNamespace = "http://developers.google.com/gdgfirenze/ns/service")
-	@ResponseWrapper(localName = "getSamplesOut", targetNamespace = "http://developers.google.com/gdgfirenze/ns/service")
-	@WebResult(name = "sample")
-	public List<AbstractSample> getSamples(
-			@WebParam(name = "sensorId") String sensorId,
-			@WebParam(name = "sampleType") String sampleType,
-			@WebParam(name = "from") Date from, @WebParam(name = "to") Date to) {
+	public List<AbstractSample> getSamples(String sensorId, String sampleType,
+			Date from, Date to) {
 
 		List<AbstractSample> samples = new ArrayList<>();
 		try {
@@ -98,8 +104,8 @@ public class SensormixServiceJpaImpl implements SensormixService {
 					criteria.add(cb.greaterThanOrEqualTo(datePath, p));
 				}
 				if (to != null) {
-					ParameterExpression<Date> p = cb.parameter(Date.class,
-							"to");
+					ParameterExpression<Date> p = cb
+							.parameter(Date.class, "to");
 					Path<Date> datePath = jas.get("time");
 					criteria.add(cb.lessThanOrEqualTo(datePath, p));
 				}
@@ -126,7 +132,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				List<JpaAbstractSample> jass = q.getResultList();
 				for (Iterator<?> i = jass.iterator(); i.hasNext();) {
 					JpaAbstractSample u = (JpaAbstractSample) i.next();
-					samples.add(Serializer.deserialize(u.getValue()));
+					samples.add(localSerializer.get().deserialize(u.getValue()));
 				}
 				em.close();
 			}
@@ -137,21 +143,18 @@ public class SensormixServiceJpaImpl implements SensormixService {
 	}
 
 	@Override
-	@WebMethod(action = "urn:#countSamples")
-	@RequestWrapper(localName = "countSamplesIn", targetNamespace = "http://developers.google.com/gdgfirenze/ns/service")
-	@ResponseWrapper(localName = "countSamplesOut", targetNamespace = "http://developers.google.com/gdgfirenze/ns/service")
-	@WebResult(name = "sampleCount")
-	public long countSamples(@WebParam(name = "sensorId") String sensorId,
-			@WebParam(name = "sampleType") String sampleType,
-			@WebParam(name = "from") Date from, @WebParam(name = "to") Date to) {
+	public long countSamples(String sensorId, String sampleType, Date from,
+			Date to) {
 
+		Long retVal = 0L;
 		try {
-			if (from.before(to)) {
+			if (from != null && to != null && !from.before(to)) {
+				// TODO
+			} else {
 				EntityManager em = entityManagerFactory.createEntityManager();
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 
-				CriteriaQuery<JpaAbstractSample> cq = cb
-						.createQuery(JpaAbstractSample.class);
+				CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 				Root<JpaAbstractSample> jas = cq.from(JpaAbstractSample.class);
 				cq.multiselect(cb.count(jas));
 				List<Predicate> criteria = new ArrayList<Predicate>();
@@ -167,13 +170,13 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				}
 				if (from != null) {
 					ParameterExpression<Date> p = cb.parameter(Date.class,
-							"time");
+							"from");
 					Path<Date> datePath = jas.get("time");
 					criteria.add(cb.greaterThanOrEqualTo(datePath, p));
 				}
 				if (to != null) {
-					ParameterExpression<Date> p = cb.parameter(Date.class,
-							"time");
+					ParameterExpression<Date> p = cb
+							.parameter(Date.class, "to");
 					Path<Date> datePath = jas.get("time");
 					criteria.add(cb.lessThanOrEqualTo(datePath, p));
 				}
@@ -184,7 +187,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				} else {
 					cq.where(cb.and(criteria.toArray(new Predicate[0])));
 				}
-				TypedQuery<JpaAbstractSample> q = em.createQuery(cq);
+				TypedQuery<Long> q = em.createQuery(cq);
 				if (sensorId != null && !"".equals(sensorId)) {
 					q.setParameter("sensorId", sensorId);
 				}
@@ -192,32 +195,24 @@ public class SensormixServiceJpaImpl implements SensormixService {
 					q.setParameter("type", sampleType);
 				}
 				if (from != null) {
-					q.setParameter("time", from);
+					q.setParameter("from", from);
 				}
 				if (to != null) {
-					q.setParameter("time", to);
+					q.setParameter("to", to);
 				}
-				Object jass = q.getSingleResult();
+				retVal = q.getSingleResult();
 				em.close();
-			} else {
-				// TODO
 			}
 		} catch (Exception e) {
 			// TODO
 		}
 
-		return 0;
+		return retVal;
 	}
 
 	@Override
-	@WebMethod(action = "urn:#getSampleReport")
-	@RequestWrapper(localName = "getSampleReportIn", targetNamespace = "http://developers.google.com/gdgfirenze/ns/service")
-	@ResponseWrapper(localName = "getSampleReportOut", targetNamespace = "http://developers.google.com/gdgfirenze/ns/service")
-	@WebResult(name = "sampleReport")
-	public SampleReport getSampleReport(
-			@WebParam(name = "sensorId") String sensorId,
-			@WebParam(name = "sampleType") String sampleType,
-			@WebParam(name = "from") Date from, @WebParam(name = "to") Date to) {
+	public SampleReport getSampleReport(String sensorId, String sampleType,
+			Date from, Date to) {
 
 		SampleReport sr = new SampleReport();
 		sr.setSensorId(sensorId);
@@ -230,8 +225,8 @@ public class SensormixServiceJpaImpl implements SensormixService {
 
 				Calendar start = Calendar.getInstance();
 				Calendar end = Calendar.getInstance();
-				start.set(from.getYear(), from.getMonth(), from.getDay());
-				end.set(to.getYear(), to.getMonth(), to.getDay());
+				start.setTime(from);
+				end.setTime(to);
 
 				while (start.before(end)) {
 					Date internalStart = start.getTime();
@@ -240,8 +235,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 
 					CriteriaBuilder cb = em.getCriteriaBuilder();
 
-					CriteriaQuery<JpaAbstractSample> cq = cb
-							.createQuery(JpaAbstractSample.class);
+					CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 					Root<JpaAbstractSample> jas = cq
 							.from(JpaAbstractSample.class);
 					cq.multiselect(cb.count(jas));
@@ -258,13 +252,13 @@ public class SensormixServiceJpaImpl implements SensormixService {
 					}
 					if (internalStart != null) {
 						ParameterExpression<Date> p = cb.parameter(Date.class,
-								"time");
+								"from");
 						Path<Date> datePath = jas.get("time");
 						criteria.add(cb.greaterThanOrEqualTo(datePath, p));
 					}
 					if (internalEnd != null) {
 						ParameterExpression<Date> p = cb.parameter(Date.class,
-								"time");
+								"to");
 						Path<Date> datePath = jas.get("time");
 						criteria.add(cb.lessThanOrEqualTo(datePath, p));
 					}
@@ -275,7 +269,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 					} else {
 						cq.where(cb.and(criteria.toArray(new Predicate[0])));
 					}
-					TypedQuery<JpaAbstractSample> q = em.createQuery(cq);
+					TypedQuery<Long> q = em.createQuery(cq);
 					if (sensorId != null && !"".equals(sensorId)) {
 						q.setParameter("sensorId", sensorId);
 					}
@@ -283,16 +277,17 @@ public class SensormixServiceJpaImpl implements SensormixService {
 						q.setParameter("type", sampleType);
 					}
 					if (from != null) {
-						q.setParameter("time", internalStart);
+						q.setParameter("from", internalStart);
 					}
 					if (to != null) {
-						q.setParameter("time", internalEnd);
+						q.setParameter("to", internalEnd);
 					}
-					Object jass = q.getSingleResult();
+					Long jass = q.getSingleResult();
 
 					DailySampleReport dsr = new DailySampleReport();
 					dsr.setDate(internalStart);
-					dsr.setSampleCount(0);
+					dsr.setSampleCount(jass);
+					sr.getDailySampleReports().add(dsr);
 				}
 				em.close();
 			} else {
@@ -305,12 +300,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 	}
 
 	@Override
-	@WebMethod(action = "urn:#getSensors")
-	@RequestWrapper(localName = "getSensorsIn", targetNamespace = "http://developers.google.com/gdgfirenze/ns/service")
-	@ResponseWrapper(localName = "getSensorsOut", targetNamespace = "http://developers.google.com/gdgfirenze/ns/service")
-	@WebResult(name = "sensor")
-	public List<Sensor> getSensors(
-			@WebParam(name = "sensorId") List<String> sensorIds, Date from, Date to) {
+	public List<Sensor> getSensors(List<String> sensorIds, Date from, Date to) {
 		List<Sensor> sensors = new ArrayList<Sensor>();
 		try {
 			EntityManager em = entityManagerFactory.createEntityManager();
@@ -319,10 +309,35 @@ public class SensormixServiceJpaImpl implements SensormixService {
 			CriteriaQuery<JpaSensor> cq = cb.createQuery(JpaSensor.class);
 			Root<JpaSensor> js = cq.from(JpaSensor.class);
 			cq.select(js);
-			Expression<String> p = js.get("id");
-			Predicate criteria = p.in(sensorIds);
-			cq.where(criteria);
+			List<Predicate> criteria = new ArrayList<Predicate>();
+			if (sensorIds != null && sensorIds.size() > 0) {
+				Expression<String> p = js.get("id");
+				criteria.add(p.in(sensorIds));
+			}
+			if (from != null) {
+				ParameterExpression<Date> p = cb.parameter(Date.class, "from");
+				Path<Date> datePath = js.get("lastSeen");
+				criteria.add(cb.greaterThanOrEqualTo(datePath, p));
+			}
+			if (to != null) {
+				ParameterExpression<Date> p = cb.parameter(Date.class, "to");
+				Path<Date> datePath = js.get("lastSeen");
+				criteria.add(cb.lessThanOrEqualTo(datePath, p));
+			}
+			if (criteria.size() == 0) {
+				throw new RuntimeException("no criteria");
+			} else if (criteria.size() == 1) {
+				cq.where(criteria.get(0));
+			} else {
+				cq.where(cb.and(criteria.toArray(new Predicate[0])));
+			}
 			TypedQuery<JpaSensor> q = em.createQuery(cq);
+			if (from != null) {
+				q.setParameter("from", from);
+			}
+			if (to != null) {
+				q.setParameter("to", to);
+			}
 			List<JpaSensor> ss = q.getResultList();
 			for (Iterator<JpaSensor> i = ss.iterator(); i.hasNext();) {
 				JpaSensor u = i.next();
@@ -344,10 +359,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 	}
 
 	@Override
-	@WebMethod(action = "urn:#registerSensor")
-	@RequestWrapper(localName = "registerSensorIn", targetNamespace = "http://developers.google.com/gdgfirenze/ns/service")
-	@ResponseWrapper(localName = "registerSensorOut", targetNamespace = "http://developers.google.com/gdgfirenze/ns/service")
-	public void registerSensor(@WebParam(name = "sensor") Sensor sensor) {
+	public void registerSensor(Sensor sensor) {
 		if (sensor != null) {
 			JpaSensor s = new JpaSensor();
 			s.setId(sensor.getId());
@@ -369,11 +381,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 	}
 
 	@Override
-	@WebMethod(action = "urn:#recordSamples")
-	@RequestWrapper(localName = "recordSamplesIn", targetNamespace = "http://developers.google.com/gdgfirenze/ns/service")
-	@ResponseWrapper(localName = "recordSamplesOut", targetNamespace = "http://developers.google.com/gdgfirenze/ns/service")
-	public void recordSamples(
-			@WebParam(name = "sample") List<AbstractSample> samples) {
+	public void recordSamples(List<AbstractSample> samples) {
 		if (samples != null) {
 			List<String> checkList = listSensorsIds();
 
@@ -386,6 +394,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 					s.setId(sample.getSensorId());
 					s.setName("Unknown");
 					s.setDescription("Unknown");
+					s.setLastSeen(sample.getTime());
 
 					registerSensor(s);
 					checkList.add(sample.getSensorId());
@@ -401,7 +410,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				s.setSensorId(sample.getSensorId());
 				s.setTime(sample.getTime());
 				s.setType(sample.getType());
-				s.setValue(Serializer.serialize(sample));
+				s.setValue(localSerializer.get().serialize(sample));
 
 				em.persist(s);
 			}
@@ -414,8 +423,25 @@ public class SensormixServiceJpaImpl implements SensormixService {
 
 	@Override
 	public List<String> listSamplesTypes() {
-		// Sergio FROCIO!
-		return null;
-	}
+		List<String> result = new ArrayList<String>();
 
+		try {
+			EntityManager em = entityManagerFactory.createEntityManager();
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+
+			CriteriaQuery<String> cq = cb.createQuery(String.class);
+			Root<JpaAbstractSample> js = cq.from(JpaAbstractSample.class);
+			cq.multiselect(js.get("type"));
+			cq.distinct(true);
+			TypedQuery<String> q = em.createQuery(cq);
+
+			result = q.getResultList();
+
+			em.close();
+		} catch (Exception e) {
+			// TODO
+		}
+
+		return result;
+	}
 }
