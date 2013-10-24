@@ -11,7 +11,7 @@
 	<version>1-SNAPSHOT</version>
 
 	<organization>
-		<name>GDG Firenze</name>
+		<name>GDG Firenze :: Sensormix Team</name>
 	</organization>
 
 	<developers>
@@ -55,11 +55,11 @@
 		<base64.version>2.3.8</base64.version>
 		<batik-transcoder.version>1.7-cristcost-00</batik-transcoder.version>
 		<batik.version>1.7</batik.version>
-		<camel.version>2.10.6</camel.version>
+		<camel.version>2.10.7</camel.version>
 		<commons-cli.version>1.2</commons-cli.version>
 		<commons-fileupload.version>1.2</commons-fileupload.version>
 		<commons-io.version>2.0</commons-io.version>
-		<cxf.version>2.6.8</cxf.version>
+		<cxf.version>2.6.9</cxf.version>
 		<easymock.version>3.1</easymock.version>
 		<eclipselink.version>2.5.0</eclipselink.version>
 		<gin.version>2.0.0</gin.version>
