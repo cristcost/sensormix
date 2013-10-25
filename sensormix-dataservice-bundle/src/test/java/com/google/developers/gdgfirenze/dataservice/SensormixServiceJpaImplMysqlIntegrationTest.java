@@ -21,14 +21,14 @@ import com.google.developers.gdgfirenze.model.Sensor;
 import com.google.developers.gdgfirenze.model.WifiSignalSample;
 import com.google.developers.gdgfirenze.service.SampleReport;
 
-public class SensormixServiceJpaImplIntegrationTest {
+public class SensormixServiceJpaImplMysqlIntegrationTest {
 
 	private SensormixServiceJpaImpl sensormixServiceJpaImpl;
 	private EntityManagerFactory emf;
 
 	@Before
 	public void initialize() {
-		emf = Persistence.createEntityManagerFactory("sensormix_db_test");
+		emf = Persistence.createEntityManagerFactory("sm_mysql_db_test");
 		sensormixServiceJpaImpl = new SensormixServiceJpaImpl();
 		sensormixServiceJpaImpl.setEntityManagerFactory(emf);
 	}

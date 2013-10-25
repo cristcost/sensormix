@@ -18,16 +18,13 @@ public class Serializer {
 	public byte[] serialize(AbstractSample orig) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         Output buffer = new Output(bos);
-        //k.writeClassAndObject(buffer, orig);
-        k.writeObject(buffer, orig);
+        k.writeClassAndObject(buffer, orig);
         return buffer.getBuffer();
     }
 	
 	public AbstractSample deserialize(byte[] buffer) {
-        Kryo k=new Kryo();
         Input iBuff = new Input(buffer);
         
-        //return (AbstractSample)k.readClassAndObject(iBuff);
-        return (AbstractSample)k.readObject(iBuff,AbstractSample.class);
+        return (AbstractSample)k.readClassAndObject(iBuff);
     }
 }
