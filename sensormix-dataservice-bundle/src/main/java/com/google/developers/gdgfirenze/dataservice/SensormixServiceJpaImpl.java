@@ -64,7 +64,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 
 			em.close();
 		} catch (Exception e) {
-			// TODO
+			logger.log(Level.SEVERE, "Error during sensors list retrieving", e);
 		}
 
 		return result;
@@ -77,7 +77,8 @@ public class SensormixServiceJpaImpl implements SensormixService {
 		List<AbstractSample> samples = new ArrayList<>();
 		try {
 			if (from != null && to != null && !from.before(to)) {
-				// TODO
+				logger.log(Level.WARNING,
+						"Error from date must be before to date");
 			} else {
 				EntityManager em = entityManagerFactory.createEntityManager();
 				CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -137,7 +138,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				em.close();
 			}
 		} catch (Exception e) {
-			// TODO
+			logger.log(Level.SEVERE, "Error during samples list retrieving", e);
 		}
 		return samples;
 	}
@@ -149,7 +150,8 @@ public class SensormixServiceJpaImpl implements SensormixService {
 		Long retVal = 0L;
 		try {
 			if (from != null && to != null && !from.before(to)) {
-				// TODO
+				logger.log(Level.WARNING,
+						"Error from date must be before to date");
 			} else {
 				EntityManager em = entityManagerFactory.createEntityManager();
 				CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -204,7 +206,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				em.close();
 			}
 		} catch (Exception e) {
-			// TODO
+			logger.log(Level.SEVERE, "Error during samples counting", e);
 		}
 
 		return retVal;
@@ -220,7 +222,10 @@ public class SensormixServiceJpaImpl implements SensormixService {
 		sr.setDailySampleReports(new ArrayList<DailySampleReport>());
 
 		try {
-			if (from != null && to != null && from.before(to)) {
+			if (from != null && to != null && !from.before(to)) {
+				logger.log(Level.WARNING,
+						"Error from date must be before to date");
+			} else {
 				EntityManager em = entityManagerFactory.createEntityManager();
 
 				Calendar start = Calendar.getInstance();
@@ -290,11 +295,9 @@ public class SensormixServiceJpaImpl implements SensormixService {
 					sr.getDailySampleReports().add(dsr);
 				}
 				em.close();
-			} else {
-				// TODO
 			}
 		} catch (Exception e) {
-			// TODO
+			logger.log(Level.SEVERE, "Error during samples report creation", e);
 		}
 		return sr;
 	}
@@ -352,8 +355,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 			}
 			em.close();
 		} catch (Exception e) {
-			// TODO
-			System.out.println("error");
+			logger.log(Level.SEVERE, "Error during sensors list retrieving", e);
 		}
 		return sensors;
 	}
@@ -369,14 +371,18 @@ public class SensormixServiceJpaImpl implements SensormixService {
 			s.setLat(sensor.getLat());
 			s.setLng(sensor.getLng());
 
-			EntityManager em = entityManagerFactory.createEntityManager();
-			EntityTransaction tx = em.getTransaction();
-			tx.begin();
-			em.merge(s);
-			tx.commit();
-			em.close();
+			try {
+				EntityManager em = entityManagerFactory.createEntityManager();
+				EntityTransaction tx = em.getTransaction();
+				tx.begin();
+				em.merge(s);
+				tx.commit();
+				em.close();
+			} catch (Exception e) {
+				logger.log(Level.SEVERE, "Error during sensor registration", e);
+			}
 		} else {
-			// TODO
+			logger.log(Level.WARNING, "sensor must be not null to register it");
 		}
 	}
 
@@ -385,39 +391,43 @@ public class SensormixServiceJpaImpl implements SensormixService {
 		if (samples != null) {
 			List<String> checkList = listSensorsIds();
 
-			EntityManager em = entityManagerFactory.createEntityManager();
-			EntityTransaction transaction = em.getTransaction();
-			transaction.begin();
-			for (AbstractSample sample : samples) {
-				if (!checkList.contains(sample.getSensorId())) {
-					Sensor s = new Sensor();
-					s.setId(sample.getSensorId());
-					s.setName("Unknown");
-					s.setDescription("Unknown");
-					s.setLastSeen(sample.getTime());
+			try {
+				EntityManager em = entityManagerFactory.createEntityManager();
+				EntityTransaction transaction = em.getTransaction();
+				transaction.begin();
+				for (AbstractSample sample : samples) {
+					if (!checkList.contains(sample.getSensorId())) {
+						Sensor s = new Sensor();
+						s.setId(sample.getSensorId());
+						s.setName("Unknown");
+						s.setDescription("Unknown");
+						s.setLastSeen(sample.getTime());
 
-					registerSensor(s);
-					checkList.add(sample.getSensorId());
-				} else {
-					List<String> sensorList = new ArrayList<String>();
-					sensorList.add(sample.getSensorId());
-					Sensor s = getSensors(sensorList, null, null).get(0);
-					s.setLastSeen(sample.getTime());
+						registerSensor(s);
+						checkList.add(sample.getSensorId());
+					} else {
+						List<String> sensorList = new ArrayList<String>();
+						sensorList.add(sample.getSensorId());
+						Sensor s = getSensors(sensorList, null, null).get(0);
+						s.setLastSeen(sample.getTime());
 
-					registerSensor(s);
+						registerSensor(s);
+					}
+					JpaAbstractSample s = new JpaAbstractSample();
+					s.setSensorId(sample.getSensorId());
+					s.setTime(sample.getTime());
+					s.setType(sample.getType());
+					s.setValue(localSerializer.get().serialize(sample));
+
+					em.persist(s);
 				}
-				JpaAbstractSample s = new JpaAbstractSample();
-				s.setSensorId(sample.getSensorId());
-				s.setTime(sample.getTime());
-				s.setType(sample.getType());
-				s.setValue(localSerializer.get().serialize(sample));
-
-				em.persist(s);
+				transaction.commit();
+				em.close();
+			} catch (Exception e) {
+				logger.log(Level.SEVERE, "Error during samples registration", e);
 			}
-			transaction.commit();
-			em.close();
 		} else {
-			// TODO
+			logger.log(Level.WARNING, "samples must be not null to register them");
 		}
 	}
 
@@ -439,7 +449,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 
 			em.close();
 		} catch (Exception e) {
-			// TODO
+			logger.log(Level.SEVERE, "Error during samples types retrieving", e);
 		}
 
 		return result;
