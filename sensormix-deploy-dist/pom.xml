@@ -43,7 +43,7 @@
 							<descriptor>mvn:${project.groupId}/sensormix-deploy-features/${project.version}/xml/features</descriptor>
 						</descriptors>
 						<features>
-							<feature>sensormix-externals/${project.version}</feature>
+							<feature>sensormix-ext/${project.version}</feature>
 							<feature>sensormix/${project.version}</feature>
 						</features>
 						<repository>target/${project.artifactId}-repo</repository>

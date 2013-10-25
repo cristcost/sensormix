@@ -6,7 +6,7 @@
   <repository>mvn:org.apache.camel.karaf/apache-camel/${camel.version}/xml/features</repository>
 
 
-  <feature name="sensormix-externals" version="${project.version}">
+  <feature name="sensormix-ext" version="${project.version}">
     <bundle>mvn:mysql/mysql-connector-java/${mysql.connector.version}</bundle>
 
     <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.commons-dbcp/${smx-common-dbcp.version}</bundle>
@@ -28,7 +28,7 @@
 
   <feature name="sensormix" version="${project.version}">
 
-    <feature>sensormix-externals</feature>
+    <feature>sensormix-ext</feature>
 
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-datamodel-api/${project.version}</bundle>
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-webgui-bundle/${project.version}</bundle>
