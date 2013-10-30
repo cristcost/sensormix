@@ -22,6 +22,7 @@
 	<routeContext id="sensorMixHttpEntryRoutes" xmlns="http://camel.apache.org/schema/spring">
 		<route id="sensorMixHttpEntryRoute">
 			<from uri="jetty:http://0.0.0.0:8080/sampleEndpoint" />
+			<convertBodyTo type="java.lang.String"/>
 			<to uri="log:dump?showAll=true" />
 		</route>
 	</routeContext>
