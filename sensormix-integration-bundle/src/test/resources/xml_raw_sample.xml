@@ -3,6 +3,15 @@
 	<battery_level>0.91</battery_level>
 	<device_id>urn:rixf:pippo</device_id>
 	<time>2013-10-30 11:12:09.810</time>
+	<position>
+		<accuracy>15</accuracy>
+		<alt>89</alt>
+		<bearing>74</bearing>
+		<lat>43.805073</lat>
+		<lng>11.1789465</lng>
+		<speed>1.0008</speed>
+		<time>2013-10-30 19:25:48.000</time>
+	</position>
 	<wifi_scans>
 		<item>
 			<bssid>00:24:6c:38:26:a2</bssid>

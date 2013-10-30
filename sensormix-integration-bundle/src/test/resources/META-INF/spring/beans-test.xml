@@ -43,8 +43,10 @@
 
 		<route id="sensorMixToDataManagerRoute">
 			<from uri="seda:normalizedJavaSample" />
-			<!-- TODO: write route to send input to the data service, with bean invocation -->
-			<to uri="log:sample_to_data_service?showAll=true" />
+			<setBody>
+				<simple>${body.samples}</simple>
+			</setBody>
+			<to uri="bean:mockService?method=recordSamples" />
 		</route>
 	</camelContext>
 </beans>

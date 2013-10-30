@@ -6,6 +6,16 @@
 
 	<xsl:template match="/">
 		<s:samples xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<!-- TODO: here are 3 fixed examples that need to be adapted from data 
+				as visible on src/test/resources/xml_raw_sample.xml -->
+			<numericValueSample value="123.4" sensorId="#sensorId"
+				time="2013-10-30T19:31:08.445+01:00" type="#sampleType" />
+			<wifiSignalSample bssid="00:00:00:00:00:00"
+				capabilities="[C1][C2][C3]" frequency="2400.0" level="-40.0" ssid="WLAN Name"
+				sensorId="#sensorId" time="2013-10-30T19:31:08.445+01:00" type="#sampleType" />
+			<positionSample accuracy="10.0" alt="100.0" bearing="180.0"
+				lat="43.0" lng="11.0" speed="0.0" sensorId="#sensorId"
+				time="2013-10-30T19:31:08.445+01:00" type="#sampleType" />
 
 			<!-- <xsl:for-each select="/wsn:Notify/wsn:NotificationMessage"> -->
 			<!-- <xsl:if test=".//wsn:Topic"> -->

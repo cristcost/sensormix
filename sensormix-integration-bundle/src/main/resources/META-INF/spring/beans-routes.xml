@@ -64,9 +64,6 @@
 			<unmarshal>
 				<jaxb contextPath="com.google.developers.gdgfirenze.service" />
 			</unmarshal>
-			<setBody>
-				<simple>Body is a ${body.getClass.getName}</simple>
-			</setBody>
 			<to uri="seda:normalizedJavaSample" />
 		</route>
 	</routeContext>
