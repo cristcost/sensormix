@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:cap="urn:oasis:names:tc:emergency:cap:1.2" 
-	xmlns:wsn="http://docs.oasis-open.org/wsn/b-2"
+	xmlns:s="http://developers.google.com/gdgfirenze/ns/service" xmlns:m="http://developers.google.com/gdgfirenze/ns/model"
 	version="1.0">
 	<xsl:output method="xml" indent="yes" />
 
 	<xsl:template match="/">
-		<AoccEventPayload xmlns:core="http://protectrail.eu/ns/service/core"
-			xmlns:loc="http://protectrail.eu/ns/model/loc" 
-			xmlns:alms="http://protectrail.eu/ns/service/alarm"
-			xmlns:alm="http://protectrail.eu/ns/model/alarm" 
-			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<s:samples xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 			<!-- <xsl:for-each select="/wsn:Notify/wsn:NotificationMessage"> -->
 			<!-- <xsl:if test=".//wsn:Topic"> -->
@@ -99,6 +94,6 @@
 			<!-- </xsl:for-each> -->
 			<!-- </xsl:if> -->
 			<!-- </xsl:for-each> -->
-		</AoccEventPayload>
+		</s:samples>
 	</xsl:template>
 </xsl:stylesheet>
