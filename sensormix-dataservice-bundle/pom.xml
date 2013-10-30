@@ -12,7 +12,7 @@
 
 	<artifactId>sensormix-dataservice-bundle</artifactId>
 	<packaging>bundle</packaging>
-	<name>GDG Firenze :: Sensormix Data Service bundle</name>
+	<name>GDG Firenze :: Sensormix :: Data Service bundle</name>
 
 	<dependencies>
 
