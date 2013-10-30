@@ -31,11 +31,6 @@
 		<routeContextRef ref="jsonProcessingRoutes" />
 		<routeContextRef ref="xmlAdapterRoutes" />
 
-		<dataFormats>
-			<xmljson id="xmljson" elementName="item" arrayName="list"
-				rootName="root" />
-		</dataFormats>
-
 		<route id="sensorMixHttpEntryRoute">
 			<from uri="jetty:http://0.0.0.0:8080/sampleEndpoint" />
 			<to uri="direct:jsonHttpEntry" />
@@ -47,7 +42,7 @@
 		</route>
 
 		<route id="sensorMixToDataManagerRoute">
-			<from uri="seda:normalizedSample" />
+			<from uri="seda:normalizedJavaSample" />
 			<!-- TODO: write route to send input to the data service, with bean invocation -->
 			<to uri="log:sample_to_data_service?showAll=true" />
 		</route>

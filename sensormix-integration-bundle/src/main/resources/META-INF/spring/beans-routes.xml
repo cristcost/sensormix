@@ -48,7 +48,9 @@
 		<route id="jsonProcessingRoute">
 			<from uri="seda:jsonEntry?waitForTaskToComplete=Never" />
 			<convertBodyTo type="java.lang.String" />
-			<unmarshal ref="xmljson" />
+			<unmarshal>
+				<xmljson elementName="item" arrayName="list" rootName="root" />
+			</unmarshal>
 			<to uri="seda:rowXmlEntry" />
 		</route>
 	</routeContext>
@@ -59,7 +61,13 @@
 		<route id="xmlAdapterRoute">
 			<from uri="seda:rowXmlEntry" />
 			<to uri="xslt:xslt_adapters/raw2cdm_adapter.xsl" />
-			<to uri="seda:normalizedSample" />
+			<unmarshal>
+				<jaxb contextPath="com.google.developers.gdgfirenze.service" />
+			</unmarshal>
+			<setBody>
+				<simple>Body is a ${body.getClass.getName}</simple>
+			</setBody>
+			<to uri="seda:normalizedJavaSample" />
 		</route>
 	</routeContext>
 
