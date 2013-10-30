@@ -58,10 +58,9 @@
 	<routeContext id="xmlAdapterRoutes" xmlns="http://camel.apache.org/schema/spring">
 		<route id="xmlAdapterRoute">
 			<from uri="seda:rowXmlEntry" />
-			<to uri="xslt://xslt_adapters/raw2cdm_adapter.xsl" />
+			<to uri="xslt:xslt_adapters/raw2cdm_adapter.xsl" />
 			<to uri="seda:normalizedSample" />
 		</route>
 	</routeContext>
-
 
 </beans>
