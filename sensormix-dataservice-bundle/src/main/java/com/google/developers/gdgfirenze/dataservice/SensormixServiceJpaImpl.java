@@ -23,10 +23,10 @@ import javax.persistence.criteria.Root;
 import com.google.developers.gdgfirenze.datamodeljpa.JpaAbstractSample;
 import com.google.developers.gdgfirenze.datamodeljpa.JpaSensor;
 import com.google.developers.gdgfirenze.model.AbstractSample;
+import com.google.developers.gdgfirenze.model.DailySampleReport;
+import com.google.developers.gdgfirenze.model.SampleReport;
 import com.google.developers.gdgfirenze.model.Sensor;
 import com.google.developers.gdgfirenze.serializer.Serializer;
-import com.google.developers.gdgfirenze.service.DailySampleReport;
-import com.google.developers.gdgfirenze.service.SampleReport;
 import com.google.developers.gdgfirenze.service.SensormixService;
 
 public class SensormixServiceJpaImpl implements SensormixService {

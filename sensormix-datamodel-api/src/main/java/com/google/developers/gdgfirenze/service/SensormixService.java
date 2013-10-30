@@ -15,6 +15,7 @@ import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 
 import com.google.developers.gdgfirenze.model.AbstractSample;
+import com.google.developers.gdgfirenze.model.SampleReport;
 import com.google.developers.gdgfirenze.model.Sensor;
 
 @WebService(name = "SensormixService",

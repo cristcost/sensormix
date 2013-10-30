@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<battery_level>0.91</battery_level>
+	<device_id>urn:rixf:pippo</device_id>
+	<time>2013-10-30 11:12:09.810</time>
+	<wifi_scans>
+		<item>
+			<bssid>00:24:6c:38:26:a2</bssid>
+			<capabilities>[WPA2-PSK-CCMP][ESS]</capabilities>
+			<frequency>2412</frequency>
+			<level>-56</level>
+			<ssid />
+		</item>
+		<item>
+			<bssid>00:24:6c:02:56:90</bssid>
+			<capabilities>[WPA-PSK-TKIP][ESS]</capabilities>
+			<frequency>2462</frequency>
+			<level>-57</level>
+			<ssid>LAB_WLAN</ssid>
+		</item>
+		<item>
+			<bssid>00:1b:2f:b4:97:4e</bssid>
+			<capabilities>[WPA-PSK-CCMP+TKIP][WPA2-PSK-CCMP+TKIP][ESS]</capabilities>
+			<frequency>2437</frequency>
+			<level>-60</level>
+			<ssid>Dev Lab</ssid>
+		</item>
+		<item>
+			<bssid>00:18:84:89:70:ec</bssid>
+			<capabilities>[WPA-PSK-TKIP][WPA2-PSK-TKIP][WPS][ESS]</capabilities>
+			<frequency>2412</frequency>
+			<level>-85</level>
+			<ssid>OBSAP</ssid>
+		</item>
+		<item>
+			<bssid>00:24:6c:38:26:a0</bssid>
+			<capabilities>[ESS]</capabilities>
+			<frequency>2412</frequency>
+			<level>-51</level>
+			<ssid>Visitors</ssid>
+		</item>
+		<item>
+			<bssid>00:24:6c:38:26:a1</bssid>
+			<capabilities>[ESS]</capabilities>
+			<frequency>2412</frequency>
+			<level>-52</level>
+			<ssid>Mobility</ssid>
+		</item>
+	</wifi_scans>
+</root>

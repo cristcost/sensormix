@@ -1,8 +1,8 @@
 package com.google.developers.gdgfirenze.integration;
 
 import com.google.developers.gdgfirenze.model.AbstractSample;
+import com.google.developers.gdgfirenze.model.SampleReport;
 import com.google.developers.gdgfirenze.model.Sensor;
-import com.google.developers.gdgfirenze.service.SampleReport;
 import com.google.developers.gdgfirenze.service.SensormixService;
 
 import java.util.Date;

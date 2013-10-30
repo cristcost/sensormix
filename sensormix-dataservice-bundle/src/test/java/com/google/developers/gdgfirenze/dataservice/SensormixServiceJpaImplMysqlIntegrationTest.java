@@ -17,9 +17,9 @@ import org.junit.Test;
 import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.NumericValueSample;
 import com.google.developers.gdgfirenze.model.PositionSample;
+import com.google.developers.gdgfirenze.model.SampleReport;
 import com.google.developers.gdgfirenze.model.Sensor;
 import com.google.developers.gdgfirenze.model.WifiSignalSample;
-import com.google.developers.gdgfirenze.service.SampleReport;
 
 public class SensormixServiceJpaImplMysqlIntegrationTest {
 

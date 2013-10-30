@@ -1,4 +1,4 @@
-package com.google.developers.gdgfirenze.service;
+package com.google.developers.gdgfirenze.model;
 
 import java.util.Date;
 
