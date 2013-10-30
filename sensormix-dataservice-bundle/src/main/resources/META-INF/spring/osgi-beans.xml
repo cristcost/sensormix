@@ -15,9 +15,12 @@
        http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd">
 
 	<osgix:cm-properties id="dataSourceProperties"
-		persistent-id="sensormix.jpa.persistenceunit" />
-
-	
+		persistent-id="sensormix.jpa.persistenceunit">
+		<prop key="sensormix_db.driverClassName">org.hsqldb.jdbcDriver</prop>
+		<prop key="sensormix_db.url">jdbc:hsqldb:mem:resource_history</prop>
+		<prop key="sensormix_db.username">sa</prop>
+		<prop key="sensormix_db.password"></prop>
+	</osgix:cm-properties>
 
 	<osgi:service ref="sensormixService"
 		interface="com.google.developers.gdgfirenze.service.SensormixService" />
