@@ -19,19 +19,48 @@
 	   http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
-	<routeContext id="sensorMixHttpEntryRoutes" xmlns="http://camel.apache.org/schema/spring">
-		<route id="sensorMixHttpEntryRoute">
-			<from uri="jetty:http://0.0.0.0:8080/sampleEndpoint" />
-			<convertBodyTo type="java.lang.String"/>
-			<to uri="log:dump?showAll=true" />
+
+	<routeContext id="jsonHttpProcessingRoutes" xmlns="http://camel.apache.org/schema/spring">
+		<route id="jsonHttpProcessingRoute">
+			<from uri="direct:jsonHttpEntry" />
+			<choice>
+				<when>
+					<simple>${header.CamelHttpMethod} in 'POST,PUT'</simple>
+					<to uri="seda:jsonEntry?waitForTaskToComplete=Never" />
+					<setHeader headerName="Content-Type">
+						<constant>application/json</constant>
+					</setHeader>
+					<setHeader headerName="jsonServiceResponse">
+						<constant>Samples processed</constant>
+					</setHeader>
+				</when>
+				<otherwise>
+					<setHeader headerName="jsonServiceResponse">
+						<constant>No body received</constant>
+					</setHeader>
+				</otherwise>
+			</choice>
+			<to uri="velocity:vm_templates/json_response_template.vm" />
 		</route>
 	</routeContext>
 
-	<routeContext id="sensorMixUdpEntryRoutes" xmlns="http://camel.apache.org/schema/spring">
-		<route id="sensorMixUdpEntryRoute">
-			<from uri="mina2:udp://0.0.0.0:8888" />
-			<to uri="log:dump?showAll=true" />
+	<routeContext id="jsonProcessingRoutes" xmlns="http://camel.apache.org/schema/spring">
+		<route id="jsonProcessingRoute">
+			<from uri="seda:jsonEntry?waitForTaskToComplete=Never" />
+			<convertBodyTo type="java.lang.String" />
+			<unmarshal ref="xmljson" />
+			<to uri="seda:rowXmlEntry" />
 		</route>
 	</routeContext>
-	
+
+	<routeContext id="xmlAdapterRoutes" xmlns="http://camel.apache.org/schema/spring">
+		<route id="xmlAdapterRoute">
+			<from uri="seda:rowXmlEntry" />
+			<!-- TODO: write here XSLT transformation from raw XML to Canonical Data 
+				Model Xml -->
+			<to uri="seda:normalizedSample" />
+		</route>
+	</routeContext>
+
+
 </beans>

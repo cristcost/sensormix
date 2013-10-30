@@ -19,12 +19,37 @@
 	   http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
+
+	<bean id="mockService"
+		class="com.google.developers.gdgfirenze.integration.SensormixServiceMock" />
+
 	<!-- Routes -->
 	<camelContext id="prailEventBrokerIntCamelContext" xmlns="http://camel.apache.org/schema/spring">
 
 		<!-- refer to a given route to be used -->
-		<routeContextRef ref="sensorMixHttpEntryRoutes" />
-		<routeContextRef ref="sensorMixUdpEntryRoutes" />
-		
+		<routeContextRef ref="jsonHttpProcessingRoutes" />
+		<routeContextRef ref="jsonProcessingRoutes" />
+		<routeContextRef ref="xmlAdapterRoutes" />
+
+		<dataFormats>
+			<xmljson id="xmljson" elementName="item" arrayName="list"
+				rootName="root" />
+		</dataFormats>
+
+		<route id="sensorMixHttpEntryRoute">
+			<from uri="jetty:http://0.0.0.0:8080/sampleEndpoint" />
+			<to uri="direct:jsonHttpEntry" />
+		</route>
+
+		<route id="sensorMixUdpEntryRoute">
+			<from uri="mina2:udp://0.0.0.0:8888" />
+			<to uri="seda:jsonEntry?waitForTaskToComplete=Never" />
+		</route>
+
+		<route id="sensorMixToDataManagerRoute">
+			<from uri="seda:normalizedSample" />
+			<!-- TODO: write route to send input to the data service, with bean invocation -->
+			<to uri="log:sample_to_data_service?showAll=true" />
+		</route>
 	</camelContext>
 </beans>
