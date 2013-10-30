@@ -1,10 +1,48 @@
 <samples xmlns="http://developers.google.com/gdgfirenze/ns/service">
-	<numericValueSample value="123.4" sensorId="#sensorId"
-		time="2013-10-30T19:31:08.445+01:00" type="#sampleType" />
-	<wifiSignalSample bssid="00:00:00:00:00:00"
-		capabilities="[C1][C2][C3]" frequency="2400.0" level="-40.0" ssid="WLAN Name"
-		sensorId="#sensorId" time="2013-10-30T19:31:08.445+01:00" type="#sampleType" />
-	<positionSample accuracy="10.0" alt="100.0" bearing="180.0"
-		lat="43.0" lng="11.0" speed="0.0" sensorId="#sensorId"
-		time="2013-10-30T19:31:08.445+01:00" type="#sampleType" />
+
+	<!-- Example converted from xml_raw_sample.xml -->
+
+	<numericValueSample 
+		sensorId="urn:rixf:org.example"
+		time="2013-10-30T10:00:00.500+01:00" 
+		type="urn:rixf:net.sensormix/sample_types/battery_level"
+		value="0.91" />
+
+	<!-- Note time here is from /root/position/time and not /root/time -->
+	<positionSample 
+		sensorId="urn:rixf:org.example"
+		time="2013-10-29T23:59:59.999+01:00"
+		type="urn:rixf:net.sensormix/sample_types/phone_gps"
+		accuracy="15" alt="89" bearing="74"
+		lat="43.805073" lng="11.1789465" speed="1.0008" />
+
+	<!-- Note a null ssid on this sample: <ssid /> -->
+	<wifiSignalSample 
+		sensorId="urn:rixf:org.example"
+		time="2013-10-30T10:00:00.500+01:00"
+		type="urn:rixf:net.sensormix/sample_types/wifi_signal" 
+		bssid="00:24:6c:38:26:a2"
+		capabilities="[WPA2-PSK-CCMP][ESS]" 
+		frequency="2412" 
+		level="-56" />
+	
+	<wifiSignalSample 
+		sensorId="urn:rixf:org.example"
+		time="2013-10-30T10:00:00.500+01:00"
+		type="urn:rixf:net.sensormix/sample_types/wifi_signal" 
+		bssid="00:24:6c:02:56:90"
+		capabilities="[WPA-PSK-TKIP][ESS]" 
+		frequency="2462" 
+		level="-57" 
+		ssid="LAB_WLAN" />
+		
+	<wifiSignalSample 
+		sensorId="urn:rixf:org.example"
+		time="2013-10-30T10:00:00.500+01:00"
+		type="urn:rixf:net.sensormix/sample_types/wifi_signal" 
+		bssid="00:1b:2f:b4:97:4e"
+		capabilities="[WPA-PSK-CCMP+TKIP][WPA2-PSK-CCMP+TKIP][ESS]" 
+		frequency="2437" 
+		level="-60" 
+		ssid="Dev Lab" />
 </samples>
