@@ -3,7 +3,9 @@ package com.google.developers.gdgfirenze.dataservice;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +16,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.NumericValueSample;
@@ -22,14 +27,26 @@ import com.google.developers.gdgfirenze.model.SampleReport;
 import com.google.developers.gdgfirenze.model.Sensor;
 import com.google.developers.gdgfirenze.model.WifiSignalSample;
 
-public class SensormixServiceJpaImplHsqlIntegrationTest {
+@RunWith(Parameterized.class)
+public class SensormixJpaIntegrationTest {
 
+	private String jpaPersistenceUnitName;
 	private SensormixServiceJpaImpl sensormixServiceJpaImpl;
 	private EntityManagerFactory emf;
+	
+	public SensormixJpaIntegrationTest(String jpaPersistenceUnitName) {
+		this.jpaPersistenceUnitName = jpaPersistenceUnitName;
+	}
 
+	@Parameters
+	public static Collection<Object[]> generateData() {
+		return Arrays.asList(new Object[][] {
+			{ "sm_hsql_db_test"}, {"sm_mysql_db_test"}, {"sm_openjpa_mysql_db_test"}});
+	}
+	
 	@Before
 	public void initialize() {
-		emf = Persistence.createEntityManagerFactory("sm_hsql_db_test");
+		emf = Persistence.createEntityManagerFactory(jpaPersistenceUnitName);
 		sensormixServiceJpaImpl = new SensormixServiceJpaImpl();
 		sensormixServiceJpaImpl.setEntityManagerFactory(emf);
 	}
