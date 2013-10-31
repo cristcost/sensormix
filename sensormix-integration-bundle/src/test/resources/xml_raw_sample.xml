@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-
+	
+	<!-- COMMON -->
 	<!-- To be used for all the samples -->
 	<device_id>urn:rixf:org.example/sensor_id</device_id>
 	<time>2013-10-30 10:00:00.500</time>
 
+	<!-- SAMPLE N.1 -->
 	<!-- Create a NumericValueSample with an hardcoded type -->
 	<!-- reuse device_id and time -->
 	<battery_level>0.91</battery_level>
 
+	<!-- SAMPLE N.2 -->
 	<!-- Create a PositionSample with an hardcoded type -->
 	<!-- reuse device_id and but use the time under position -->
 	<position>
@@ -21,6 +24,7 @@
 		<time>2013-10-29 23:59:59.999</time>
 	</position>
 
+	<!-- SAMPLES N.3, 4 and 5 -->
 	<!-- Create a <wifiSignalSample/> with an hardcoded type -->
 	<!-- Create a <wifiSignalSample/> for each <item> -->
 	<!-- reuse device_id and time -->

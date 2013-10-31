@@ -27,9 +27,6 @@
 				<when>
 					<simple>${header.CamelHttpMethod} in 'POST,PUT'</simple>
 					<to uri="seda:jsonEntry?waitForTaskToComplete=Never" />
-					<setHeader headerName="Content-Type">
-						<constant>application/json</constant>
-					</setHeader>
 					<setHeader headerName="jsonServiceResponse">
 						<constant>Samples processed</constant>
 					</setHeader>
@@ -40,6 +37,9 @@
 					</setHeader>
 				</otherwise>
 			</choice>
+			<setHeader headerName="Content-Type">
+				<constant>application/json</constant>
+			</setHeader>
 			<to uri="velocity:vm_templates/json_response_template.vm" />
 		</route>
 	</routeContext>

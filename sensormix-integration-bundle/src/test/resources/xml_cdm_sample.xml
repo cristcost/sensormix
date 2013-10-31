@@ -3,14 +3,14 @@
 	<!-- Example converted from xml_raw_sample.xml -->
 
 	<numericValueSample 
-		sensorId="urn:rixf:org.example"
+		sensorId="urn:rixf:org.example/sensor_id"
 		time="2013-10-30T10:00:00.500+01:00" 
 		type="urn:rixf:net.sensormix/sample_types/battery_level"
 		value="0.91" />
 
 	<!-- Note time here is from /root/position/time and not /root/time -->
 	<positionSample 
-		sensorId="urn:rixf:org.example"
+		sensorId="urn:rixf:org.example/sensor_id"
 		time="2013-10-29T23:59:59.999+01:00"
 		type="urn:rixf:net.sensormix/sample_types/phone_gps"
 		accuracy="15" alt="89" bearing="74"
@@ -18,7 +18,7 @@
 
 	<!-- Note a null ssid on this sample: <ssid /> -->
 	<wifiSignalSample 
-		sensorId="urn:rixf:org.example"
+		sensorId="urn:rixf:org.example/sensor_id"
 		time="2013-10-30T10:00:00.500+01:00"
 		type="urn:rixf:net.sensormix/sample_types/wifi_signal" 
 		bssid="00:24:6c:38:26:a2"
@@ -27,7 +27,7 @@
 		level="-56" />
 	
 	<wifiSignalSample 
-		sensorId="urn:rixf:org.example"
+		sensorId="urn:rixf:org.example/sensor_id"
 		time="2013-10-30T10:00:00.500+01:00"
 		type="urn:rixf:net.sensormix/sample_types/wifi_signal" 
 		bssid="00:24:6c:02:56:90"
@@ -37,7 +37,7 @@
 		ssid="LAB_WLAN" />
 		
 	<wifiSignalSample 
-		sensorId="urn:rixf:org.example"
+		sensorId="urn:rixf:org.example/sensor_id"
 		time="2013-10-30T10:00:00.500+01:00"
 		type="urn:rixf:net.sensormix/sample_types/wifi_signal" 
 		bssid="00:1b:2f:b4:97:4e"
