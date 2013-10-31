@@ -22,11 +22,11 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.geronimo.specs</groupId> -->
-		<!-- <artifactId>geronimo-jpa_2.0_spec</artifactId> -->
-		<!-- <version>1.1</version> -->
-		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jpa_2.0_spec</artifactId>
+			<version>1.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.google.developers.gdgfirenze</groupId>
@@ -50,11 +50,7 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>javax.persistence</artifactId>
-			<version>${jpa.eclipselink.version}</version>
-		</dependency>
+
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>org.eclipse.persistence.jpa</artifactId>
@@ -71,6 +67,12 @@
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>${hsqldb.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.openjpa</groupId>
+			<artifactId>openjpa</artifactId>
+			<version>2.2.2</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -99,29 +101,6 @@
 					</instructions>
 				</configuration>
 			</plugin>
-			<!-- <plugin> -->
-			<!-- <artifactId>maven-resources-plugin</artifactId> -->
-			<!-- <version>2.6</version> -->
-			<!-- <executions> -->
-			<!-- <execution> -->
-			<!-- <id>copy-resources</id> -->
-			<!-- here the phase you need -->
-			<!-- <phase>validate</phase> -->
-			<!-- <goals> -->
-			<!-- <goal>copy-resources</goal> -->
-			<!-- </goals> -->
-			<!-- <configuration> -->
-			<!-- <outputDirectory>${basedir}/META-INF</outputDirectory> -->
-			<!-- <resources> -->
-			<!-- <resource> -->
-			<!-- <directory>src/test/resources/META-INF</directory> -->
-			<!-- <filtering>true</filtering> -->
-			<!-- </resource> -->
-			<!-- </resources> -->
-			<!-- </configuration> -->
-			<!-- </execution> -->
-			<!-- </executions> -->
-			<!-- </plugin> -->
 		</plugins>
 	</build>
 </project>

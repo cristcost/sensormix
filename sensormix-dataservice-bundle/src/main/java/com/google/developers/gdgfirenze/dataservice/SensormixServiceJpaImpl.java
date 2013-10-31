@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -60,7 +61,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 			TypedQuery<String> q = em.createQuery(
 					"SELECT s.id FROM JpaSensor s", String.class);
 
-			result = q.getResultList();
+			result.addAll(q.getResultList());
 
 			em.close();
 		} catch (Exception e) {
@@ -95,18 +96,18 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				}
 				if (sampleType != null && !"".equals(sampleType)) {
 					ParameterExpression<String> p = cb.parameter(String.class,
-							"type");
+							"sampleType");
 					criteria.add(cb.equal(jas.get("type"), p));
 				}
 				if (from != null) {
 					ParameterExpression<Date> p = cb.parameter(Date.class,
-							"from");
+							"fromDate");
 					Path<Date> datePath = jas.get("time");
 					criteria.add(cb.greaterThanOrEqualTo(datePath, p));
 				}
 				if (to != null) {
-					ParameterExpression<Date> p = cb
-							.parameter(Date.class, "to");
+					ParameterExpression<Date> p = cb.parameter(Date.class,
+							"toDate");
 					Path<Date> datePath = jas.get("time");
 					criteria.add(cb.lessThanOrEqualTo(datePath, p));
 				}
@@ -122,13 +123,13 @@ public class SensormixServiceJpaImpl implements SensormixService {
 					q.setParameter("sensorId", sensorId);
 				}
 				if (sampleType != null && !"".equals(sampleType)) {
-					q.setParameter("type", sampleType);
+					q.setParameter("sampleType", sampleType);
 				}
 				if (from != null) {
-					q.setParameter("from", from);
+					q.setParameter("fromDate", from);
 				}
 				if (to != null) {
-					q.setParameter("to", to);
+					q.setParameter("toDate", to);
 				}
 				List<JpaAbstractSample> jass = q.getResultList();
 				for (Iterator<?> i = jass.iterator(); i.hasNext();) {
@@ -156,7 +157,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				EntityManager em = entityManagerFactory.createEntityManager();
 				CriteriaBuilder cb = em.getCriteriaBuilder();
 
-				CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+				CriteriaQuery<Object> cq = cb.createQuery();
 				Root<JpaAbstractSample> jas = cq.from(JpaAbstractSample.class);
 				cq.multiselect(cb.count(jas));
 				List<Predicate> criteria = new ArrayList<Predicate>();
@@ -167,18 +168,18 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				}
 				if (sampleType != null && !"".equals(sampleType)) {
 					ParameterExpression<String> p = cb.parameter(String.class,
-							"type");
+							"sampleType");
 					criteria.add(cb.equal(jas.get("type"), p));
 				}
 				if (from != null) {
 					ParameterExpression<Date> p = cb.parameter(Date.class,
-							"from");
+							"fromDate");
 					Path<Date> datePath = jas.get("time");
 					criteria.add(cb.greaterThanOrEqualTo(datePath, p));
 				}
 				if (to != null) {
-					ParameterExpression<Date> p = cb
-							.parameter(Date.class, "to");
+					ParameterExpression<Date> p = cb.parameter(Date.class,
+							"toDate");
 					Path<Date> datePath = jas.get("time");
 					criteria.add(cb.lessThanOrEqualTo(datePath, p));
 				}
@@ -189,20 +190,20 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				} else {
 					cq.where(cb.and(criteria.toArray(new Predicate[0])));
 				}
-				TypedQuery<Long> q = em.createQuery(cq);
+				Query q = em.createQuery(cq);
 				if (sensorId != null && !"".equals(sensorId)) {
 					q.setParameter("sensorId", sensorId);
 				}
 				if (sampleType != null && !"".equals(sampleType)) {
-					q.setParameter("type", sampleType);
+					q.setParameter("sampleType", sampleType);
 				}
 				if (from != null) {
-					q.setParameter("from", from);
+					q.setParameter("fromDate", from);
 				}
 				if (to != null) {
-					q.setParameter("to", to);
+					q.setParameter("toDate", to);
 				}
-				retVal = q.getSingleResult();
+				retVal = (Long) q.getSingleResult();
 				em.close();
 			}
 		} catch (Exception e) {
@@ -240,7 +241,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 
 					CriteriaBuilder cb = em.getCriteriaBuilder();
 
-					CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+					CriteriaQuery<Object> cq = cb.createQuery();
 					Root<JpaAbstractSample> jas = cq
 							.from(JpaAbstractSample.class);
 					cq.multiselect(cb.count(jas));
@@ -252,18 +253,18 @@ public class SensormixServiceJpaImpl implements SensormixService {
 					}
 					if (sampleType != null && !"".equals(sampleType)) {
 						ParameterExpression<String> p = cb.parameter(
-								String.class, "type");
+								String.class, "sampleType");
 						criteria.add(cb.equal(jas.get("type"), p));
 					}
 					if (internalStart != null) {
 						ParameterExpression<Date> p = cb.parameter(Date.class,
-								"from");
+								"fromDate");
 						Path<Date> datePath = jas.get("time");
 						criteria.add(cb.greaterThanOrEqualTo(datePath, p));
 					}
 					if (internalEnd != null) {
 						ParameterExpression<Date> p = cb.parameter(Date.class,
-								"to");
+								"toDate");
 						Path<Date> datePath = jas.get("time");
 						criteria.add(cb.lessThanOrEqualTo(datePath, p));
 					}
@@ -274,20 +275,20 @@ public class SensormixServiceJpaImpl implements SensormixService {
 					} else {
 						cq.where(cb.and(criteria.toArray(new Predicate[0])));
 					}
-					TypedQuery<Long> q = em.createQuery(cq);
+					Query q = em.createQuery(cq);
 					if (sensorId != null && !"".equals(sensorId)) {
 						q.setParameter("sensorId", sensorId);
 					}
 					if (sampleType != null && !"".equals(sampleType)) {
-						q.setParameter("type", sampleType);
+						q.setParameter("sampleType", sampleType);
 					}
 					if (from != null) {
-						q.setParameter("from", internalStart);
+						q.setParameter("fromDate", internalStart);
 					}
 					if (to != null) {
-						q.setParameter("to", internalEnd);
+						q.setParameter("toDate", internalEnd);
 					}
-					Long jass = q.getSingleResult();
+					Long jass = (Long) q.getSingleResult();
 
 					DailySampleReport dsr = new DailySampleReport();
 					dsr.setDate(internalStart);
@@ -318,12 +319,14 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				criteria.add(p.in(sensorIds));
 			}
 			if (from != null) {
-				ParameterExpression<Date> p = cb.parameter(Date.class, "from");
+				ParameterExpression<Date> p = cb.parameter(Date.class,
+						"fromDate");
 				Path<Date> datePath = js.get("lastSeen");
 				criteria.add(cb.greaterThanOrEqualTo(datePath, p));
 			}
 			if (to != null) {
-				ParameterExpression<Date> p = cb.parameter(Date.class, "to");
+				ParameterExpression<Date> p = cb
+						.parameter(Date.class, "toDate");
 				Path<Date> datePath = js.get("lastSeen");
 				criteria.add(cb.lessThanOrEqualTo(datePath, p));
 			}
@@ -336,10 +339,10 @@ public class SensormixServiceJpaImpl implements SensormixService {
 			}
 			TypedQuery<JpaSensor> q = em.createQuery(cq);
 			if (from != null) {
-				q.setParameter("from", from);
+				q.setParameter("fromDate", from);
 			}
 			if (to != null) {
-				q.setParameter("to", to);
+				q.setParameter("toDate", to);
 			}
 			List<JpaSensor> ss = q.getResultList();
 			for (Iterator<JpaSensor> i = ss.iterator(); i.hasNext();) {
@@ -370,16 +373,24 @@ public class SensormixServiceJpaImpl implements SensormixService {
 			s.setLastSeen(sensor.getLastSeen());
 			s.setLat(sensor.getLat());
 			s.setLng(sensor.getLng());
-
+			EntityManager em = null;
+			EntityTransaction tx =null;
+			
 			try {
-				EntityManager em = entityManagerFactory.createEntityManager();
-				EntityTransaction tx = em.getTransaction();
+				em = entityManagerFactory.createEntityManager();
+				tx = em.getTransaction();
 				tx.begin();
 				em.merge(s);
 				tx.commit();
-				em.close();
+				
 			} catch (Exception e) {
 				logger.log(Level.SEVERE, "Error during sensor registration", e);
+				if(tx.isActive())
+					tx.rollback();
+			}
+			finally {
+				if(em.isOpen())
+					em.close();
 			}
 		} else {
 			logger.log(Level.WARNING, "sensor must be not null to register it");
@@ -390,10 +401,13 @@ public class SensormixServiceJpaImpl implements SensormixService {
 	public void recordSamples(List<AbstractSample> samples) {
 		if (samples != null) {
 			List<String> checkList = listSensorsIds();
-
+			EntityManager em = null;
+			EntityTransaction transaction =null;
+			
 			try {
-				EntityManager em = entityManagerFactory.createEntityManager();
-				EntityTransaction transaction = em.getTransaction();
+				em = entityManagerFactory.createEntityManager();
+				transaction = em.getTransaction();
+				
 				transaction.begin();
 				for (AbstractSample sample : samples) {
 					if (!checkList.contains(sample.getSensorId())) {
@@ -404,7 +418,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 						s.setLastSeen(sample.getTime());
 
 						registerSensor(s);
-						checkList.add(sample.getSensorId());
+						checkList.add(new String(sample.getSensorId()));
 					} else {
 						List<String> sensorList = new ArrayList<String>();
 						sensorList.add(sample.getSensorId());
@@ -422,12 +436,18 @@ public class SensormixServiceJpaImpl implements SensormixService {
 					em.persist(s);
 				}
 				transaction.commit();
-				em.close();
 			} catch (Exception e) {
 				logger.log(Level.SEVERE, "Error during samples registration", e);
+				if(transaction.isActive())
+					transaction.rollback();
+			}
+			finally {
+				if(em.isOpen())
+					em.close();
 			}
 		} else {
-			logger.log(Level.WARNING, "samples must be not null to register them");
+			logger.log(Level.WARNING,
+					"samples must be not null to register them");
 		}
 	}
 

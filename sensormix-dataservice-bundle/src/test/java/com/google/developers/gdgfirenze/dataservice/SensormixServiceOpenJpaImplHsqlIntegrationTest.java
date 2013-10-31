@@ -22,14 +22,14 @@ import com.google.developers.gdgfirenze.model.SampleReport;
 import com.google.developers.gdgfirenze.model.Sensor;
 import com.google.developers.gdgfirenze.model.WifiSignalSample;
 
-public class SensormixServiceJpaImplHsqlIntegrationTest {
+public class SensormixServiceOpenJpaImplHsqlIntegrationTest {
 
 	private SensormixServiceJpaImpl sensormixServiceJpaImpl;
 	private EntityManagerFactory emf;
 
 	@Before
 	public void initialize() {
-		emf = Persistence.createEntityManagerFactory("sm_hsql_db_test");
+		emf = Persistence.createEntityManagerFactory("sm_openjpa_mysql_db_test");
 		sensormixServiceJpaImpl = new SensormixServiceJpaImpl();
 		sensormixServiceJpaImpl.setEntityManagerFactory(emf);
 	}
@@ -38,7 +38,7 @@ public class SensormixServiceJpaImplHsqlIntegrationTest {
 	public void close() {
 		emf.close();
 	}
-
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}

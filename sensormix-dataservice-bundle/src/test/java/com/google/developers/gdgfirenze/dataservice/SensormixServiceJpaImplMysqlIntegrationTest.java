@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -33,6 +34,11 @@ public class SensormixServiceJpaImplMysqlIntegrationTest {
 		sensormixServiceJpaImpl.setEntityManagerFactory(emf);
 	}
 
+	@After
+	public void close() {
+		emf.close();
+	}
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
