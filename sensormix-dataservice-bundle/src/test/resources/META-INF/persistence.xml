@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="sm_mysql_db_test"
 		transaction-type="RESOURCE_LOCAL">
-
+		
 		<class>com.google.developers.gdgfirenze.datamodeljpa.JpaAbstractSample</class>
 		<class>com.google.developers.gdgfirenze.datamodeljpa.JpaSensor</class>
 
@@ -14,8 +14,6 @@
 			<property name="javax.persistence.jdbc.password" value="tr3no" />
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
-			<property name="eclipselink.ddl-generation.output-mode"
-				value="database" />
 		</properties>
 	</persistence-unit>
 
@@ -24,7 +22,7 @@
 
 		<class>com.google.developers.gdgfirenze.datamodeljpa.JpaAbstractSample</class>
 		<class>com.google.developers.gdgfirenze.datamodeljpa.JpaSensor</class>
-		
+
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:resource_history" />
 			<property name="javax.persistence.jdbc.user" value="sa" />
@@ -34,6 +32,25 @@
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
 			<property name="eclipselink.ddl-generation.output-mode"
 				value="database" />
+		</properties>
+	</persistence-unit>
+
+	<persistence-unit name="sm_openjpa_mysql_db_test"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+
+		<class>com.google.developers.gdgfirenze.datamodeljpa.JpaAbstractSample</class>
+		<class>com.google.developers.gdgfirenze.datamodeljpa.JpaSensor</class>
+
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sensormix_db" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="tr3no" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+
+			<property name="openjpa.RuntimeUnenhancedClasses" value="supported" />
+			<property name="openjpa.jdbc.SynchronizeMappings"
+				value="buildSchema(SchemaAction=&apos;add,deleteTableContents&apos;,ForeignKeys=true)" />
 		</properties>
 	</persistence-unit>
 </persistence>  
