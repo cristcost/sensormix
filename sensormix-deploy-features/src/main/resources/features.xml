@@ -23,6 +23,9 @@
     <feature>spring-orm</feature>
     <feature>camel-jaxb</feature>
     <feature>camel-velocity</feature>
+    <feature>camel-xmljson</feature>
+    <feature>camel-jetty</feature>
+    <feature>camel-mina2</feature>
     <feature>spring-dm-web</feature>
   </feature>
 
