@@ -8,6 +8,7 @@
 
   <feature name="sensormix-ext" version="${project.version}">
     <bundle>mvn:mysql/mysql-connector-java/${mysql.connector.version}</bundle>
+    <bundle>mvn:org.hsqldb/hsqldb/${hsqldb.version}</bundle>
 
     <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.commons-dbcp/${smx-common-dbcp.version}</bundle>
     <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.javax-inject/${smx-jsr330.version}</bundle>
