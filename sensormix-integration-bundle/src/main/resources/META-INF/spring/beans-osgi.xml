@@ -19,12 +19,12 @@
 	   http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
-
-	<bean id="mockService"
-		class="com.google.developers.gdgfirenze.integration.SensormixServiceMock" />
+	<osgi:reference id="sensormixService"
+		interface="com.google.developers.gdgfirenze.service.SensormixService"
+		timeout="30000" cardinality="1..1" />
 
 	<!-- Routes -->
-	<camelContext id="testIntegrationContext" xmlns="http://camel.apache.org/schema/spring">
+	<camelContext id="sampleInputIntegrationContext" xmlns="http://camel.apache.org/schema/spring">
 
 		<!-- refer to a given route to be used -->
 		<routeContextRef ref="jsonHttpProcessingRoutes" />
@@ -33,15 +33,15 @@
 
 		<!-- Input from JSON over HTTP -->
 		<route id="sensorMixHttpEntryRoute">
-			<from uri="jetty:http://0.0.0.0:8080/sampleEndpoint" />
+			<from uri="jetty:http://0.0.0.0:10080/sensormixSamplesEndpoint" />
 			<to uri="direct:jsonHttpEntry" />
 		</route>
 
 		<!-- Input from JSON over UDP -->
-		<route id="sensorMixUdpEntryRoute">
-			<from uri="mina2:udp://0.0.0.0:8888" />
-			<to uri="seda:jsonEntry?waitForTaskToComplete=Never" />
-		</route>
+		<!-- <route id="sensorMixUdpEntryRoute"> -->
+		<!-- <from uri="mina2:udp://0.0.0.0:10081" /> -->
+		<!-- <to uri="seda:jsonEntry?waitForTaskToComplete=Never" /> -->
+		<!-- </route> -->
 
 		<!-- Output to the data service -->
 		<route id="sensorMixToDataManagerRoute">
@@ -49,7 +49,7 @@
 			<setBody>
 				<simple>${body.samples}</simple>
 			</setBody>
-			<to uri="bean:mockService?method=recordSamples" />
+			<to uri="bean:sensormixService?method=recordSamples" />
 		</route>
 	</camelContext>
 </beans>
