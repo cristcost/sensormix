@@ -91,6 +91,7 @@
 						<Import-Package>
 							javax.persistence.*;version="[2.0,3)",
 							com.mysql.jdbc;resolution:=optional,
+							org.hsqldb;resolution:=optional,
 							org.eclipse.persistence.expressions;resolution:=optional,
 							org.eclipse.persistence.indirection;resolution:=optional,
 							org.eclipse.persistence.internal.security;resolution:=optional,
