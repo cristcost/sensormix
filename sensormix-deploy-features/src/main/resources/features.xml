@@ -26,9 +26,19 @@
     <feature>spring-dm-web</feature>
   </feature>
 
+  <feature name="sensormix-cfg" version="${project.version}">
+    <config name="sensormix.jpa.persistenceunit">
+      sensormix_db.driverClassName = org.hsqldb.jdbcDriver
+      sensormix_db.url = jdbc:hsqldb:mem:sensormix_db
+      sensormix_db.username = sa
+      sensormix_db.password = 
+    </config>
+  </feature>
+
   <feature name="sensormix" version="${project.version}">
 
-    <feature>sensormix-ext</feature>
+    <feature version="${project.version}">sensormix-ext</feature>
+    <feature version="${project.version}">sensormix-cfg</feature>
 
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-datamodel-api/${project.version}</bundle>
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-webgui-bundle/${project.version}</bundle>
