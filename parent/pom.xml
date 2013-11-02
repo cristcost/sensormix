@@ -60,6 +60,7 @@
 		<commons-fileupload.version>1.2</commons-fileupload.version>
 		<commons-io.version>2.0</commons-io.version>
 		<cxf.version>2.6.9</cxf.version>
+		<dozer.version>5.4.0</dozer.version>
 		<easymock.version>3.1</easymock.version>
 		<eclipselink.version>2.5.0</eclipselink.version>
 		<gin.version>2.0.0</gin.version>
@@ -75,9 +76,8 @@
 		<jaxb.version>2.2.4</jaxb.version>
 		<jaxws.version>2.2.6</jaxws.version>
 		<jdom.version>1.1</jdom.version>
-		<jetty.version>7.6.12.v20130726</jetty.version><!--stable: 6.1.26, NEWEST 
-			8.1.8.v20121106 -->
 		<jetty-jstl.version>1.2.0.v201105211821</jetty-jstl.version>
+		<jetty.version>7.6.12.v20130726</jetty.version><!--stable: 6.1.26, NEWEST 8.1.8.v20121106 -->
 		<jpa.eclipselink.version>2.1.0</jpa.eclipselink.version>
 		<jpa.version>1.0</jpa.version>
 		<json-simple.version>1.1.1</json-simple.version>
@@ -87,6 +87,7 @@
 		<junit.version>4.11</junit.version>
 		<karaf.version>2.2.11</karaf.version>
 		<kryo.version>2.21</kryo.version>
+		<mina.version>2.0.7</mina.version>
 		<mockito.version>1.9.5</mockito.version>
 		<mysql.connector.version>5.1.26</mysql.connector.version>
 		<oracle.version>1.0.0</oracle.version>
@@ -97,18 +98,18 @@
 		<servlet-api.version>2.5</servlet-api.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<smx-common-dbcp.version>1.4_3</smx-common-dbcp.version>
+		<smx-jaxb.version>2.2.6_1</smx-jaxb.version>
 		<smx-jsr330.version>1_2</smx-jsr330.version>
 		<smx-snmp4j.version>1.8.1_4</smx-snmp4j.version> <!-- 2.1.0_1 -->
+		<smx-ws-commons-util.version>1.0.2_2</smx-ws-commons-util.version>
 		<smx-xmlrpc-client.version>3.1.3_1</smx-xmlrpc-client.version>
 		<smx-xmlrpc-server.version>3.1.3_3</smx-xmlrpc-server.version>
-		<smx-ws-commons-util.version>1.0.2_2</smx-ws-commons-util.version>
 		<spring-osgi.version>1.2.1</spring-osgi.version>
 		<spring.version>3.0.7.RELEASE</spring.version>
 		<xmlrpc.version>3.1.3</xmlrpc.version>
 		<xmlunit.version>1.4</xmlunit.version>
 		<xstream.version>1.4.4</xstream.version>
 		<zxing.version>2.1</zxing.version>
-		<dozer.version>5.4.0</dozer.version>
 
 		<!-- Maven plugins version -->
 		<assembly.plugin.version>2.4</assembly.plugin.version>

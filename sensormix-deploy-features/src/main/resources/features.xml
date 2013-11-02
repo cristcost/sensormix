@@ -21,6 +21,9 @@
     <bundle>mvn:org.eclipse.persistence/org.eclipse.persistence.jpa.jpql/${eclipselink.version}</bundle>
     <bundle>mvn:org.eclipse.persistence/org.eclipse.persistence.jpa/${eclipselink.version}</bundle>
 
+    <bundle>mvn:org.apache.mina/mina-core/${mina.version}</bundle><!-- 2.0.7 -->
+    <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jaxb-impl/${smx-jaxb.version}</bundle><!-- 2.2.6_1 -->
+
     <feature>spring-orm</feature>
     <feature>camel-jaxb</feature>
     <feature>camel-velocity</feature>
@@ -39,20 +42,28 @@
     </config>
   </feature>
 
-  <feature name="sensormix" version="${project.version}">
-
+  <feature name="sensormix-backend" version="${project.version}">
     <feature version="${project.version}">sensormix-ext</feature>
     <feature version="${project.version}">sensormix-cfg</feature>
 
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-datamodel-api/${project.version}</bundle>
-    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-webgui-bundle/${project.version}</bundle>
+    <!--<bundle>mvn:com.google.developers.gdgfirenze/sensormix-webgui-bundle/${project.version}</bundle>-->
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-dataservice-bundle/${project.version}</bundle>
     <!--<bundle>mvn:com.google.developers.gdgfirenze/sensormix-datawebservice-bundle/${project.version}</bundle>-->
     <!--<bundle>mvn:com.google.developers.gdgfirenze/sensormix-websim-bundle/${project.version}</bundle>-->
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-integration-bundle/${project.version}</bundle>
     <!--<bundle>mvn:com.google.developers.gdgfirenze/sensormix-karafcli-bundle/${project.version}</bundle>-->
-    
   </feature>
 
+  <feature name="sensormix-frontend" version="${project.version}">
+    <feature version="${project.version}">sensormix-ext</feature>
+    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-datamodel-api/${project.version}</bundle>
+    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-dataservice-bundle/${project.version}</bundle>    
+  </feature>
+
+  <feature name="sensormix" version="${project.version}">
+    <feature version="${project.version}">sensormix-frontend</feature>
+    <feature version="${project.version}">sensormix-backend</feature>
+  </feature>
 
 </features>
