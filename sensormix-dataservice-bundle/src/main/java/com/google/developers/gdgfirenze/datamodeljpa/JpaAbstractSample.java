@@ -24,7 +24,7 @@ public class JpaAbstractSample {
 	@Column(name = "sensorId", nullable = false)
 	private String sensorId;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "time", nullable = false)
 	private Date time;
 

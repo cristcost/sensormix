@@ -29,7 +29,7 @@ public class JpaSensor {
 	@Column(name="description", nullable=false)
 	private String description;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="lastSeen")
 	private Date lastSeen;
 
