@@ -17,19 +17,46 @@
 	<packaging>pom</packaging>
 	<name>GDG Firenze :: Sensormix Main project</name>
 
-	<modules>
-		<module>sensormix-datamodel-api</module>
-		<module>sensormix-webgui-bundle</module>
-		<module>sensormix-dataservice-bundle</module>
-		<!--<module>sensormix-datawebservice-bundle</module>-->
-		<!--<module>sensormix-websim-bundle</module>-->
-		<module>sensormix-integration-bundle</module>
-		<!--<module>sensormix-karafcli-bundle</module>-->
 
-		<module>sensormix-deploy-features</module>
-		<module>sensormix-deploy-dist</module>
 
-    	<module>sensormix-mockep-app</module>
-  </modules>
+	<profiles>
+		<profile>
+			<id>frontend</id>
+			<modules>
+				<module>sensormix-datamodel-api</module>
+				<module>sensormix-webgui-bundle</module>
+				<module>sensormix-deploy-features</module>
+		  	</modules>
+		</profile>
+		<profile>
+			<id>backend</id>
+			<modules>
+				<module>sensormix-datamodel-api</module>
+				<module>sensormix-dataservice-bundle</module>
+				<module>sensormix-integration-bundle</module>
+				<module>sensormix-deploy-features</module>
+		  	</modules>
+		</profile>
+		<profile>
+			<id>full</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<module>sensormix-datamodel-api</module>
+				<module>sensormix-webgui-bundle</module>
+				<module>sensormix-dataservice-bundle</module>
+				<!--<module>sensormix-datawebservice-bundle</module>-->
+				<!--<module>sensormix-websim-bundle</module>-->
+				<module>sensormix-integration-bundle</module>
+				<!--<module>sensormix-karafcli-bundle</module>-->
+
+				<module>sensormix-deploy-features</module>
+				<module>sensormix-deploy-dist</module>
+
+		    	<module>sensormix-mockep-app</module>
+		  	</modules>
+		</profile>
+	</profiles>
 	
 </project>
