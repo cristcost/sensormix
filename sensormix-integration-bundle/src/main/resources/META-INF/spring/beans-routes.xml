@@ -51,7 +51,7 @@
 			<unmarshal>
 				<xmljson elementName="item" arrayName="list" rootName="root" />
 			</unmarshal>
-			<to uri="seda:rowXmlEntry" />
+			<to uri="seda:rawXmlEntry" />
 		</route>
 	</routeContext>
 
@@ -59,11 +59,29 @@
 		Model Xml -->
 	<routeContext id="xmlAdapterRoutes" xmlns="http://camel.apache.org/schema/spring">
 		<route id="xmlAdapterRoute">
-			<from uri="seda:rowXmlEntry" />
+			<from uri="seda:rawXmlEntry" />
 			<to uri="xslt:xslt_adapters/raw2cdm_adapter.xsl" />
+
+			<!-- Debug Log -->
+			<!-- <to uri="log:adaptedCdmXml" /> -->
 			<unmarshal>
 				<jaxb contextPath="com.google.developers.gdgfirenze.service" />
 			</unmarshal>
+
+			<!-- Debug Log -->
+			<!-- <to uri="log:unmarshalledCdmJava" /> -->
+			<setHeader headerName="sensormixBodyType">
+				<simple>${body.getClass.getName}</simple>
+			</setHeader>
+			<setHeader headerName="sensormixNumSamples">
+				<simple>${body.samples.size}</simple>
+			</setHeader>
+			<setBody>
+				<simple>${body.samples}</simple>
+			</setBody>
+
+			<!-- Debug Log -->
+			<!-- <to uri="log:sendingRecordsToService?showAll=true" /> -->
 			<to uri="seda:normalizedJavaSample" />
 		</route>
 	</routeContext>
