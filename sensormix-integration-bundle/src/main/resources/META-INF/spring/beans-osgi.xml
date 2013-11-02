@@ -38,10 +38,10 @@
 		</route>
 
 		<!-- Input from JSON over UDP -->
-		<!-- <route id="sensorMixUdpEntryRoute"> -->
-		<!-- <from uri="mina2:udp://0.0.0.0:10081" /> -->
-		<!-- <to uri="seda:jsonEntry?waitForTaskToComplete=Never" /> -->
-		<!-- </route> -->
+		<route id="sensorMixUdpEntryRoute">
+			<from uri="mina2:udp://0.0.0.0:10081" />
+			<to uri="seda:jsonEntry?waitForTaskToComplete=Never" />
+		</route>
 
 		<!-- Output to the data service -->
 		<route id="sensorMixToDataManagerRoute">
@@ -49,6 +49,7 @@
 			<setBody>
 				<simple>${body.samples}</simple>
 			</setBody>
+			<to uri="log:sendingRecordsToService" />
 			<to uri="bean:sensormixService?method=recordSamples" />
 		</route>
 	</camelContext>
