@@ -3,11 +3,14 @@
 	xmlns:s="http://developers.google.com/gdgfirenze/ns/service" xmlns:m="http://developers.google.com/gdgfirenze/ns/model"
 	version="1.0">
 	<xsl:output method="xml" indent="yes" />
-
 	<xsl:template match="/">
-		<s:samples xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			<!-- TODO: here are 3 fixed examples that need to be adapted from data 
-				as visible on src/test/resources/xml_raw_sample.xml -->
+	
+		<s:samples xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">	 
+		<xsl:variable name="deviceId" select="normalize-space(.//device_id)" />	
+		<xsl:variable name="sampleTime" select="normalize-space(.//time)" />
+				
+			<!-- TODO: here are 3 fixed examples that need to be adapted from data as visible on src/test/resources/xml_raw_sample.xml -->
+			<!-- 
 			<numericValueSample value="123.4" sensorId="#sensorId"
 				time="2013-10-30T19:31:08.445+01:00" type="#sampleType" />
 			<wifiSignalSample bssid="00:00:00:00:00:00"
@@ -16,94 +19,53 @@
 			<positionSample accuracy="10.0" alt="100.0" bearing="180.0"
 				lat="43.0" lng="11.0" speed="0.0" sensorId="#sensorId"
 				time="2013-10-30T19:31:08.445+01:00" type="#sampleType" />
-
-			<!-- <xsl:for-each select="/wsn:Notify/wsn:NotificationMessage"> -->
-			<!-- <xsl:if test=".//wsn:Topic"> -->
-			<!-- <xsl:variable name="topic" select="normalize-space(.//wsn:Topic)" 
-				/> -->
-
-			<!-- <xsl:for-each select=".//cap:alert"> -->
-			<!-- <event xsi:type="alms:AlarmEvent"> -->
-			<!-- <xsl:choose> -->
-			<!-- <xsl:when test=".//cap:sent"> -->
-			<!-- <xsl:attribute name="time"><xsl:value-of -->
-			<!-- select="normalize-space(.//cap:sent)" /></xsl:attribute> -->
-			<!-- </xsl:when> -->
-			<!-- <xsl:otherwise> -->
-			<!-- <xsl:attribute name="time"><xsl:value-of -->
-			<!-- select="ex:date-time()" xmlns:ex="http://exslt.org/dates-and-times" 
-				/></xsl:attribute> -->
-			<!-- </xsl:otherwise> -->
-			<!-- </xsl:choose> -->
-
-			<!-- <alms:alarmDefinitions> -->
-			<!-- <alms:alarm> -->
-			<!-- <xsl:attribute name="id"> -->
-			<!-- <xsl:value-of select="normalize-space(.//cap:identifier)" /> -->
-			<!-- </xsl:attribute> -->
-			<!-- <xsl:attribute name="typeId"><xsl:value-of -->
-			<!-- select="$topic" /></xsl:attribute> -->
-
-			<!-- <xsl:if test=".//cap:sent"> -->
-			<!-- <xsl:attribute name="openTime"> -->
-			<!-- <xsl:value-of select="normalize-space(.//cap:sent)" /> -->
-			<!-- </xsl:attribute> -->
-			<!-- </xsl:if> -->
-
-			<!-- <xsl:attribute name="status">ALARM_OPEN</xsl:attribute> -->
-
-			<!-- <xsl:if test=".//cap:severity"> -->
-			<!-- <xsl:attribute name="severity"> -->
-			<!-- <xsl:if test="contains(.//cap:severity, 'Extreme')">CRITICAL</xsl:if> -->
-			<!-- <xsl:if test="contains(.//cap:severity, 'Severe')">MAJOR</xsl:if> -->
-			<!-- <xsl:if test="contains(.//cap:severity, 'Moderate')">MINOR</xsl:if> -->
-			<!-- <xsl:if test="contains(.//cap:severity, 'Minor')">MINOR</xsl:if> -->
-			<!-- <xsl:if test="contains(.//cap:severity, 'Unknown')">MINOR</xsl:if> -->
-			<!-- </xsl:attribute> -->
-			<!-- </xsl:if> -->
-
-			<!-- <xsl:if test=".//cap:note"> -->
-			<!-- <xsl:element name="alm:message"> -->
-			<!-- <xsl:value-of select="normalize-space(.//cap:note)" /> -->
-			<!-- </xsl:element> -->
-			<!-- </xsl:if> -->
-
-			<!-- <xsl:if test=".//cap:circle"> -->
-			<!-- <xsl:element name="alm:position"> -->
-			<!-- <xsl:attribute name="referenceId">urn:rixf:com.poland.zmigrod/city</xsl:attribute> -->
-			<!-- <xsl:attribute name="unit">LAT_LON</xsl:attribute> -->
-			<!-- <xsl:element name="loc:point"> -->
-			<!-- <xsl:attribute name="y"> -->
-			<!-- <xsl:value-of select="substring-before(.//cap:circle, ',')" /> -->
-			<!-- </xsl:attribute> -->
-			<!-- <xsl:attribute name="x"> -->
-			<!-- <xsl:value-of -->
-			<!-- select="substring-after(substring-before(.//cap:circle, ' '), ',')" 
-				/> -->
-			<!-- </xsl:attribute> -->
-			<!-- </xsl:element> -->
-			<!-- </xsl:element> -->
-			<!-- </xsl:if> -->
-
-			<!-- <xsl:if test=".//cap:references"> -->
-			<!-- <xsl:variable name="references" -->
-			<!-- select="str:tokenize(.//cap:references, ',')" xmlns:str="http://exslt.org/strings" 
-				/> -->
-			<!-- <xsl:element name="alm:resourceIds"> -->
-			<!-- <xsl:for-each select="$references"> -->
-			<!-- <xsl:element name="alm:resourceId"> -->
-			<!-- <xsl:value-of select="." /> -->
-			<!-- </xsl:element> -->
-			<!-- </xsl:for-each> -->
-			<!-- </xsl:element> -->
-			<!-- </xsl:if> -->
-
-			<!-- </alms:alarm> -->
-			<!-- </alms:alarmDefinitions> -->
-			<!-- </event> -->
-			<!-- </xsl:for-each> -->
-			<!-- </xsl:if> -->
-			<!-- </xsl:for-each> -->
+			-->
+		 	
+		 <xsl:if test=".//battery_level">
+			<numericValueSample>
+				<xsl:attribute name="sensorId"><xsl:value-of select="$deviceId" /></xsl:attribute>
+				<xsl:attribute name="time">
+					<xsl:value-of select="substring-before($sampleTime, ' ')" />T<xsl:value-of select="substring-after($sampleTime, ' ')" />
+				</xsl:attribute>
+				<xsl:attribute name="type">urn:rixf:net.sensormix/sample_types/battery_level</xsl:attribute>
+				<xsl:attribute name="value"><xsl:value-of select=".//battery_level" /></xsl:attribute>
+			</numericValueSample>
+		</xsl:if>
+		
+		<xsl:if test=".//position">
+			<xsl:variable name="sampleTimePosition" select="normalize-space(.//position/time)" />
+			<positionSample>
+				<xsl:attribute name="sensorId"><xsl:value-of select="$deviceId" /></xsl:attribute>
+				<xsl:attribute name="time">
+					<xsl:value-of select="substring-before($sampleTimePosition, ' ')" />T<xsl:value-of select="substring-after($sampleTimePosition, ' ')" />
+				</xsl:attribute>
+				<xsl:attribute name="type">urn:rixf:net.sensormix/sample_types/phone_gps</xsl:attribute>
+				<xsl:attribute name="accuracy"><xsl:value-of select=".//position/accuracy" /></xsl:attribute>
+				<xsl:attribute name="alt"><xsl:value-of select=".//position/alt" /></xsl:attribute>
+				<xsl:attribute name="bearing"><xsl:value-of select=".//position/bearing" /></xsl:attribute>
+				<xsl:attribute name="lat"><xsl:value-of select=".//position/lat" /></xsl:attribute>
+				<xsl:attribute name="lng"><xsl:value-of select=".//position/lng" /></xsl:attribute>
+				<xsl:attribute name="speed"><xsl:value-of select=".//position/speed" /></xsl:attribute>
+			</positionSample>
+		</xsl:if>
+		
+		<xsl:if test=".//wifi_scans">
+			<xsl:for-each select=".//wifi_scans/item">
+				<wifiSignalSample>
+					<xsl:attribute name="sensorId"><xsl:value-of select="$deviceId" /></xsl:attribute>
+					<xsl:attribute name="time">
+						<xsl:value-of select="substring-before($sampleTime, ' ')" />T<xsl:value-of select="substring-after($sampleTime, ' ')" />
+					</xsl:attribute>
+					<xsl:attribute name="type">urn:rixf:net.sensormix/sample_types/wifi_signal</xsl:attribute>
+					<xsl:attribute name="bssid"><xsl:value-of select=".//bssid" /></xsl:attribute>
+					<xsl:attribute name="capabilities"><xsl:value-of select=".//capabilities" /></xsl:attribute>
+					<xsl:attribute name="frequency"><xsl:value-of select=".//frequency" /></xsl:attribute>
+					<xsl:attribute name="level"><xsl:value-of select=".//level" /></xsl:attribute>
+					<xsl:attribute name="ssid"><xsl:value-of select=".//ssid" /></xsl:attribute>
+				</wifiSignalSample>
+			</xsl:for-each>
+		</xsl:if>
+		
 		</s:samples>
 	</xsl:template>
 </xsl:stylesheet>
