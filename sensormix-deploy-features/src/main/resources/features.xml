@@ -6,7 +6,22 @@
   <repository>mvn:org.apache.camel.karaf/apache-camel/${camel.version}/xml/features</repository>
 
 
-  <feature name="sensormix-ext" version="${project.version}">
+  <feature name="sensormix-core" version="${project.version}">
+    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-datamodel-api/${project.version}</bundle>
+  </feature>
+
+  <feature name="sensormix-dataservice" version="${project.version}">
+    <feature version="${project.version}">sensormix-core</feature>
+
+    <config name="sensormix.jpa.persistenceunit">
+      sensormix_db.driverClassName = org.hsqldb.jdbcDriver
+      sensormix_db.url = jdbc:hsqldb:mem:sensormix_db
+      sensormix_db.username = sa
+      sensormix_db.password = 
+    </config>
+
+    <feature>spring-orm</feature>
+
     <bundle>mvn:mysql/mysql-connector-java/${mysql.connector.version}</bundle>
     <bundle>mvn:org.hsqldb/hsqldb/${hsqldb.version}</bundle>
 
@@ -21,49 +36,42 @@
     <bundle>mvn:org.eclipse.persistence/org.eclipse.persistence.jpa.jpql/${eclipselink.version}</bundle>
     <bundle>mvn:org.eclipse.persistence/org.eclipse.persistence.jpa/${eclipselink.version}</bundle>
 
+    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-dataservice-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="sensormix-webservice" version="${project.version}">
+    <feature version="${project.version}">sensormix-dataservice</feature>
+    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-datawebservice-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="sensormix-integration" version="${project.version}">
+    <feature version="${project.version}">sensormix-dataservice</feature>
+
     <bundle>mvn:org.apache.mina/mina-core/${mina.version}</bundle><!-- 2.0.7 -->
     <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jaxb-impl/${smx-jaxb.version}</bundle><!-- 2.2.6_1 -->
 
-    <feature>spring-orm</feature>
     <feature>camel-jaxb</feature>
     <feature>camel-velocity</feature>
     <feature>camel-xmljson</feature>
     <feature>camel-jetty</feature>
     <feature>camel-mina2</feature>
-    <feature>spring-dm-web</feature>
-  </feature>
 
-  <feature name="sensormix-cfg" version="${project.version}">
-    <config name="sensormix.jpa.persistenceunit">
-      sensormix_db.driverClassName = org.hsqldb.jdbcDriver
-      sensormix_db.url = jdbc:hsqldb:mem:sensormix_db
-      sensormix_db.username = sa
-      sensormix_db.password = 
-    </config>
-  </feature>
-
-  <feature name="sensormix-backend" version="${project.version}">
-    <feature version="${project.version}">sensormix-ext</feature>
-    <feature version="${project.version}">sensormix-cfg</feature>
-
-    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-datamodel-api/${project.version}</bundle>
-    <!--<bundle>mvn:com.google.developers.gdgfirenze/sensormix-webgui-bundle/${project.version}</bundle>-->
-    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-dataservice-bundle/${project.version}</bundle>
-    <!--<bundle>mvn:com.google.developers.gdgfirenze/sensormix-datawebservice-bundle/${project.version}</bundle>-->
-    <!--<bundle>mvn:com.google.developers.gdgfirenze/sensormix-websim-bundle/${project.version}</bundle>-->
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-integration-bundle/${project.version}</bundle>
-    <!--<bundle>mvn:com.google.developers.gdgfirenze/sensormix-karafcli-bundle/${project.version}</bundle>-->
   </feature>
 
-  <feature name="sensormix-frontend" version="${project.version}">
-    <feature version="${project.version}">sensormix-ext</feature>
-    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-datamodel-api/${project.version}</bundle>
-    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-dataservice-bundle/${project.version}</bundle>    
+  <feature name="sensormix-webgui" version="${project.version}">
+    <feature version="${project.version}">sensormix-dataservice</feature>
+
+    <feature>spring-dm-web</feature>
+
+    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-webgui-bundle/${project.version}</bundle>
   </feature>
 
   <feature name="sensormix" version="${project.version}">
-    <feature version="${project.version}">sensormix-frontend</feature>
-    <feature version="${project.version}">sensormix-backend</feature>
+    <feature version="${project.version}">sensormix-dataservice</feature>
+    <feature version="${project.version}">sensormix-webservice</feature>
+    <feature version="${project.version}">sensormix-integration</feature>
+    <feature version="${project.version}">sensormix-webgui</feature>
   </feature>
 
 </features>
