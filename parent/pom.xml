@@ -122,14 +122,15 @@
 		<eclipse.plugin.version>2.9</eclipse.plugin.version>
 		<features.plugin.version>2.2.11</features.plugin.version>
 		<gwt.plugin.version>2.5.1</gwt.plugin.version>
-		<javancss.plugin.version>2.0</javancss.plugin.version>
 		<javadoc.plugin.version>2.9.1</javadoc.plugin.version>
-		<source.plugin.version>2.2.1</source.plugin.version>
+		<javancss.plugin.version>2.0</javancss.plugin.version>
 		<jaxws.plugin.version>2.2</jaxws.plugin.version>
-		<jetty.plugin.version>7.6.12.v20130726</jetty.plugin.version><!--stable: 6.1.26, NEWEST 8.1.8.v20121106 -->
+		<jar.plugin.version>2.4</jar.plugin.version>
 		<jdepend.maven.plugin>2.0-beta-2</jdepend.maven.plugin>
+		<jetty.plugin.version>7.6.12.v20130726</jetty.plugin.version><!--stable: 6.1.26, NEWEST 8.1.8.v20121106 -->
 		<pmd.plugin.version>2.7.1</pmd.plugin.version>
 		<resources.plugin.version>2.6</resources.plugin.version>
+		<source.plugin.version>2.2.1</source.plugin.version>
 		<surefire.plugin.version>2.15</surefire.plugin.version>
 		<verifier.plugin.version>1.0</verifier.plugin.version>
 		<war.plugin.version>2.1.1</war.plugin.version>
@@ -152,6 +153,11 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-clean-plugin</artifactId>
 					<version>${clean.plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${jar.plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>

@@ -11,13 +11,21 @@
 	</parent>
 
 	<artifactId>sensormix-datamodel-api</artifactId>
-	<packaging>bundle</packaging>
+	<packaging>jar</packaging>
 	<name>GDG Firenze :: Sensormix :: API and Datamodel</name>
-	
+
 	<build>
 		<plugins>
 			<plugin>
-				<!-- TODO: for this project that is API, prefer a regular jar osgi-ized with the bundle plugin rather than a full project of packaging bundle -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<version>${bundle.plugin.version}</version>
@@ -28,6 +36,15 @@
 						<Bundle-Description>${project.description}</Bundle-Description>
 					</instructions>
 				</configuration>
+				<executions>
+					<execution>
+						<id>bundle-manifest</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>manifest</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
