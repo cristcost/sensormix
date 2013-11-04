@@ -1,6 +1,7 @@
 package com.google.developers.gdgfirenze.serializer;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Date;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
@@ -16,9 +17,12 @@ public class Serializer {
 	public Serializer() {
 		k = new Kryo();
 		k.setClassLoader(Serializer.class.getClassLoader());
-		k.register(WifiSignalSample.class, 1000);
-		k.register(NumericValueSample.class, 1001);
-		k.register(PositionSample.class, 1002);
+		k.setRegistrationRequired(true);
+		
+		k.register(Date.class, 100);
+		k.register(WifiSignalSample.class, 200);
+		k.register(NumericValueSample.class, 201);
+		k.register(PositionSample.class, 202);
 	}
 
 	public byte[] serialize(AbstractSample orig) {
