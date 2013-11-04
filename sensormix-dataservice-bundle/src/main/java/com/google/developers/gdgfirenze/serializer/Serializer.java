@@ -19,7 +19,10 @@ public class Serializer {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         Output buffer = new Output(bos);
         k.writeClassAndObject(buffer, orig);
-        return buffer.getBuffer();
+        
+        byte[] retVal=new byte[buffer.total()];
+        System.arraycopy(buffer.getBuffer(), 0, retVal, 0, buffer.position());
+        return retVal;
     }
 	
 	public AbstractSample deserialize(byte[] buffer) {

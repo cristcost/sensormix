@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,6 +32,7 @@ public class JpaAbstractSample {
 	@Column(name = "type", nullable = false)
 	private String type;
 
+	@Lob
 	@Column(name = "sample", nullable = false)
 	private byte[] value;
 
