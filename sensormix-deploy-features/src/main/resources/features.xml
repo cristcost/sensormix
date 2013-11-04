@@ -64,7 +64,7 @@
 
     <feature>spring-dm-web</feature>
 
-    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-webgui-bundle/${project.version}/war</bundle>
+    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-webgui-webapp/${project.version}/war</bundle>
   </feature>
 
   <feature name="sensormix" version="${project.version}">

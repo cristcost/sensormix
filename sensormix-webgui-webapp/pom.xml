@@ -10,9 +10,9 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>sensormix-webgui-bundle</artifactId>
+	<artifactId>sensormix-webgui-webapp</artifactId>
 	<packaging>war</packaging>
-	<name>GDG Firenze :: Sensormix :: Web GUI OSGi Bundle</name>
+	<name>GDG Firenze :: Sensormix :: OSGi ready Web GUI</name>
 
 	<profiles>
 		<profile>
