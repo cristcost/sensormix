@@ -109,8 +109,7 @@
 						</goals>
 						<configuration>
 							<servicePattern>**/gwt/**/*Service.java</servicePattern>
-							<!-- <generateDirectory>${project.build.directory}/generated/src/main/java</generateDirectory> -->
-							<generateDirectory>${basedir}/target/generated/src/main/java</generateDirectory>
+							<generateDirectory>${project.build.directory}/generated/src/main/java</generateDirectory>
 						</configuration>
 					</execution>
 				</executions>
