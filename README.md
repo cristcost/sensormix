@@ -3,7 +3,7 @@ Sensormix
 
 Demo of an Integrated  OSGi architecture based on Apache Karaf, Apache Camel, Spring and GWT.
 
-Detailed list of integrated tecnologies
+Detailed list of integrated technologies
 ---------------------------------------
 
 <table>
@@ -23,6 +23,7 @@ Detailed list of integrated tecnologies
 <tr><td>Apache Servicemix</td><td>OK</td><td>4.5.3</td><td>Use 4.6.0 as soon as available</td></tr>
 <tr><td>Arduino IDE</td><td>OK</td><td>1.0.5</td><td></td></tr>
 <tr><td>EclipseLink JPA</td><td>OK</td><td>2.5.0</td><td></td></tr>
+<tr><td>Google Guice</td><td>Ongoing</td><td>3.0</td><td></td></tr>
 <tr><td>Google Web Toolkit</td><td>Ongoing</td><td>2.6.0-rc1</td><td>Use 2.6.0 as soon as available</td></tr>
 <tr><td>GWT Maven Plugin</td><td>OK</td><td>2.6.0-SNAPSHOT</td><td>Use 2.6.0 as soon as available</td></tr>
 <tr><td>HSQLDB JDBC</td><td>OK</td><td>2.2.9</td><td></td></tr>
