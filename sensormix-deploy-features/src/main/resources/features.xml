@@ -64,7 +64,8 @@
 
     <feature>spring-dm-web</feature>
 
-    <bundle>wrap:mvn:com.google.gwt/gwt-servlet/${gwt.version}$Bundle-SymbolicName=gwt-servlet</bundle>
+    <!--<bundle>wrap:mvn:com.google.gwt/gwt-servlet/${gwt.version}$Bundle-SymbolicName=gwt-servlet</bundle>-->
+    <bundle>mvn:com.google.gwt/gwt-servlet/${gwt.version}</bundle>
 
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-webgui-webapp/${project.version}/war</bundle>
   </feature>

@@ -269,6 +269,14 @@
 
 
 	<profiles>
+		<profile>
+			<id>gwtalpha</id>
+			<properties>
+				<gwt.version>2.6.0-rc1</gwt.version>
+				<gwt.plugin.version>2.6.0-SNAPSHOT</gwt.plugin.version>
+			</properties>
+		</profile>
+	
 		<!-- Profiles for Style check -->
 		<profile>
 			<id>nochecks</id>

@@ -14,16 +14,6 @@
 	<packaging>war</packaging>
 	<name>GDG Firenze :: Sensormix :: OSGi ready Web GUI</name>
 
-	<profiles>
-		<profile>
-			<id>gwtalpha</id>
-			<properties>
-				<gwt.version>2.6.0-alpha-00</gwt.version>
-				<gwt.plugin.version>2.6.0-SNAPSHOT</gwt.plugin.version>
-			</properties>
-		</profile>
-	</profiles>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.google.developers.gdgfirenze</groupId>
