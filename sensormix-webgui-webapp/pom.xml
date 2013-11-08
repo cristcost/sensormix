@@ -182,7 +182,8 @@
 							!com.google.developers.gdgfirenze.gwt.client
 						</Export-Package>
 						<Import-Package>
-							<!-- !*.client.*, -->
+							com.google.gwt.user.client.rpc,
+							!com.google.gwt.*.client.*,
 							*
 						</Import-Package>
 					</instructions>
