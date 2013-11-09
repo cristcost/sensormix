@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+
+	<!-- Servlets -->
+	<servlet>
+		<servlet-name>sensormixService</servlet-name>
+		<servlet-class>com.google.developers.gdgfirenze.admin.server.SensormixServiceProxy</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>sensormixService</servlet-name>
+		<url-pattern>/sensormix_admin/service</url-pattern>
+	</servlet-mapping>
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>SensormixAdminApp.html</welcome-file>
+	</welcome-file-list>
+	
+</web-app>

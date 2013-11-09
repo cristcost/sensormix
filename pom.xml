@@ -25,6 +25,7 @@
 			<modules>
 				<module>sensormix-datamodel-api</module>
 				<module>sensormix-webgui-webapp</module>
+				<module>sensormix-admin-webapp</module>
 				<module>sensormix-deploy-features</module>
 		  	</modules>
 		</profile>
@@ -45,10 +46,10 @@
 			</activation>
 			<modules>
 				<module>sensormix-datamodel-api</module>
-				<module>sensormix-webgui-webapp</module>
 				<module>sensormix-dataservice-bundle</module>
 				<module>sensormix-datawebservice-bundle</module>
-				<!--<module>sensormix-websim-bundle</module>-->
+				<module>sensormix-webgui-webapp</module>
+				<module>sensormix-admin-webapp</module>
 				<module>sensormix-integration-bundle</module>
 				<!--<module>sensormix-karafcli-bundle</module>-->
 
