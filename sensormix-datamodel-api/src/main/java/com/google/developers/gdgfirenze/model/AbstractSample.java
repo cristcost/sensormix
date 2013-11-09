@@ -1,5 +1,6 @@
 package com.google.developers.gdgfirenze.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,7 +15,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 @XmlSeeAlso({
 	NumericValueSample.class, PositionSample.class, WifiSignalSample.class
 })
-public abstract class AbstractSample {
+public abstract class AbstractSample implements Serializable {
 
 	@XmlAttribute(required = true, name = "sensorId")
 	@XmlSchemaType(name = "anyURI")

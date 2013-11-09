@@ -5,6 +5,7 @@ import com.google.developers.gdgfirenze.model.NumericValueSample;
 import com.google.developers.gdgfirenze.model.PositionSample;
 import com.google.developers.gdgfirenze.model.WifiSignalSample;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "samples")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SamplesPayload")
-public class SamplesPayload {
+public class SamplesPayload implements Serializable {
   @XmlElements({
       @XmlElement(name = "numericValueSample", type = NumericValueSample.class),
       @XmlElement(name = "positionSample", type = PositionSample.class),

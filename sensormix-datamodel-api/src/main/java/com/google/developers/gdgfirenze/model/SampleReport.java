@@ -1,5 +1,6 @@
 package com.google.developers.gdgfirenze.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -11,40 +12,40 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SampleReport")
-public class SampleReport {
+public class SampleReport implements Serializable {
 
-	@XmlAttribute(required = true, name = "sensorId")
-	@XmlSchemaType(name = "anyURI")
-	private String sensorId;
+  @XmlAttribute(required = true, name = "sensorId")
+  @XmlSchemaType(name = "anyURI")
+  private String sensorId;
 
-	@XmlAttribute(required = false, name = "sampleType")
-	private String sampleType;
+  @XmlAttribute(required = false, name = "sampleType")
+  private String sampleType;
 
-	@XmlElement(required = false, name = "dailySampleReport")
-	private List<DailySampleReport> dailySampleReports;
+  @XmlElement(required = false, name = "dailySampleReport")
+  private List<DailySampleReport> dailySampleReports;
 
-	public String getSensorId() {
-		return sensorId;
-	}
+  public String getSensorId() {
+    return sensorId;
+  }
 
-	public void setSensorId(String sensorId) {
-		this.sensorId = sensorId;
-	}
+  public void setSensorId(String sensorId) {
+    this.sensorId = sensorId;
+  }
 
-	public String getSampleType() {
-		return sampleType;
-	}
+  public String getSampleType() {
+    return sampleType;
+  }
 
-	public void setSampleType(String sampleType) {
-		this.sampleType = sampleType;
-	}
+  public void setSampleType(String sampleType) {
+    this.sampleType = sampleType;
+  }
 
-	public List<DailySampleReport> getDailySampleReports() {
-		return dailySampleReports;
-	}
+  public List<DailySampleReport> getDailySampleReports() {
+    return dailySampleReports;
+  }
 
-	public void setDailySampleReports(List<DailySampleReport> dailySampleReports) {
-		this.dailySampleReports = dailySampleReports;
-	}
+  public void setDailySampleReports(List<DailySampleReport> dailySampleReports) {
+    this.dailySampleReports = dailySampleReports;
+  }
 
 }

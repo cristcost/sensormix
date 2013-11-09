@@ -1,5 +1,7 @@
 package com.google.developers.gdgfirenze.model;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
@@ -8,18 +10,18 @@ import javax.xml.bind.annotation.XmlSchemaType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "NumericValueSample")
-public class NumericValueSample extends AbstractSample {
+public class NumericValueSample extends AbstractSample implements Serializable {
 
-	@XmlAttribute(required = false, name = "value")
-	@XmlSchemaType(name = "double")
-	private Double value;
+  @XmlAttribute(required = false, name = "value")
+  @XmlSchemaType(name = "double")
+  private Double value;
 
-	public Double getValue() {
-		return value;
-	}
+  public Double getValue() {
+    return value;
+  }
 
-	public void setValue(Double value) {
-		this.value = value;
-	}
-	
+  public void setValue(Double value) {
+    this.value = value;
+  }
+
 }

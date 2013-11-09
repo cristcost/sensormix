@@ -6,11 +6,12 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSchemaType;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Sensor")
-public class Sensor {
+public class Sensor implements Serializable {
 
   @XmlAttribute(required = true, name = "id")
   @XmlSchemaType(name = "anyURI")
