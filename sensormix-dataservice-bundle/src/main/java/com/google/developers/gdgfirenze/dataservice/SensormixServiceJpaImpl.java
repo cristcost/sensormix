@@ -111,9 +111,8 @@ public class SensormixServiceJpaImpl implements SensormixService {
 					Path<Date> datePath = jas.get("time");
 					criteria.add(cb.lessThanOrEqualTo(datePath, p));
 				}
-				if (criteria.size() == 0) {
-					throw new RuntimeException("no criteria");
-				} else if (criteria.size() == 1) {
+
+				if (criteria.size() == 1) {
 					cq.where(criteria.get(0));
 				} else {
 					cq.where(cb.and(criteria.toArray(new Predicate[0])));
@@ -183,9 +182,8 @@ public class SensormixServiceJpaImpl implements SensormixService {
 					Path<Date> datePath = jas.get("time");
 					criteria.add(cb.lessThanOrEqualTo(datePath, p));
 				}
-				if (criteria.size() == 0) {
-					throw new RuntimeException("no criteria");
-				} else if (criteria.size() == 1) {
+
+				if (criteria.size() == 1) {
 					cq.where(criteria.get(0));
 				} else {
 					cq.where(cb.and(criteria.toArray(new Predicate[0])));
@@ -223,79 +221,83 @@ public class SensormixServiceJpaImpl implements SensormixService {
 		sr.setDailySampleReports(new ArrayList<DailySampleReport>());
 
 		try {
-			if (from != null && to != null && !from.before(to)) {
-				logger.log(Level.WARNING,
+			if (from != null && to != null) {
+				if(!from.before(to)) {
+					logger.log(Level.WARNING,
 						"Error from date must be before to date");
+				} else {
+					EntityManager em = entityManagerFactory
+							.createEntityManager();
+
+					Calendar start = Calendar.getInstance();
+					Calendar end = Calendar.getInstance();
+					start.setTime(from);
+					end.setTime(to);
+
+					while (start.before(end)) {
+						Date internalStart = start.getTime();
+						start.add(Calendar.DAY_OF_MONTH, 1);
+						Date internalEnd = start.getTime();
+
+						CriteriaBuilder cb = em.getCriteriaBuilder();
+
+						CriteriaQuery<Object> cq = cb.createQuery();
+						Root<JpaAbstractSample> jas = cq
+								.from(JpaAbstractSample.class);
+						cq.multiselect(cb.count(jas));
+						List<Predicate> criteria = new ArrayList<Predicate>();
+						if (sensorId != null && !"".equals(sensorId)) {
+							ParameterExpression<String> p = cb.parameter(
+									String.class, "sensorId");
+							criteria.add(cb.equal(jas.get("sensorId"), p));
+						}
+						if (sampleType != null && !"".equals(sampleType)) {
+							ParameterExpression<String> p = cb.parameter(
+									String.class, "sampleType");
+							criteria.add(cb.equal(jas.get("type"), p));
+						}
+						if (internalStart != null) {
+							ParameterExpression<Date> p = cb.parameter(
+									Date.class, "fromDate");
+							Path<Date> datePath = jas.get("time");
+							criteria.add(cb.greaterThanOrEqualTo(datePath, p));
+						}
+						if (internalEnd != null) {
+							ParameterExpression<Date> p = cb.parameter(
+									Date.class, "toDate");
+							Path<Date> datePath = jas.get("time");
+							criteria.add(cb.lessThanOrEqualTo(datePath, p));
+						}
+
+						if (criteria.size() == 1) {
+							cq.where(criteria.get(0));
+						} else {
+							cq.where(cb.and(criteria.toArray(new Predicate[0])));
+						}
+						Query q = em.createQuery(cq);
+						if (sensorId != null && !"".equals(sensorId)) {
+							q.setParameter("sensorId", sensorId);
+						}
+						if (sampleType != null && !"".equals(sampleType)) {
+							q.setParameter("sampleType", sampleType);
+						}
+						if (from != null) {
+							q.setParameter("fromDate", internalStart);
+						}
+						if (to != null) {
+							q.setParameter("toDate", internalEnd);
+						}
+						Long jass = (Long) q.getSingleResult();
+
+						DailySampleReport dsr = new DailySampleReport();
+						dsr.setDate(internalStart);
+						dsr.setSampleCount(jass);
+						sr.getDailySampleReports().add(dsr);
+					}
+					em.close();
+				} 
 			} else {
-				EntityManager em = entityManagerFactory.createEntityManager();
-
-				Calendar start = Calendar.getInstance();
-				Calendar end = Calendar.getInstance();
-				start.setTime(from);
-				end.setTime(to);
-
-				while (start.before(end)) {
-					Date internalStart = start.getTime();
-					start.add(Calendar.DAY_OF_MONTH, 1);
-					Date internalEnd = start.getTime();
-
-					CriteriaBuilder cb = em.getCriteriaBuilder();
-
-					CriteriaQuery<Object> cq = cb.createQuery();
-					Root<JpaAbstractSample> jas = cq
-							.from(JpaAbstractSample.class);
-					cq.multiselect(cb.count(jas));
-					List<Predicate> criteria = new ArrayList<Predicate>();
-					if (sensorId != null && !"".equals(sensorId)) {
-						ParameterExpression<String> p = cb.parameter(
-								String.class, "sensorId");
-						criteria.add(cb.equal(jas.get("sensorId"), p));
-					}
-					if (sampleType != null && !"".equals(sampleType)) {
-						ParameterExpression<String> p = cb.parameter(
-								String.class, "sampleType");
-						criteria.add(cb.equal(jas.get("type"), p));
-					}
-					if (internalStart != null) {
-						ParameterExpression<Date> p = cb.parameter(Date.class,
-								"fromDate");
-						Path<Date> datePath = jas.get("time");
-						criteria.add(cb.greaterThanOrEqualTo(datePath, p));
-					}
-					if (internalEnd != null) {
-						ParameterExpression<Date> p = cb.parameter(Date.class,
-								"toDate");
-						Path<Date> datePath = jas.get("time");
-						criteria.add(cb.lessThanOrEqualTo(datePath, p));
-					}
-					if (criteria.size() == 0) {
-						throw new RuntimeException("no criteria");
-					} else if (criteria.size() == 1) {
-						cq.where(criteria.get(0));
-					} else {
-						cq.where(cb.and(criteria.toArray(new Predicate[0])));
-					}
-					Query q = em.createQuery(cq);
-					if (sensorId != null && !"".equals(sensorId)) {
-						q.setParameter("sensorId", sensorId);
-					}
-					if (sampleType != null && !"".equals(sampleType)) {
-						q.setParameter("sampleType", sampleType);
-					}
-					if (from != null) {
-						q.setParameter("fromDate", internalStart);
-					}
-					if (to != null) {
-						q.setParameter("toDate", internalEnd);
-					}
-					Long jass = (Long) q.getSingleResult();
-
-					DailySampleReport dsr = new DailySampleReport();
-					dsr.setDate(internalStart);
-					dsr.setSampleCount(jass);
-					sr.getDailySampleReports().add(dsr);
-				}
-				em.close();
+				logger.log(Level.WARNING, "Error: no data filter passed.");
 			}
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Error during samples report creation", e);
@@ -330,9 +332,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				Path<Date> datePath = js.get("lastSeen");
 				criteria.add(cb.lessThanOrEqualTo(datePath, p));
 			}
-			if (criteria.size() == 0) {
-				throw new RuntimeException("no criteria");
-			} else if (criteria.size() == 1) {
+			if (criteria.size() == 1) {
 				cq.where(criteria.get(0));
 			} else {
 				cq.where(cb.and(criteria.toArray(new Predicate[0])));
@@ -374,22 +374,21 @@ public class SensormixServiceJpaImpl implements SensormixService {
 			s.setLat(sensor.getLat());
 			s.setLng(sensor.getLng());
 			EntityManager em = null;
-			EntityTransaction tx =null;
-			
+			EntityTransaction tx = null;
+
 			try {
 				em = entityManagerFactory.createEntityManager();
 				tx = em.getTransaction();
 				tx.begin();
 				em.merge(s);
 				tx.commit();
-				
+
 			} catch (Exception e) {
 				logger.log(Level.SEVERE, "Error during sensor registration", e);
-				if(tx.isActive())
+				if (tx.isActive())
 					tx.rollback();
-			}
-			finally {
-				if(em.isOpen())
+			} finally {
+				if (em.isOpen())
 					em.close();
 			}
 		} else {
@@ -402,12 +401,12 @@ public class SensormixServiceJpaImpl implements SensormixService {
 		if (samples != null) {
 			List<String> checkList = listSensorsIds();
 			EntityManager em = null;
-			EntityTransaction transaction =null;
-			
+			EntityTransaction transaction = null;
+
 			try {
 				em = entityManagerFactory.createEntityManager();
 				transaction = em.getTransaction();
-				
+
 				transaction.begin();
 				for (AbstractSample sample : samples) {
 					if (!checkList.contains(sample.getSensorId())) {
@@ -438,11 +437,10 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				transaction.commit();
 			} catch (Exception e) {
 				logger.log(Level.SEVERE, "Error during samples registration", e);
-				if(transaction.isActive())
+				if (transaction.isActive())
 					transaction.rollback();
-			}
-			finally {
-				if(em.isOpen())
+			} finally {
+				if (em.isOpen())
 					em.close();
 			}
 		} else {

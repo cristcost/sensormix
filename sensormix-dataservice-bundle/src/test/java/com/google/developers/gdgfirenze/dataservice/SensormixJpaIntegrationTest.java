@@ -41,7 +41,7 @@ public class SensormixJpaIntegrationTest {
 	@Parameters
 	public static Collection<Object[]> generateData() {
 		return Arrays.asList(new Object[][] {
-			{ "sm_hsql_db_test"}, {"sm_mysql_db_test"}, {"sm_openjpa_mysql_db_test"}});
+				{"sm_mysql_db_test"}, { "sm_hsql_db_test"}, {"sm_openjpa_mysql_db_test"}});
 	}
 	
 	@Before
@@ -434,5 +434,39 @@ public class SensormixJpaIntegrationTest {
 		System.out.println("readed " + ss.size() + " in " + checkTime
 				+ " milliseconds");
 		assertEquals(3, ss.size());
+	}
+	
+	@Test
+	public void test9() {
+		int count = 10;
+		List<AbstractSample> firstTypeOfSample = new ArrayList<AbstractSample>();
+		Calendar d = Calendar.getInstance();
+		d.set(2013, 10, 22);
+		for (int i = 0; i < count; i++) {
+			NumericValueSample s = new NumericValueSample();
+			s.setSensorId("uri:giuseppe:android:77551144");
+			s.setType("uri:giuseppe:android:numericType");
+			s.setTime(d.getTime());
+			s.setValue((double) i * 152);
+			firstTypeOfSample.add(s);
+		}
+		
+		long checkTime = System.currentTimeMillis();
+		sensormixServiceJpaImpl.recordSamples(firstTypeOfSample);
+		checkTime = System.currentTimeMillis() - checkTime;
+		System.out.println("recorded " + firstTypeOfSample.size() + " in "
+				+ checkTime + " milliseconds");
+
+		checkTime = System.currentTimeMillis();
+		List<Sensor> ss = sensormixServiceJpaImpl.getSensors(null, null, null);
+		List<AbstractSample> sa = sensormixServiceJpaImpl.getSamples(null, null, null, null);
+		SampleReport sr = sensormixServiceJpaImpl.getSampleReport(null, null, null, null);
+		long l = sensormixServiceJpaImpl.countSamples(null, null, null, null);
+		checkTime = System.currentTimeMillis() - checkTime;
+		System.out.println("readed " + ss.size() + " in " + checkTime
+				+ " milliseconds");
+		assertEquals(1, ss.size());
+		assertEquals(10, l);
+		assertEquals(10, sa.size());
 	}
 }
