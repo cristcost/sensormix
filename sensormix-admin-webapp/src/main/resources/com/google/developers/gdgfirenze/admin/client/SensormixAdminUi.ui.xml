@@ -1,0 +1,44 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+	<ui:style>
+		.header {
+			background-image: linear-gradient(#1ad6fd, #1d62f0);
+			background: linear-gradient(to bottom, #1ad6fd 0%, #1d62f0 100%);
+			color: #F7F7F7;
+			border-radius: 8px;
+			padding: 0px 10px;
+		}
+		
+		.sidebar {
+			background: #D1EEFC;
+			color: #5856d6;
+			border-radius: 8px;
+			padding: 0px 10px;
+		}
+		
+		.content {
+			background: #D1EEFC;
+			color: #5856d6;
+			border-radius: 8px;
+			padding: 0px 10px;
+		}
+		.sensorList {
+			border: 1px solid #F7F7F7;
+		}
+	</ui:style>
+	<g:HTMLPanel>
+		<div class='{style.header}'
+			style="position:absolute; top:5px;right:5px;left:5px;height:70px;">
+			<h1>Sensormix Admin Webapp</h1>
+		</div>
+		<div class='{style.sidebar}'
+			style="position:absolute; top:85px;left:5px;width:600px;bottom:5px;">
+			<c:CellList ui:field="sensorList" />
+		</div>
+		<div class='{style.content}'
+			style="position:absolute; top:85px;right:5px;left:630px;bottom:5px;">
+			<p>bla bla bla</p>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

@@ -1,52 +1,46 @@
 package com.google.developers.gdgfirenze.admin.server;
 
 import com.google.developers.gdgfirenze.admin.client.GwtSensormixService;
+import com.google.developers.gdgfirenze.dataservice.SensormixServiceJpaImpl;
 import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.SampleReport;
 import com.google.developers.gdgfirenze.model.Sensor;
 import com.google.developers.gdgfirenze.service.SensormixService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
-
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 
 /**
  * The server side implementation of the RPC service.
  */
 @SuppressWarnings("serial")
-public class SensormixServiceProxy extends RemoteServiceServlet implements GwtSensormixService {
+public class SensormixServiceMock extends RemoteServiceServlet implements GwtSensormixService {
 
-  private ServiceTracker tracker = null;
+  private EntityManagerFactory emf;
+  private SensormixServiceJpaImpl sensormixServiceJpaImpl;
+  private String jpaPersistenceUnitName = "sm_mysql_db_test";
 
   @Override
   public void init() throws ServletException {
     super.init();
-
-    BundleContext context = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
-    tracker = new ServiceTracker(context, SensormixService.class.getName(), null);
-    tracker.open();
+    emf = Persistence.createEntityManagerFactory(jpaPersistenceUnitName);
+    sensormixServiceJpaImpl = new SensormixServiceJpaImpl();
+    sensormixServiceJpaImpl.setEntityManagerFactory(emf);
   }
 
   @Override
   public void destroy() {
     super.destroy();
-    if (tracker != null) {
-      tracker.close();
-    }
+    emf.close();
   }
 
   private SensormixService getService() {
-    try {
-      return (SensormixService) tracker.waitForService(10000);
-    } catch (InterruptedException e) {
-      throw new RuntimeException("Error accessing OSGi service for SensormixService", e);
-    }
+    return sensormixServiceJpaImpl;
   }
 
   @Override

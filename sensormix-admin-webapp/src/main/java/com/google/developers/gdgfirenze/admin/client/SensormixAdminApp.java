@@ -1,20 +1,14 @@
 package com.google.developers.gdgfirenze.admin.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class SensormixAdminApp implements EntryPoint {
 
-  private final GwtSensormixServiceAsync sensormixService = GWT.create(GwtSensormixService.class);
-
   public void onModuleLoad() {
-    final Label helloWorldLabel = new Label();
 
-    helloWorldLabel.setText("Hello world on a GWT app!");
-
-    RootPanel.get().add(helloWorldLabel);
+    SensormixAdminUi ui = new SensormixAdminUi();
+    RootPanel.get().add(ui);
 
   }
   //

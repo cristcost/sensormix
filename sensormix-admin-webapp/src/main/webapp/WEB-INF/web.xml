@@ -6,7 +6,8 @@
 	<!-- Servlets -->
 	<servlet>
 		<servlet-name>sensormixService</servlet-name>
-		<servlet-class>com.google.developers.gdgfirenze.admin.server.SensormixServiceProxy</servlet-class>
+		<!-- <servlet-class>com.google.developers.gdgfirenze.admin.server.SensormixServiceProxy</servlet-class> -->
+		<servlet-class>com.google.developers.gdgfirenze.admin.server.SensormixServiceMock</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -18,5 +19,5 @@
 	<welcome-file-list>
 		<welcome-file>SensormixAdminApp.html</welcome-file>
 	</welcome-file-list>
-	
+
 </web-app>

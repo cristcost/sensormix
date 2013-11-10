@@ -26,7 +26,7 @@
 			<version>${project.version}</version>
 			<classifier>sources</classifier>
 		</dependency>
-		
+
 		<!-- OSGi Dependncies -->
 		<dependency>
 			<groupId>org.osgi</groupId>
@@ -51,6 +51,14 @@
 			<artifactId>gwt-servlet</artifactId>
 			<version>${gwt.version}</version>
 			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Open a data service locally for testing -->
+		<dependency>
+			<groupId>com.google.developers.gdgfirenze</groupId>
+			<artifactId>sensormix-dataservice-bundle</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
