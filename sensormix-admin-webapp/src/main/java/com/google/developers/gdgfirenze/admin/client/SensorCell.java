@@ -14,13 +14,11 @@ public class SensorCell extends AbstractCell<Sensor> {
       return;
     }
 
-    sb.appendHtmlConstant("<span title=\"+sensor.getId()+\">");
+    sb.appendHtmlConstant("<table><tr><td title=\"" + sensor.getId() + "\">");
     sb.appendEscaped(sensor.getName());
-    sb.appendHtmlConstant("</span>");
-    sb.appendHtmlConstant("<span>");
+    sb.appendHtmlConstant("</td></tr><tr><td style=\"font-size:0.9em;\">");
     sb.appendEscaped(sensor.getDescription());
-    sb.appendHtmlConstant("</span>");
+    sb.appendHtmlConstant("</td></td></table>");
 
   }
-
 }
