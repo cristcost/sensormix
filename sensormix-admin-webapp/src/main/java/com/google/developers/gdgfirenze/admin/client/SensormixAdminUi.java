@@ -29,7 +29,7 @@ public class SensormixAdminUi extends Composite {
   private final class SampleListHandler implements AsyncCallback<List> {
     @Override
     public void onFailure(Throwable caught) {
-      infoMessage.setText("Error while loading Sample list!");
+      infoMessage.setText("Error while loading Sample list: " + caught.getMessage());
     }
 
     @Override
@@ -43,7 +43,7 @@ public class SensormixAdminUi extends Composite {
 
     @Override
     public void onFailure(Throwable caught) {
-      infoMessage.setText("Error while loading Sensor list!");
+      infoMessage.setText("Error while loading Sensor list: " + caught.getMessage());
     }
 
     @Override
@@ -79,7 +79,7 @@ public class SensormixAdminUi extends Composite {
   private final class SensorUpdateHandler implements AsyncCallback<List> {
     @Override
     public void onFailure(Throwable caught) {
-      infoMessage.setText("Error while loading Sensors!");
+      infoMessage.setText("Error while loading Sensors: " + caught.getMessage());
     }
 
     @Override

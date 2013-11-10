@@ -6,8 +6,10 @@
 	<!-- Servlets -->
 	<servlet>
 		<servlet-name>sensormixService</servlet-name>
-		<!-- <servlet-class>com.google.developers.gdgfirenze.admin.server.SensormixServiceProxy</servlet-class> -->
-		<servlet-class>com.google.developers.gdgfirenze.admin.server.SensormixServiceMock</servlet-class>
+		<servlet-class>com.google.developers.gdgfirenze.admin.server.SensormixServiceProxy
+		</servlet-class>
+		<!-- Local service to be used for testing -->
+		<!-- <servlet-class>com.google.developers.gdgfirenze.admin.server.SensormixServiceMock</servlet-class> -->
 	</servlet>
 
 	<servlet-mapping>

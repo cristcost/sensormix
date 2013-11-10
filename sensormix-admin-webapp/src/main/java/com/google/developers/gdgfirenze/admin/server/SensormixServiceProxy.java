@@ -13,6 +13,7 @@ import org.osgi.util.tracker.ServiceTracker;
 
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 
@@ -21,6 +22,8 @@ import javax.servlet.ServletException;
  */
 @SuppressWarnings("serial")
 public class SensormixServiceProxy extends RemoteServiceServlet implements GwtSensormixService {
+
+  private static final Logger logger = Logger.getLogger(SensormixServiceProxy.class.getName());
 
   private ServiceTracker tracker = null;
 
@@ -51,7 +54,13 @@ public class SensormixServiceProxy extends RemoteServiceServlet implements GwtSe
 
   @Override
   public List<String> listSensorsIds() {
-    return getService().listSensorsIds();
+    List<String> listSensorsIds = getService().listSensorsIds();
+    if (listSensorsIds != null) {
+      logger.info("Sending " + listSensorsIds.size() + " sensor ids to GWT");
+    } else {
+      logger.warning("Sensor IDs are null!");
+    }
+    return listSensorsIds;
   }
 
   @Override
@@ -61,7 +70,13 @@ public class SensormixServiceProxy extends RemoteServiceServlet implements GwtSe
 
   @Override
   public List<AbstractSample> getSamples(String sensorId, String sampleType, Date from, Date to) {
-    return getService().getSamples(sensorId, sampleType, from, to);
+    List<AbstractSample> samples = getService().getSamples(sensorId, sampleType, from, to);
+    if (samples != null) {
+      logger.info("Sending " + samples.size() + " samples to GWT");
+    } else {
+      logger.warning("Samples are null!");
+    }
+    return samples;
   }
 
   @Override
@@ -76,7 +91,13 @@ public class SensormixServiceProxy extends RemoteServiceServlet implements GwtSe
 
   @Override
   public List<Sensor> getSensors(List<String> sensorIds, Date from, Date to) {
-    return getService().getSensors(sensorIds, from, to);
+    List<Sensor> sensors = getService().getSensors(sensorIds, from, to);
+    if (sensors != null) {
+      logger.info("Sending " + sensors.size() + " sensor to GWT");
+    } else {
+      logger.warning("Sensors are null!");
+    }
+    return sensors;
   }
 
   @Override
