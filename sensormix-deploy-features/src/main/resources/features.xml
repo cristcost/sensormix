@@ -61,13 +61,16 @@
 
   <feature name="sensormix-webgui" version="${project.version}">
     <feature version="${project.version}">sensormix-dataservice</feature>
-
     <feature>spring-dm-web</feature>
-
-    <!--<bundle>wrap:mvn:com.google.gwt/gwt-servlet/${gwt.version}$Bundle-SymbolicName=gwt-servlet</bundle>-->
     <bundle>mvn:com.google.gwt/gwt-servlet/${gwt.version}</bundle>
-
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-webgui-webapp/${project.version}/war</bundle>
+  </feature>
+
+  <feature name="sensormix-admin" version="${project.version}">
+    <feature version="${project.version}">sensormix-dataservice</feature>
+    <feature>spring-dm-web</feature>
+    <bundle>mvn:com.google.gwt/gwt-servlet/${gwt.version}</bundle>
+    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-admin-webapp/${project.version}/war</bundle>
   </feature>
 
   <feature name="sensormix" version="${project.version}">
@@ -75,6 +78,7 @@
     <feature version="${project.version}">sensormix-webservice</feature>
     <feature version="${project.version}">sensormix-integration</feature>
     <feature version="${project.version}">sensormix-webgui</feature>
+    <feature version="${project.version}">sensormix-admin</feature>
   </feature>
 
 </features>
