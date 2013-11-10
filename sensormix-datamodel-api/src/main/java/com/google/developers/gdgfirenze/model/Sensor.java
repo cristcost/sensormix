@@ -15,7 +15,7 @@ public class Sensor implements Serializable {
 
   @XmlAttribute(required = true, name = "id")
   @XmlSchemaType(name = "anyURI")
-  public String id;
+  private String id;
 
   @XmlAttribute(required = false, name = "name")
   private String name;
@@ -25,7 +25,7 @@ public class Sensor implements Serializable {
 
   @XmlAttribute(required = false, name = "lastSeen")
   @XmlSchemaType(name = "dateTime")
-  public Date lastSeen;
+  private Date lastSeen;
 
   @XmlAttribute(required = false, name = "lat")
   @XmlSchemaType(name = "double")
