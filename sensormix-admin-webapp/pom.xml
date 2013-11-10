@@ -14,6 +14,19 @@
 	<packaging>war</packaging>
 	<name>GDG Firenze :: Sensormix :: Admin Web GUI</name>
 
+	<properties>
+		<sensormix-service.class>com.google.developers.gdgfirenze.admin.server.SensormixServiceProxy</sensormix-service.class>
+	</properties>
+
+	<profiles>
+		<profile>
+			<id>local</id>
+			<properties>
+				<sensormix-service.class>com.google.developers.gdgfirenze.admin.server.SensormixServiceMock</sensormix-service.class>
+			</properties>
+		</profile>
+	</profiles>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.google.developers.gdgfirenze</groupId>
@@ -88,6 +101,13 @@
 						<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
 					</archive>
 					<webResources>
+						<resource>
+							<filtering>true</filtering>
+							<directory>${basedir}/src/main/webapp/</directory>
+							<includes>
+								<include>**/web.xml</include>
+							</includes>
+						</resource>
 					</webResources>
 				</configuration>
 			</plugin>

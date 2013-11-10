@@ -6,10 +6,8 @@
 	<!-- Servlets -->
 	<servlet>
 		<servlet-name>sensormixService</servlet-name>
-		<servlet-class>com.google.developers.gdgfirenze.admin.server.SensormixServiceProxy
-		</servlet-class>
-		<!-- Local service to be used for testing -->
-		<!-- <servlet-class>com.google.developers.gdgfirenze.admin.server.SensormixServiceMock</servlet-class> -->
+		<!-- Filtering resource to enable testing profile with local test class -->
+		<servlet-class>${sensormix-service.class}</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
