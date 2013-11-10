@@ -4,7 +4,6 @@ import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.Sensor;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.HasKeyboardPagingPolicy.KeyboardPagingPolicy;
@@ -25,6 +24,19 @@ import java.util.List;
 public class SensormixAdminUi extends Composite {
 
   interface SensormixAdminUiUiBinder extends UiBinder<Widget, SensormixAdminUi> {
+  }
+
+  private final class SampleListHandler implements AsyncCallback<List> {
+    @Override
+    public void onFailure(Throwable caught) {
+      infoMessage.setText("Error while loading Sample list!");
+    }
+
+    @Override
+    public void onSuccess(List result) {
+      infoMessage.setText("");
+      sampleList.setRowData(result);
+    }
   }
 
   private final class SensorListUpdateHandler implements AsyncCallback<List> {
@@ -55,10 +67,13 @@ public class SensormixAdminUi extends Composite {
         sensorLat.setValue(sensor.getLat());
         sensorLng.setValue(sensor.getLng());
 
+        reloadSamples(sensor.getId());
+
       } else {
         sensorDetailPanel.setVisible(false);
       }
     }
+
   }
 
   private final class SensorUpdateHandler implements AsyncCallback<List> {
@@ -86,10 +101,12 @@ public class SensormixAdminUi extends Composite {
   @UiField
   Label infoMessage;
 
-  @UiField
+  @UiField(provided = true)
   CellList<AbstractSample> sampleList;
+
   @UiField
   Label sensorDescription;
+
   @UiField
   HTMLPanel sensorDetailPanel;
 
@@ -98,10 +115,11 @@ public class SensormixAdminUi extends Composite {
 
   @UiField
   DateLabel sensorLastSeen;
+
   @UiField
   NumberLabel<Double> sensorLat;
 
-  @UiField
+  @UiField(provided = true)
   CellList<Sensor> sensorList;
 
   @UiField
@@ -115,10 +133,9 @@ public class SensormixAdminUi extends Composite {
   private SingleSelectionModel<Sensor> sensorSelectionModel;
 
   public SensormixAdminUi() {
-    initWidget(uiBinder.createAndBindUi(this));
-  }
+    sensorList = makeSensorList();
+    sampleList = makeSampleList();
 
-  public SensormixAdminUi(String firstName) {
     initWidget(uiBinder.createAndBindUi(this));
   }
 
@@ -128,8 +145,15 @@ public class SensormixAdminUi extends Composite {
     sensorDetailPanel.setVisible(false);
   }
 
-  @UiFactory
-  CellList<Sensor> makeSensorList() { // method name is insignificant
+  private CellList<AbstractSample> makeSampleList() { // method name is
+                                                      // insignificant
+    SampleCell cell = new SampleCell();
+    final CellList<AbstractSample> ret = new CellList<AbstractSample>(cell);
+
+    return ret;
+  }
+
+  private CellList<Sensor> makeSensorList() { // method name is insignificant
 
     SensorCell cell = new SensorCell();
     final CellList<Sensor> ret = new CellList<Sensor>(cell, KEY_PROVIDER);
@@ -145,10 +169,14 @@ public class SensormixAdminUi extends Composite {
     return ret;
   }
 
+  private void reloadSamples(String id) {
+    infoMessage.setText("Loading Samples for sensor " + id + "...");
+    sensormixService.getSamples(id, null, null, null, new SampleListHandler());
+  }
+
   private void reloadSensors() {
     // update sensors
     infoMessage.setText("Loading Sensor list...");
     sensormixService.listSensorsIds(new SensorListUpdateHandler());
   }
-
 }
