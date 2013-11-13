@@ -14,19 +14,6 @@
 	<packaging>war</packaging>
 	<name>GDG Firenze :: Sensormix :: Admin Web GUI</name>
 
-	<properties>
-		<sensormix-service.class>com.google.developers.gdgfirenze.admin.server.SensormixServiceProxy</sensormix-service.class>
-	</properties>
-
-	<profiles>
-		<profile>
-			<id>local</id>
-			<properties>
-				<sensormix-service.class>com.google.developers.gdgfirenze.admin.server.SensormixServiceMock</sensormix-service.class>
-			</properties>
-		</profile>
-	</profiles>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.google.developers.gdgfirenze</groupId>
@@ -172,15 +159,20 @@
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Description>${project.description}</Bundle-Description>
 						<Web-ContextPath>/${project.artifactId}</Web-ContextPath>
-						<!-- <_wab>src/main/webapp</_wab> -->
 						<Bundle-ClassPath>.,WEB-INF/classes</Bundle-ClassPath>
-						<Export-Package>
-							!com.google.developers.gdgfirenze.gwt.client
-						</Export-Package>
-						<!-- Alternative - import with optional resolution: -->
-						<!-- com.google.gwt.*.client.*;resolution:=optional, -->
+						<!-- Don't export anything -->
+						<Export-Package />
+						<!-- Some client code is required on server, some don't -->
 						<Import-Package>
-							com.google.gwt.user.client.rpc,
+							com.google.gwt.user.client.rpc.*,
+							com.google.gwt.user.client.rpc.core.com.google.gwt.core.shared,
+							com.google.gwt.user.client.rpc.core.java.lang,
+							com.google.gwt.user.client.rpc.core.java.math,
+							com.google.gwt.user.client.rpc.core.java.sql,
+							com.google.gwt.user.client.rpc.core.java.util,
+							com.google.gwt.user.client.rpc.core.java.util.logging,
+							com.google.gwt.user.server.rpc.core.java.lang,
+							com.google.gwt.user.server.rpc.core.java.util,
 							!com.google.gwt.*.client.*,
 							*
 						</Import-Package>
