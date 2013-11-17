@@ -8,7 +8,7 @@
 		<servlet-name>sensormixService</servlet-name>
 		<!-- Filtering resource to enable testing profile with local test class -->
 
-		<servlet-class>com.google.developers.gdgfirenze.admin.server.SensormixServiceProxy
+		<servlet-class>com.google.developers.gdgfirenze.admin.server.SensormixServiceMock
 		</servlet-class>
 
 		<!-- <servlet-class>com.google.developers.gdgfirenze.admin.server.SensormixServiceMock -->

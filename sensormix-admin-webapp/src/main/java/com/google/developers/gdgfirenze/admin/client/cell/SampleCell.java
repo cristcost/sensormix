@@ -1,4 +1,4 @@
-package com.google.developers.gdgfirenze.admin.client;
+package com.google.developers.gdgfirenze.admin.client.cell;
 
 import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.gwt.cell.client.AbstractCell;

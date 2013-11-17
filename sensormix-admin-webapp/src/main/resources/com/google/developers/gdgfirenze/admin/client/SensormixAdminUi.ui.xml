@@ -2,68 +2,29 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 	<ui:style>
-		.header {
-			position: absolute;
-			top: 5px;
-			right: 5px;
-			left: 5px;
-			height: 90px;
-		}
 		
-		.sensorList {
-			position: absolute;
-			top: 105px;
-			left: 5px;
-			width: 300px;
+		.navigator {
 			bottom: 5px;
 			border: 1px solid #ccc;
 		}
 		
 		.sensorDetail {
-			position: absolute;
-			top: 105px;
-			left: 330px;
-			width: 500px;
 			bottom: 5px;
 			border: 1px solid #ccc;
 		}
 	</ui:style>
-	<g:HTMLPanel>
-		<div class='{style.header}'>
-			<h1>Sensormix Admin Webapp</h1>
-			<span>
-				<g:Label ui:field="infoMessage" />
-			</span>
-		</div>
-		<div class='{style.sensorList}'>
-			<c:CellList ui:field="sensorList" />
-		</div>
-		<div class='{style.sensorDetail}'>
-			<g:HTMLPanel ui:field="sensorDetailPanel">
-				<h3>
-					<g:Label ui:field="sensorName" />
-				</h3>
-				<p>
-					<g:Label ui:field="sensorDescription" />
-				</p>
-				<dl>
-					<dt>Sensor Id:</dt>
-					<dd>
-						<g:Label ui:field="sensorId" />
-					</dd>
-					<dt>Last Seen:</dt>
-					<dd>
-						<g:DateLabel ui:field="sensorLastSeen" />
-					</dd>
-					<dt>Position:</dt>
-					<dd>
-						<g:NumberLabel ui:field="sensorLat" />
-						,
-						<g:NumberLabel ui:field="sensorLng" />
-					</dd>
-				</dl>
-				<c:CellList ui:field="sampleList" />
+	<g:DockLayoutPanel unit='PX'>
+		<g:north size='90'>
+			<g:HTMLPanel>
+				<h1>Sensormix Admin Webapp</h1>
+				<span>
+					<g:Label ui:field="infoMessage" />
+				</span>
 			</g:HTMLPanel>
-		</div>
-	</g:HTMLPanel>
+		</g:north>
+		<g:center>
+			<c:CellBrowser ui:field="navigator" addStyleNames='{style.navigator}'/>
+		</g:center>
+	</g:DockLayoutPanel>
+	
 </ui:UiBinder> 
