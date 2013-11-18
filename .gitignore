@@ -6,3 +6,5 @@ target/
 .pmdruleset
 .project
 .DS_Store
+
+sensormix-admin-webapp/.gwt/.gwt-log

@@ -23,6 +23,10 @@
 	<bean id="mockService"
 		class="com.google.developers.gdgfirenze.integration.SensormixServiceMock" />
 
+	<!-- <bean id="mockService" -->
+	<!-- class="com.google.developers.gdgfirenze.integration.SensormixServiceMockJpa" 
+		init-method="init" destroy-method="destroy"/> -->
+
 	<!-- Routes -->
 	<camelContext id="testIntegrationContext" xmlns="http://camel.apache.org/schema/spring">
 
