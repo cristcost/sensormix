@@ -108,7 +108,7 @@ public class SensormixJpaIntegrationTest {
 				+ checkTime + " milliseconds");
 		checkTime = System.currentTimeMillis();
 		List<AbstractSample> ids = sensormixServiceJpaImpl.getSamples(
-				"uri:giuseppe:android:77551145", null, null, null);
+				"uri:giuseppe:android:77551145", null, null, null, null, null);
 		checkTime = System.currentTimeMillis() - checkTime;
 		System.out.println("readed " + ids.size() + " in " + checkTime
 				+ " milliseconds");
@@ -157,7 +157,7 @@ public class SensormixJpaIntegrationTest {
 		d.set(2013, 9, 22);
 		checkTime = System.currentTimeMillis();
 		List<AbstractSample> ids = sensormixServiceJpaImpl.getSamples(null,
-				null, d.getTime(), null);
+				null, d.getTime(), null, null, null);
 		checkTime = System.currentTimeMillis() - checkTime;
 		System.out.println("readed " + ids.size() + " in " + checkTime
 				+ " milliseconds");
@@ -165,7 +165,7 @@ public class SensormixJpaIntegrationTest {
 
 		d.set(2013, 10, 21);
 		checkTime = System.currentTimeMillis();
-		ids = sensormixServiceJpaImpl.getSamples(null, null, null, d.getTime());
+		ids = sensormixServiceJpaImpl.getSamples(null, null, null, d.getTime(), null, null);
 		checkTime = System.currentTimeMillis() - checkTime;
 		System.out.println("readed " + ids.size() + " in " + checkTime
 				+ " milliseconds");
@@ -176,7 +176,7 @@ public class SensormixJpaIntegrationTest {
 		d.set(2013, 8, 21);
 		Date from = d.getTime();
 		checkTime = System.currentTimeMillis();
-		ids = sensormixServiceJpaImpl.getSamples(null, null, from, to);
+		ids = sensormixServiceJpaImpl.getSamples(null, null, from, to, null, null);
 		checkTime = System.currentTimeMillis() - checkTime;
 		System.out.println("readed " + ids.size() + " in " + checkTime
 				+ " milliseconds");
@@ -224,7 +224,7 @@ public class SensormixJpaIntegrationTest {
 				+ checkTime + " milliseconds");
 		checkTime = System.currentTimeMillis();
 		List<AbstractSample> ids = sensormixServiceJpaImpl.getSamples(null,
-				"uri:giuseppe:android:positionType", null, null);
+				"uri:giuseppe:android:positionType", null, null, null, null);
 		checkTime = System.currentTimeMillis() - checkTime;
 		System.out.println("readed " + ids.size() + " in " + checkTime
 				+ " milliseconds");
@@ -459,7 +459,7 @@ public class SensormixJpaIntegrationTest {
 
 		checkTime = System.currentTimeMillis();
 		List<Sensor> ss = sensormixServiceJpaImpl.getSensors(null, null, null);
-		List<AbstractSample> sa = sensormixServiceJpaImpl.getSamples(null, null, null, null);
+		List<AbstractSample> sa = sensormixServiceJpaImpl.getSamples(null, null, null, null, null, null);
 		SampleReport sr = sensormixServiceJpaImpl.getSampleReport(null, null, null, null);
 		long l = sensormixServiceJpaImpl.countSamples(null, null, null, null);
 		checkTime = System.currentTimeMillis() - checkTime;

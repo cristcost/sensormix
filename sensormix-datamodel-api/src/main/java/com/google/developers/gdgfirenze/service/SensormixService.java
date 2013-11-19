@@ -45,7 +45,9 @@ public interface SensormixService {
   @WebResult(name = "sample")
   List<AbstractSample> getSamples(@WebParam(name = "sensorId") String sensorId, @WebParam(
       name = "sampleType") String sampleType, @WebParam(name = "from") Date from, @WebParam(
-      name = "to") Date to);
+      name = "to") Date to, @WebParam(
+    	      name = "limitFrom") Long limitFrom, @WebParam(
+    	    	      name = "limitCount") Long limitCount );
 
   @WebMethod(action = "urn:#countSamples")
   @RequestWrapper(localName = "countSamplesIn",

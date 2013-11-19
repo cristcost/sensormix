@@ -73,7 +73,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 
 	@Override
 	public List<AbstractSample> getSamples(String sensorId, String sampleType,
-			Date from, Date to) {
+			Date from, Date to, Long limitFrom, Long limitCount) {
 
 		List<AbstractSample> samples = new ArrayList<>();
 		try {
