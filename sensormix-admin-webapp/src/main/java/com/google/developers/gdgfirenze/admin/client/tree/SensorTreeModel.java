@@ -6,6 +6,7 @@ import com.google.developers.gdgfirenze.admin.client.GwtSensormixService;
 import com.google.developers.gdgfirenze.admin.client.GwtSensormixServiceAsync;
 import com.google.developers.gdgfirenze.admin.client.cell.SampleCell;
 import com.google.developers.gdgfirenze.admin.client.cell.SensorCell;
+import com.google.developers.gdgfirenze.admin.client.model.SamplesRange;
 import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.Sensor;
 import com.google.gwt.core.client.GWT;
@@ -66,21 +67,17 @@ public class SensorTreeModel implements TreeViewModel {
 		@Override
 		protected void onRangeChanged(HasData<AbstractSample> display) {
 			final Range range = display.getVisibleRange();
-			sensormixService.getSamples(sensorId, null, null, null,
-					new AsyncCallback<List<AbstractSample>>() {
+			final int start = range.getStart();
+			sensormixService.getSamplesRange(sensorId, null, null, null,
+					(long) start, (long) range.getLength(),
+					new AsyncCallback<SamplesRange>() {
 
 						@Override
-						public void onSuccess(List<AbstractSample> result) {
+						public void onSuccess(SamplesRange result) {
 							if (result != null) {
-								int start = range.getStart();
-								int end = start + range.getLength();
-								if (end > result.size()) {
-									end = result.size();
-								}
-								List<AbstractSample> dataInRange = result
-										.subList(start, end);
-								updateRowCount(result.size(), true);
-								updateRowData(start, dataInRange);
+								updateRowCount((int) result.getSamplesCount(),
+										true);
+								updateRowData(start, result.getSamples());
 							}
 						}
 

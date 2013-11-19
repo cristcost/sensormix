@@ -24,11 +24,6 @@ public class SensormixServiceMock implements SensormixService {
   }
 
   @Override
-  public List<AbstractSample> getSamples(String sensorId, String sampleType, Date from, Date to) {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
   public long countSamples(String sensorId, String sampleType, Date from, Date to) {
     throw new UnsupportedOperationException();
   }
@@ -86,5 +81,11 @@ public class SensormixServiceMock implements SensormixService {
       System.out.println("recordSamples: Mock Service has received null");
     }
   }
+
+@Override
+public List<AbstractSample> getSamples(String sensorId, String sampleType,
+		Date from, Date to, Long limitFrom, Long limitCount) {
+    throw new UnsupportedOperationException();
+}
 
 }

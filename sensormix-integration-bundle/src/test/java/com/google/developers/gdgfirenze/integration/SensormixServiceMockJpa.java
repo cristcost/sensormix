@@ -47,8 +47,8 @@ public class SensormixServiceMockJpa implements SensormixService {
   }
 
   @Override
-  public List<AbstractSample> getSamples(String sensorId, String sampleType, Date from, Date to) {
-    return getService().getSamples(sensorId, sampleType, from, to);
+  public List<AbstractSample> getSamples(String sensorId, String sampleType, Date from, Date to,  Long limitFrom, Long limitCount) {
+    return getService().getSamples(sensorId, sampleType, from, to, limitFrom, limitCount);
   }
 
   @Override
