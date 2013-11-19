@@ -469,4 +469,39 @@ public class SensormixJpaIntegrationTest {
 		assertEquals(10, l);
 		assertEquals(10, sa.size());
 	}
+	
+	@Test
+	public void test10() {
+		int numberOfSampleInserted = 1000;
+		Long numberOfSampleRequested = new Long(333);
+		Long firstSampleRequested = new Long(112);
+		List<AbstractSample> firstTypeOfSample = new ArrayList<AbstractSample>();
+		Calendar d = Calendar.getInstance();
+		d.set(2013, 10, 22);
+		for (int i = 0; i < numberOfSampleInserted; i++) {
+			NumericValueSample s = new NumericValueSample();
+			s.setSensorId("uri:giuseppe:android:77551144");
+			s.setType("uri:giuseppe:android:numericType");
+			s.setTime(d.getTime());
+			s.setValue((double) i * 10);
+			firstTypeOfSample.add(s);
+		}
+		
+		long checkTime = System.currentTimeMillis();
+		sensormixServiceJpaImpl.recordSamples(firstTypeOfSample);
+		checkTime = System.currentTimeMillis() - checkTime;
+		System.out.println("recorded " + firstTypeOfSample.size() + " in "
+				+ checkTime + " milliseconds");
+
+		checkTime = System.currentTimeMillis();
+		List<AbstractSample> sa = sensormixServiceJpaImpl.getSamples(null, null, null, null, firstSampleRequested, numberOfSampleRequested);
+		checkTime = System.currentTimeMillis() - checkTime;
+		System.out.println("readed " + sa.size() + " in " + checkTime
+				+ " milliseconds");
+		assertEquals(numberOfSampleRequested.intValue(), sa.size());
+		for(int i=0; i< numberOfSampleRequested.intValue(); i++) {
+			NumericValueSample ns=(NumericValueSample)sa.get(i);
+			assertEquals(ns.getValue(), new Double((firstSampleRequested.intValue()+i)*10));
+		}
+	}
 }

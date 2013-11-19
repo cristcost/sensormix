@@ -130,6 +130,10 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				if (to != null) {
 					q.setParameter("toDate", to);
 				}
+				if (limitCount != null && limitFrom != null) {
+					q.setFirstResult(limitFrom.intValue());
+					q.setMaxResults(limitCount.intValue());
+				}
 				List<JpaAbstractSample> jass = q.getResultList();
 				for (Iterator<?> i = jass.iterator(); i.hasNext();) {
 					JpaAbstractSample u = (JpaAbstractSample) i.next();
@@ -222,9 +226,9 @@ public class SensormixServiceJpaImpl implements SensormixService {
 
 		try {
 			if (from != null && to != null) {
-				if(!from.before(to)) {
+				if (!from.before(to)) {
 					logger.log(Level.WARNING,
-						"Error from date must be before to date");
+							"Error from date must be before to date");
 				} else {
 					EntityManager em = entityManagerFactory
 							.createEntityManager();
@@ -295,7 +299,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 						sr.getDailySampleReports().add(dsr);
 					}
 					em.close();
-				} 
+				}
 			} else {
 				logger.log(Level.WARNING, "Error: no data filter passed.");
 			}
