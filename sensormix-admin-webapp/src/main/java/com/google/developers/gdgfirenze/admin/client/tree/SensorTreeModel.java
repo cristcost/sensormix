@@ -90,9 +90,6 @@ public class SensorTreeModel implements TreeViewModel {
 						@Override
 						public void onSuccess(List<AbstractSample> result) {
 							if (result != null) {
-								// updateRowCount((int)
-								// result.getSamplesCount(),
-								// true);
 								updateRowData(start, result);
 							}
 						}
