@@ -3,7 +3,6 @@ package com.google.developers.gdgfirenze.admin.client;
 import java.util.Date;
 import java.util.List;
 
-import com.google.developers.gdgfirenze.admin.client.model.SamplesRange;
 import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.SampleReport;
 import com.google.developers.gdgfirenze.model.Sensor;
@@ -32,8 +31,4 @@ public interface GwtSensormixServiceAsync {
 
 	void registerSensor(Sensor sensor, AsyncCallback<Void> callback);
 	
-	void getSamplesRange(String sensorId, String sampleType, Date from,
-			Date to, Long limitFrom, Long limitCount,
-			AsyncCallback<SamplesRange> callback);
-
 }

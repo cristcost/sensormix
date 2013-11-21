@@ -8,7 +8,6 @@ import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 
 import com.google.developers.gdgfirenze.admin.client.GwtSensormixService;
-import com.google.developers.gdgfirenze.admin.client.model.SamplesRange;
 import com.google.developers.gdgfirenze.dataservice.SensormixServiceJpaImpl;
 import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.SampleReport;
@@ -87,17 +86,6 @@ public class SensormixServiceMock extends RemoteServiceServlet implements
 	@Override
 	public void recordSamples(List<AbstractSample> samples) {
 		getService().recordSamples(samples);
-	}
-
-	@Override
-	public SamplesRange getSamplesRange(String sensorId, String sampleType,
-			Date from, Date to, Long limitFrom, Long limitCount) {
-		SamplesRange samplesRange = new SamplesRange();
-		samplesRange.setSamples(getSamples(sensorId, sampleType, from, to,
-				limitFrom, limitCount));
-		samplesRange.setSamplesCount(countSamples(sensorId, sampleType, from,
-				to));
-		return samplesRange;
 	}
 
 }
