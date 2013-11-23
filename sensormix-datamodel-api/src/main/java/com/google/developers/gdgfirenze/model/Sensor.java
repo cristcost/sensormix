@@ -13,74 +13,86 @@ import java.util.Date;
 @XmlType(name = "Sensor")
 public class Sensor implements Serializable {
 
-  @XmlAttribute(required = true, name = "id")
-  @XmlSchemaType(name = "anyURI")
-  private String id;
+	@XmlAttribute(required = true, name = "id")
+	@XmlSchemaType(name = "anyURI")
+	private String id;
 
-  @XmlAttribute(required = false, name = "name")
-  private String name;
+	@XmlAttribute(required = false, name = "type")
+	@XmlSchemaType(name = "anyURI")
+	private String type;
 
-  @XmlAttribute(required = false, name = "description")
-  private String description;
+	@XmlAttribute(required = false, name = "name")
+	private String name;
 
-  @XmlAttribute(required = false, name = "lastSeen")
-  @XmlSchemaType(name = "dateTime")
-  private Date lastSeen;
+	@XmlAttribute(required = false, name = "description")
+	private String description;
 
-  @XmlAttribute(required = false, name = "lat")
-  @XmlSchemaType(name = "double")
-  private Double lat;
+	@XmlAttribute(required = false, name = "lastSeen")
+	@XmlSchemaType(name = "dateTime")
+	private Date lastSeen;
 
-  @XmlAttribute(required = false, name = "lng")
-  @XmlSchemaType(name = "double")
-  private Double lng;
+	@XmlAttribute(required = false, name = "lat")
+	@XmlSchemaType(name = "double")
+	private Double lat;
 
-  public String getId() {
-    return id;
-  }
+	@XmlAttribute(required = false, name = "lng")
+	@XmlSchemaType(name = "double")
+	private Double lng;
 
-  public void setId(String id) {
-    this.id = id;
-  }
+	public String getId() {
+		return id;
+	}
 
-  public Date getLastSeen() {
-    return lastSeen;
-  }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-  public void setLastSeen(Date lastSeen) {
-    this.lastSeen = lastSeen;
-  }
+	public Date getLastSeen() {
+		return lastSeen;
+	}
 
-  public String getName() {
-    return name;
-  }
+	public void setLastSeen(Date lastSeen) {
+		this.lastSeen = lastSeen;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public String getName() {
+		return name;
+	}
 
-  public String getDescription() {
-    return description;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+	public String getDescription() {
+		return description;
+	}
 
-  public Double getLat() {
-    return lat;
-  }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-  public void setLat(Double lat) {
-    this.lat = lat;
-  }
+	public Double getLat() {
+		return lat;
+	}
 
-  public Double getLng() {
-    return lng;
-  }
+	public void setLat(Double lat) {
+		this.lat = lat;
+	}
 
-  public void setLng(Double lng) {
-    this.lng = lng;
-  }
+	public Double getLng() {
+		return lng;
+	}
+
+	public void setLng(Double lng) {
+		this.lng = lng;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 }

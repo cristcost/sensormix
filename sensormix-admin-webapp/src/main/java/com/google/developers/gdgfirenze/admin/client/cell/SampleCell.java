@@ -22,13 +22,19 @@ public class SampleCell extends AbstractCell<AbstractSample> {
 		}
 		sb.appendHtmlConstant("<table><tr><td>");
 		sb.appendEscaped(sample.getTime().toString());
-		sb.appendHtmlConstant("</td><td>");
-		ResourcePrototype icon = ICON_BUNDLE.getResource(findIconName(sample.getType()));
-		if(icon != null) {
-			Image image = new Image((ImageResource) icon);
-			sb.appendHtmlConstant(image.toString());
-		} else {
-			sb.appendEscaped(sample.getType());
+		if (sample.getType() != null) {
+			sb.appendHtmlConstant("</td><td>");
+			ResourcePrototype icon = ICON_BUNDLE
+					.getResource(findIconName(sample.getType()));
+			if (icon != null) {
+				// String img = AbstractImagePrototype
+				// .create((ImageResource) icon).getHTML();
+				 Image image = new Image((ImageResource) icon);
+				 image.setTitle(sample.getType());
+				sb.appendHtmlConstant(image.toString());
+			} else {
+				sb.appendEscaped(sample.getType());
+			}
 		}
 		sb.appendHtmlConstant("</td></td></table>");
 	}
@@ -36,7 +42,7 @@ public class SampleCell extends AbstractCell<AbstractSample> {
 	private String findIconName(String type) {
 		try {
 			String[] split = type.split("/");
-			return split[split.length-1];
+			return split[split.length - 1];
 		} catch (Exception e) {
 			return null;
 		}
