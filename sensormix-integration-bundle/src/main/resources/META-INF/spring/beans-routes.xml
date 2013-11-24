@@ -51,6 +51,7 @@
 			<unmarshal>
 				<xmljson elementName="item" arrayName="list" rootName="root" />
 			</unmarshal>
+<!-- 			<to uri="log:rawCdmXml" /> -->
 			<to uri="seda:rawXmlEntry" />
 		</route>
 	</routeContext>
@@ -63,22 +64,22 @@
 			<to uri="xslt:xslt_adapters/raw2cdm_adapter.xsl" />
 
 			<!-- Debug Log -->
-			<!-- <to uri="log:adaptedCdmXml" /> -->
+<!-- 			<to uri="log:adaptedCdmXml" /> -->
 			<unmarshal>
 				<jaxb contextPath="com.google.developers.gdgfirenze.service" />
 			</unmarshal>
 
 			<!-- Debug Log -->
-			<!-- <to uri="log:unmarshalledCdmJava" /> -->
+			<to uri="log:unmarshalledCdmJava" />
 			<setHeader headerName="sensormixBodyType">
 				<simple>${body.getClass.getName}</simple>
 			</setHeader>
 			<setHeader headerName="sensormixNumSamples">
 				<simple>${body.samples.size}</simple>
 			</setHeader>
-			<setBody>
-				<simple>${body.samples}</simple>
-			</setBody>
+			<setHeader headerName="sensormixSensor">
+				<simple>${body.sensor}</simple>
+			</setHeader>
 
 			<!-- Debug Log -->
 			<!-- <to uri="log:sendingRecordsToService?showAll=true" /> -->

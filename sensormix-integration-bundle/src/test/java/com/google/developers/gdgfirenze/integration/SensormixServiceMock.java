@@ -40,7 +40,7 @@ public class SensormixServiceMock implements SensormixService {
 
   @Override
   public void registerSensor(Sensor sensor) {
-    throw new UnsupportedOperationException();
+      System.out.println("registerSensor: Mock Service has received 1 sensor");
   }
 
   @Override

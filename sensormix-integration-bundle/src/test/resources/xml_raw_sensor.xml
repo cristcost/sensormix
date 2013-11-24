@@ -1,0 +1,9 @@
+<root>
+	<sensor>
+		<description>OS Version: 3.4.0-g9eb14ba(893803) Device: hammerhead
+			Model (and Product): Nexus 5 (hammerhead)</description>
+		<id>michele_nexus_5</id>
+		<name>Nexus 5</name>
+		<type>urn:rixf:net.sensormix/device_types/android</type>
+	</sensor>
+</root>

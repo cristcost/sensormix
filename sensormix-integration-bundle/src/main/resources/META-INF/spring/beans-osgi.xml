@@ -46,7 +46,19 @@
 		<!-- Output to the data service -->
 		<route id="sensorMixToDataManagerRoute">
 			<from uri="seda:normalizedJavaSample" />
-			<to uri="bean:sensormixService?method=recordSamples" />
+			<to uri="bean:sensormixService?method=recordSamples(${body.samples})" />
+ 			<choice>
+				<when>
+					<simple>${body.sensor} != null</simple>
+<!-- 					<process ref="testProcessor"/>  -->
+					<to uri="bean:sensormixService?method=registerSensor(${body.sensor})" />
+				</when>
+				<otherwise>
+					<setHeader headerName="sensorData">
+						<constant>No sensor data</constant>
+					</setHeader>
+				</otherwise>
+			</choice>
 		</route>
 	</camelContext>
 </beans>

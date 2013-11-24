@@ -1,55 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
+	<sample>
+		<!-- COMMON -->
+		<!-- To be used for all the samples -->
+		<device_id>urn:rixf:org.example/sensor_id</device_id>
+		<time>2013-10-30 10:00:00.500</time>
 	
-	<!-- COMMON -->
-	<!-- To be used for all the samples -->
-	<device_id>urn:rixf:org.example/sensor_id</device_id>
-	<time>2013-10-30 10:00:00.500</time>
-
-	<!-- SAMPLE N.1 -->
-	<!-- Create a NumericValueSample with an hardcoded type -->
-	<!-- reuse device_id and time -->
-	<battery_level>0.91</battery_level>
-
-	<!-- SAMPLE N.2 -->
-	<!-- Create a PositionSample with an hardcoded type -->
-	<!-- reuse device_id and but use the time under position -->
-	<position>
-		<accuracy>15</accuracy>
-		<alt>89</alt>
-		<bearing>74</bearing>
-		<lat>43.805073</lat>
-		<lng>11.1789465</lng>
-		<speed>1.0008</speed>
-		<time>2013-10-29 23:59:59.999</time>
-	</position>
-
-	<!-- SAMPLES N.3, 4 and 5 -->
-	<!-- Create a <wifiSignalSample/> with an hardcoded type -->
-	<!-- Create a <wifiSignalSample/> for each <item> -->
-	<!-- reuse device_id and time -->
-	<wifi_scans>
-		<item>
-			<bssid>00:24:6c:38:26:a2</bssid>
-			<capabilities>[WPA2-PSK-CCMP][ESS]</capabilities>
-			<frequency>2412</frequency>
-			<level>-56</level>
-			<ssid />
-		</item>
-		<item>
-			<bssid>00:24:6c:02:56:90</bssid>
-			<capabilities>[WPA-PSK-TKIP][ESS]</capabilities>
-			<frequency>2462</frequency>
-			<level>-57</level>
-			<ssid>LAB_WLAN</ssid>
-		</item>
-		<item>
-			<bssid>00:1b:2f:b4:97:4e</bssid>
-			<capabilities>[WPA-PSK-CCMP+TKIP][WPA2-PSK-CCMP+TKIP][ESS]
-			</capabilities>
-			<frequency>2437</frequency>
-			<level>-60</level>
-			<ssid>Dev Lab</ssid>
-		</item>
-	</wifi_scans>
+		<!-- SAMPLE N.1 -->
+		<!-- Create a NumericValueSample with an hardcoded type -->
+		<!-- reuse device_id and time -->
+		<battery_level>0.91</battery_level>
+	
+		<!-- SAMPLE N.2 -->
+		<!-- Create a PositionSample with an hardcoded type -->
+		<!-- reuse device_id and but use the time under position -->
+		<position>
+			<accuracy>15</accuracy>
+			<alt>89</alt>
+			<bearing>74</bearing>
+			<lat>43.805073</lat>
+			<lng>11.1789465</lng>
+			<speed>1.0008</speed>
+			<time>2013-10-29 23:59:59.999</time>
+		</position>
+	
+		<!-- SAMPLES N.3, 4 and 5 -->
+		<!-- Create a <wifiSignalSample/> with an hardcoded type -->
+		<!-- Create a <wifiSignalSample/> for each <item> -->
+		<!-- reuse device_id and time -->
+		<wifi_scans>
+			<item>
+				<bssid>00:24:6c:38:26:a2</bssid>
+				<capabilities>[WPA2-PSK-CCMP][ESS]</capabilities>
+				<frequency>2412</frequency>
+				<level>-56</level>
+				<ssid />
+			</item>
+			<item>
+				<bssid>00:24:6c:02:56:90</bssid>
+				<capabilities>[WPA-PSK-TKIP][ESS]</capabilities>
+				<frequency>2462</frequency>
+				<level>-57</level>
+				<ssid>LAB_WLAN</ssid>
+			</item>
+			<item>
+				<bssid>00:1b:2f:b4:97:4e</bssid>
+				<capabilities>[WPA-PSK-CCMP+TKIP][WPA2-PSK-CCMP+TKIP][ESS]
+				</capabilities>
+				<frequency>2437</frequency>
+				<level>-60</level>
+				<ssid>Dev Lab</ssid>
+			</item>
+		</wifi_scans>
+	</sample>
 </root>

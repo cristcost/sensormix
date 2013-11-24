@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:samples xmlns:s="http://developers.google.com/gdgfirenze/ns/service"
+	xmlns:m="http://developers.google.com/gdgfirenze/ns/model" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+<s:sensors xmlns:s="http://developers.google.com/gdgfirenze/ns/service"
+	xmlns:m="http://developers.google.com/gdgfirenze/ns/model" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<sensor id="michele_nexus_5" type="urn:rixf:net.sensormix/device_types/android"
+		name="Nexus 5"
+		description="OS Version: 3.4.0-g9eb14ba(893803) Device: hammerhead Model (and Product): Nexus 5 (hammerhead)" />
+</s:sensors>
