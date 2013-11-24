@@ -2,6 +2,9 @@ package com.google.developers.gdgfirenze.admin.client.cell;
 
 import com.google.developers.gdgfirenze.admin.client.icon.IconBundle;
 import com.google.developers.gdgfirenze.model.AbstractSample;
+import com.google.developers.gdgfirenze.model.NumericValueSample;
+import com.google.developers.gdgfirenze.model.PositionSample;
+import com.google.developers.gdgfirenze.model.WifiSignalSample;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ImageResource;
@@ -36,7 +39,48 @@ public class SampleCell extends AbstractCell<AbstractSample> {
 				sb.appendEscaped(sample.getType());
 			}
 		}
-		sb.appendHtmlConstant("</td></td></table>");
+		sb.appendHtmlConstant("</td></tr>");
+		if (sample instanceof NumericValueSample) {
+			NumericValueSample numericValueSample = (NumericValueSample) sample;
+			sb.appendHtmlConstant("<tr><td>Value: </td><td>");
+			sb.appendEscaped(fromDoubleToString(numericValueSample.getValue()));
+			sb.appendHtmlConstant("</td><td>");
+		} else if (sample instanceof PositionSample) {
+			PositionSample positionSample = (PositionSample) sample;
+			sb.appendHtmlConstant("<tr><td>Latitude,Longitude: </td><td>");
+			sb.appendEscaped(fromDoubleToString(positionSample.getLat()) + "," + fromDoubleToString(positionSample.getLng()));
+			sb.appendHtmlConstant("</td><td>");
+			sb.appendHtmlConstant("<tr><td>Altitude: </td><td>");
+			sb.appendEscaped(fromDoubleToString(positionSample.getAlt()));
+			sb.appendHtmlConstant("</td><td>");
+			sb.appendHtmlConstant("<tr><td>Bearing: </td><td>");
+			sb.appendEscaped(fromDoubleToString(positionSample.getBearing()));
+			sb.appendHtmlConstant("</td><td>");
+			sb.appendHtmlConstant("<tr><td>Speed: </td><td>");
+			sb.appendEscaped(fromDoubleToString(positionSample.getSpeed()));
+			sb.appendHtmlConstant("</td><td>");
+			sb.appendHtmlConstant("<tr><td>Accuracy: </td><td>");
+			sb.appendEscaped(fromDoubleToString(positionSample.getAccuracy()));
+			sb.appendHtmlConstant("</td><td>");
+		} else if (sample instanceof WifiSignalSample) {
+			WifiSignalSample wifiSignalSample = (WifiSignalSample) sample;
+			sb.appendHtmlConstant("<tr><td>Frequency: </td><td>");
+			sb.appendEscaped(fromDoubleToString(wifiSignalSample.getFrequency()));
+			sb.appendHtmlConstant("</td><td>");
+			sb.appendHtmlConstant("<tr><td>Level: </td><td>");
+			sb.appendEscaped(fromDoubleToString(wifiSignalSample.getLevel()));
+			sb.appendHtmlConstant("</td><td>");
+			sb.appendHtmlConstant("<tr><td>BSSID: </td><td>");
+			sb.appendEscaped(wifiSignalSample.getBssid());
+			sb.appendHtmlConstant("</td><td>");
+			sb.appendHtmlConstant("<tr><td>SSID: </td><td>");
+			sb.appendEscaped(wifiSignalSample.getSsid());
+			sb.appendHtmlConstant("</td><td>");
+			sb.appendHtmlConstant("<tr><td>Capabilities: </td><td>");
+			sb.appendEscaped(wifiSignalSample.getCapabilities());
+			sb.appendHtmlConstant("</td><td>");			
+		}
+		sb.appendHtmlConstant("</table>");
 	}
 
 	private String findIconName(String type) {
@@ -46,6 +90,13 @@ public class SampleCell extends AbstractCell<AbstractSample> {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+	private String fromDoubleToString(Double value) {
+		String ret = "0";
+		if(value != null) {
+			ret = value.toString();
+		}
+		return ret;			
 	}
 
 }
