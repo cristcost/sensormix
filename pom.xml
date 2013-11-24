@@ -34,6 +34,7 @@
 			<modules>
 				<module>sensormix-datamodel-api</module>
 				<module>sensormix-dataservice-bundle</module>
+				<module>sensormix-memoryservice-bundle</module>
 				<module>sensormix-datawebservice-bundle</module>
 				<module>sensormix-integration-bundle</module>
 				<module>sensormix-deploy-features</module>
@@ -47,6 +48,7 @@
 			<modules>
 				<module>sensormix-datamodel-api</module>
 				<module>sensormix-dataservice-bundle</module>
+				<module>sensormix-memoryservice-bundle</module>
 				<module>sensormix-datawebservice-bundle</module>
 				<module>sensormix-webgui-webapp</module>
 				<module>sensormix-admin-webapp</module>
