@@ -21,6 +21,18 @@
 			<version>${project.version}</version>
 		</dependency>
 
+		<!-- Spring Dependencies -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
 		<!-- GWT Dependencies -->
 		<dependency>
 			<groupId>com.google.gwt</groupId>
@@ -95,7 +107,7 @@
 							<goal>compile</goal>
 							<!-- <goal>test</goal> -->
 							<!-- <goal>i18n</goal> -->
-							<goal>generateAsync</goal>
+							<!-- <goal>generateAsync</goal> -->
 						</goals>
 						<configuration>
 							<servicePattern>**/gwt/**/*Service.java</servicePattern>
@@ -176,7 +188,6 @@
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Description>${project.description}</Bundle-Description>
 						<Web-ContextPath>/${project.artifactId}</Web-ContextPath>
-						<!-- <_wab>src/main/webapp</_wab> -->
 						<Bundle-ClassPath>.,WEB-INF/classes</Bundle-ClassPath>
 						<Export-Package>
 							!com.google.developers.gdgfirenze.gwt.client

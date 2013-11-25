@@ -5,6 +5,7 @@ import com.google.gwt.dev.javac.JdtCompiler;
 import com.google.gwt.dev.shell.BrowserChannelServer;
 import com.google.gwt.dev.shell.BrowserListener;
 
+@Deprecated
 public class GwtStart extends DevMode {
 
   public static void main(String[] args) {

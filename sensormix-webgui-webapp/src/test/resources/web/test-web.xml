@@ -3,5 +3,22 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 
-	
+	<servlet>
+		<servlet-name>smvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<!-- Include both main spring beans files and test files -->
+			<param-value>/WEB-INF/spring/*.xml,classpath:web/spring/*.xml
+			</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>smvc</servlet-name>
+		<url-pattern>*.spring</url-pattern>
+	</servlet-mapping>
+
 </web-app>
