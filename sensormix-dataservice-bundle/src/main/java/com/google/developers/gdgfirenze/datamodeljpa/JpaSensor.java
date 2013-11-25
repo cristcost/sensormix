@@ -26,6 +26,9 @@ public class JpaSensor {
 	@Column(name="name", nullable=false)
 	private String name;
 
+	@Column(name="type")
+	private String type;
+	
 	@Column(name="description", nullable=false)
 	private String description;
 
@@ -79,6 +82,14 @@ public class JpaSensor {
 		return lastSeen;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 	public void setLastSeen(Date lastSeen) {
 		this.lastSeen = lastSeen;
 	}

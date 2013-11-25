@@ -358,6 +358,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				s.setLastSeen(u.getLastSeen());
 				s.setLat(u.getLat());
 				s.setLng(u.getLng());
+				s.setType(u.getType());
 				sensors.add(s);
 			}
 			em.close();
@@ -377,6 +378,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 			s.setLastSeen(sensor.getLastSeen());
 			s.setLat(sensor.getLat());
 			s.setLng(sensor.getLng());
+			s.setType(sensor.getType());
 			EntityManager em = null;
 			EntityTransaction tx = null;
 
@@ -392,7 +394,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				if (tx.isActive())
 					tx.rollback();
 			} finally {
-				if (em.isOpen())
+				if (em !=null && em.isOpen())
 					em.close();
 			}
 		} else {
@@ -444,7 +446,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				if (transaction.isActive())
 					transaction.rollback();
 			} finally {
-				if (em.isOpen())
+				if (em !=null && em.isOpen())
 					em.close();
 			}
 		} else {
