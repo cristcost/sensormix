@@ -61,7 +61,7 @@ public class SensormixJpaIntegrationTest {
 	}
 
 	@Test
-	public void test1() {
+	public void testRegisterAndListSensors() {
 		Sensor s = new Sensor();
 		s.setId("uri:giuseppe:android:77551144");
 		s.setName("Samsung Galaxy W");
@@ -72,7 +72,7 @@ public class SensormixJpaIntegrationTest {
 	}
 
 	@Test
-	public void test2() {
+	public void testRecordingAndListingSamples() {
 		int count = 1000;
 		List<AbstractSample> firstTypeOfSample = new ArrayList<AbstractSample>();
 		for (int i = 0; i < count; i++) {
@@ -116,7 +116,7 @@ public class SensormixJpaIntegrationTest {
 	}
 
 	@Test
-	public void test3() {
+	public void testDateFilterOnListSamples() {
 		int count = 1000;
 		List<AbstractSample> firstTypeOfSample = new ArrayList<AbstractSample>();
 		Calendar d = Calendar.getInstance();
@@ -184,7 +184,7 @@ public class SensormixJpaIntegrationTest {
 	}
 
 	@Test
-	public void test4() {
+	public void testTypeFilterOnListSamples() {
 		int count = 1000;
 		List<AbstractSample> firstTypeOfSample = new ArrayList<AbstractSample>();
 		Calendar d = Calendar.getInstance();
@@ -232,7 +232,7 @@ public class SensormixJpaIntegrationTest {
 	}
 
 	@Test
-	public void test5() {
+	public void testCountSamples() {
 		int count = 1000;
 		List<AbstractSample> firstTypeOfSample = new ArrayList<AbstractSample>();
 		Calendar d = Calendar.getInstance();
@@ -280,7 +280,7 @@ public class SensormixJpaIntegrationTest {
 	}
 
 	@Test
-	public void test6() {
+	public void testSampleReports() {
 		int count = 1000;
 		List<AbstractSample> firstTypeOfSample = new ArrayList<AbstractSample>();
 		Calendar d = Calendar.getInstance();
@@ -333,7 +333,7 @@ public class SensormixJpaIntegrationTest {
 	}
 
 	@Test
-	public void test7() {
+	public void testSateFilterListSensors() {
 		int count = 1000;
 		List<AbstractSample> firstTypeOfSample = new ArrayList<AbstractSample>();
 		Calendar d = Calendar.getInstance();
@@ -389,7 +389,7 @@ public class SensormixJpaIntegrationTest {
 	}
 
 	@Test
-	public void test8() {
+	public void testSamplesTypeListing() {
 		int count = 1000;
 		List<AbstractSample> firstTypeOfSample = new ArrayList<AbstractSample>();
 		Calendar d = Calendar.getInstance();
@@ -437,7 +437,7 @@ public class SensormixJpaIntegrationTest {
 	}
 	
 	@Test
-	public void test9() {
+	public void testAllMethodsWithoutFilter() {
 		int count = 10;
 		List<AbstractSample> firstTypeOfSample = new ArrayList<AbstractSample>();
 		Calendar d = Calendar.getInstance();
@@ -471,7 +471,7 @@ public class SensormixJpaIntegrationTest {
 	}
 	
 	@Test
-	public void test10() {
+	public void testPartialListingSamples() {
 		int numberOfSampleInserted = 1000;
 		Long numberOfSampleRequested = new Long(333);
 		Long firstSampleRequested = new Long(112);
