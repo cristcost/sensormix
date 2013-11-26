@@ -53,8 +53,9 @@ public class JettyStart {
     // ".*/org\\.apache\\.taglibs\\.standard\\.glassfish-1\\.2\\.0\\.v201112081803\\.jar";
 
     ResourceCollection resources = new ResourceCollection(new String[]{
-        "src/main/webapp", "target/webapp",
-    });
+      "src/main/webapp",
+    // "target/webapp",
+        });
 
     WebAppContext webCtx = new WebAppContext();
     webCtx.setServer(server);
@@ -68,10 +69,9 @@ public class JettyStart {
 
     server.setHandler(webCtx);
 
-    
-    // BrowserListener gwtBrowserListener = new BrowserListener(null, "0.0.0.0", 9997, null);
-    
-    
+    // BrowserListener gwtBrowserListener = new BrowserListener(null, "0.0.0.0",
+    // 9997, null);
+
     try {
       System.out.println(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
       server.start();
