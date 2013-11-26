@@ -33,6 +33,18 @@
 			<version>${spring.version}</version>
 		</dependency>
 
+		<!-- Spring Security Dependencies -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
 		<!-- GWT Dependencies -->
 		<dependency>
 			<groupId>com.google.gwt</groupId>
@@ -206,6 +218,7 @@
 							org.springframework.web.bind.annotation,
 							org.springframework.web.servlet,
 							org.springframework.web.servlet.view,
+							org.springframework.web.filter,
 							org.springframework.osgi.web.context.support,
 							com.google.gwt.user.client.rpc,
 							!com.google.gwt.*.client.*,
