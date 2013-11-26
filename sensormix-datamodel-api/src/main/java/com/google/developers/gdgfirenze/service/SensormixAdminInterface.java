@@ -1,7 +1,7 @@
 package com.google.developers.gdgfirenze.service;
 
 public interface SensormixAdminInterface {
-	void setMaintenace(boolean value);
+	void setInMaintenace(boolean value);
 
-	boolean getMaintenance();
+	boolean isInMaintenance();
 }
