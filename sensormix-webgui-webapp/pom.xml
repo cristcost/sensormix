@@ -201,6 +201,12 @@
 							!com.google.developers.gdgfirenze.gwt.client
 						</Export-Package>
 						<Import-Package>
+							org.springframework.stereotype,
+							org.springframework.ui,
+							org.springframework.web.bind.annotation,
+							org.springframework.web.servlet,
+							org.springframework.web.servlet.view,
+							org.springframework.osgi.web.context.support,
 							com.google.gwt.user.client.rpc,
 							!com.google.gwt.*.client.*,
 							*

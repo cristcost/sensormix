@@ -10,8 +10,7 @@
 		<load-on-startup>1</load-on-startup>
 		<init-param>
 			<param-name>contextClass</param-name>
-			<param-value>org.springframework.osgi.web.context.support.OsgiBundleXmlWebApplicationContext
-			</param-value>
+			<param-value>org.springframework.osgi.web.context.support.OsgiBundleXmlWebApplicationContext</param-value>
 		</init-param>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
