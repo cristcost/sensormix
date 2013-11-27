@@ -9,6 +9,7 @@ import com.esotericsoftware.kryo.io.Output;
 import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.NumericValueSample;
 import com.google.developers.gdgfirenze.model.PositionSample;
+import com.google.developers.gdgfirenze.model.StringValueSample;
 import com.google.developers.gdgfirenze.model.WifiSignalSample;
 
 public class Serializer {
@@ -23,6 +24,7 @@ public class Serializer {
 		k.register(WifiSignalSample.class, 200);
 		k.register(NumericValueSample.class, 201);
 		k.register(PositionSample.class, 202);
+		k.register(StringValueSample.class, 203);
 	}
 
 	public byte[] serialize(AbstractSample orig) {

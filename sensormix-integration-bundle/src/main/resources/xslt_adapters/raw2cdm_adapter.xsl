@@ -61,6 +61,15 @@
 						</s:wifiSignalSample>
 					</xsl:for-each>
 				</xsl:if>
+				
+				<xsl:if test="nfc">
+					<s:stringValueSample>
+						<xsl:attribute name="sensorId"><xsl:value-of select="$deviceId" /></xsl:attribute>
+						<xsl:attribute name="time"><xsl:value-of select="$sampleTime"/></xsl:attribute>
+						<xsl:attribute name="type">urn:rixf:net.sensormix/sample_types/nfc</xsl:attribute>
+						<xsl:attribute name="value"><xsl:value-of select="nfc" /></xsl:attribute>
+					</s:stringValueSample>
+				</xsl:if>
 			</xsl:for-each>
 			</s:samples>
 

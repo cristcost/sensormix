@@ -16,6 +16,7 @@ import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.NumericValueSample;
 import com.google.developers.gdgfirenze.model.PositionSample;
 import com.google.developers.gdgfirenze.model.Sensor;
+import com.google.developers.gdgfirenze.model.StringValueSample;
 import com.google.developers.gdgfirenze.model.WifiSignalSample;
 
 @XmlRootElement(name = "data")
@@ -26,6 +27,7 @@ public class SamplesPayload implements Serializable {
 	@XmlElementWrapper(name = "samples")
 	@XmlElements({
 			@XmlElement(name = "numericValueSample", type = NumericValueSample.class),
+			@XmlElement(name = "stringValueSample", type = StringValueSample.class),
 			@XmlElement(name = "positionSample", type = PositionSample.class),
 			@XmlElement(name = "wifiSignalSample", type = WifiSignalSample.class) })
 	private final List<AbstractSample> samples = new ArrayList<AbstractSample>();
