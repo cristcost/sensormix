@@ -6,7 +6,8 @@
 	<!-- Spring MVC -->
 	<servlet>
 		<servlet-name>mvc-dispatcher</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
 		</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -16,7 +17,8 @@
 	</servlet-mapping>
 
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
 		</listener-class>
 	</listener>
 
@@ -26,12 +28,16 @@
 			/WEB-INF/mvc-dispatcher-servlet.xml,
 			/WEB-INF/spring-security.xml
 		</param-value>
+		<!-- TODO spostare nei seguenti -->
+		<!-- /WEB-INF/spring/*.xml, -->
+		<!-- classpath:web/spring/*.xml -->
 	</context-param>
 
 	<!-- Spring Security -->
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
-		<filter-class>org.springframework.web.filter.DelegatingFilterProxy
+		<filter-class>
+			org.springframework.web.filter.DelegatingFilterProxy
 		</filter-class>
 	</filter>
 
