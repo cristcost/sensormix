@@ -28,9 +28,11 @@ import com.google.developers.gdgfirenze.model.DailySampleReport;
 import com.google.developers.gdgfirenze.model.SampleReport;
 import com.google.developers.gdgfirenze.model.Sensor;
 import com.google.developers.gdgfirenze.serializer.Serializer;
+import com.google.developers.gdgfirenze.service.SensormixAdminInterface;
 import com.google.developers.gdgfirenze.service.SensormixService;
 
-public class SensormixServiceJpaImpl implements SensormixService {
+public class SensormixServiceJpaImpl implements SensormixService,
+		SensormixAdminInterface {
 
 	private static Logger logger = Logger
 			.getLogger(SensormixServiceJpaImpl.class.getName());
@@ -51,6 +53,8 @@ public class SensormixServiceJpaImpl implements SensormixService {
 			EntityManagerFactory entityManagerFactory) {
 		this.entityManagerFactory = entityManagerFactory;
 	}
+
+	private boolean inMaintenance;
 
 	@Override
 	public List<String> listSensorsIds() {
@@ -394,7 +398,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				if (tx.isActive())
 					tx.rollback();
 			} finally {
-				if (em !=null && em.isOpen())
+				if (em != null && em.isOpen())
 					em.close();
 			}
 		} else {
@@ -446,7 +450,7 @@ public class SensormixServiceJpaImpl implements SensormixService {
 				if (transaction.isActive())
 					transaction.rollback();
 			} finally {
-				if (em !=null && em.isOpen())
+				if (em != null && em.isOpen())
 					em.close();
 			}
 		} else {
@@ -477,5 +481,15 @@ public class SensormixServiceJpaImpl implements SensormixService {
 		}
 
 		return result;
+	}
+
+	@Override
+	public void setInMaintenace(boolean value) {
+		inMaintenance = value;
+	}
+
+	@Override
+	public boolean isInMaintenance() {
+		return inMaintenance;
 	}
 }
