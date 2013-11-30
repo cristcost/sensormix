@@ -27,8 +27,6 @@ import com.google.developers.gdgfirenze.model.AbstractSample;
 public class Serializer {
 	private static Logger logger = Logger.getLogger(Serializer.class.getName());
 
-	private static int initialId = 200;
-
 	Kryo k;
 
 	public Serializer() {
@@ -62,8 +60,7 @@ public class Serializer {
 		}
 		classesDerived = new ArrayList<Class<?>>(new LinkedHashSet<Class<?>>(classesDerived));
 		for (Class<?> cl : classesDerived) {
-			k.register(cl, initialId);
-			initialId++;
+			k.register(cl, cl.hashCode());
 		}
 	}
 
