@@ -39,14 +39,15 @@
 		<routeContextRef ref="xmlAdapterRoutes" />
 
 		<!-- Input from JSON over HTTP -->
-		<route id="sensorMixHttpEntryRoute">
-			<from uri="jetty:http://0.0.0.0:10080/sensormixSamplesEndpoint" />
+		<route id="sensorMixHttpEntryRoute">		  
+			<from uri="jetty:http://0.0.0.0:10080/sensormixSamplesEndpoint" />			
 			<to uri="direct:jsonHttpEntry" />
 		</route>
 
 		<!-- Input from JSON over UDP -->
 		<route id="sensorMixUdpEntryRoute">
 			<from uri="mina2:udp://0.0.0.0:10081" />
+<!-- 			<to uri="log:rawUdp" /> -->
 			<to uri="seda:jsonEntry?waitForTaskToComplete=Never" />
 		</route>
 
