@@ -1,29 +1,27 @@
 package com.google.developers.gdgfirenze.memservice;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.DailySampleReport;
 import com.google.developers.gdgfirenze.model.SampleReport;
 import com.google.developers.gdgfirenze.model.Sensor;
 import com.google.developers.gdgfirenze.service.SensormixService;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Logger;
-
 public class SensormixServiceMemoryImpl implements SensormixService {
 
-	private static Logger logger = Logger.getLogger(SensormixServiceMemoryImpl.class.getName());
+//	private static Logger logger = Logger.getLogger(SensormixServiceMemoryImpl.class.getName());
 
-	// TODO: implement these data structures
-	List<AbstractSample> samples; // straight list of samples, change if required
-	private Map<String, Sensor> sensors; // map of sensor with id as key, change if required
+	private List<AbstractSample> samples = new ArrayList<AbstractSample>();
+	private Map<String, Sensor> sensors = new HashMap<String, Sensor>();
 
 	@Override
 	public List<String> listSensorsIds() {
-		List<String> ret = new ArrayList<String>();
-		// TODO: cycle all sensors, take the id and return    
+		List<String> ret = new ArrayList<String>();   
 		for (Sensor sensor : sensors.values()) {
 			if (sensor.getId() != null) {
 				ret.add(sensor.getId());
@@ -32,15 +30,17 @@ public class SensormixServiceMemoryImpl implements SensormixService {
 		return ret;
 	}
 
+	/**
+	 * Search criteria:
+	 * null sensorId => any sensor
+	 * null sampleType => any sample type
+	 * limitCount != null => stop when ret.size() >= limitCount
+	 * limitFrom != null => skip the first limitFrom items
+	 */
 	@Override
 	public List<AbstractSample> getSamples(String sensorId, String sampleType, Date from, Date to,
 			Long limitFrom, Long limitCount) {
-		// TODO: cycle all samples and add to ret if correspond do conditions
-		// NB:
-		// null sensorId => any sensor
-		// null sampleType => any sample type
-		// limitCount != null => stop when ret.size() >= limitCount
-		// limitFrom != null => skip the first limitFrom items
+		
 		List<AbstractSample> ret = new ArrayList<>();
 		if (sensorId == null && sampleType == null && from == null && to == null && limitFrom == null && limitCount == null) {
 			for (AbstractSample currentSample : samples) {
@@ -61,8 +61,6 @@ public class SensormixServiceMemoryImpl implements SensormixService {
 
 	@Override
 	public long countSamples(String sensorId, String sampleType, Date from, Date to) {
-		// TODO: Cycle over samples and increment ret when condition is met
-		// NB. if all params are null, return samples.size()
 		long ret = 0;
 		if (sensorId == null && sampleType == null && from == null && to == null) {
 			ret = samples.size();
@@ -76,7 +74,9 @@ public class SensormixServiceMemoryImpl implements SensormixService {
 		return ret;
 	}
 	
-
+	/**
+	 * TODO: Add implementation: ignore for the moment
+	 */
 	@Override
 	public SampleReport getSampleReport(String sensorId, String sampleType, Date from, Date to) {
 
@@ -84,17 +84,12 @@ public class SensormixServiceMemoryImpl implements SensormixService {
 		sr.setSensorId(sensorId);
 		sr.setSampleType(sampleType);
 		sr.setDailySampleReports(new ArrayList<DailySampleReport>());
-
-		// TODO: Ignore for the moment
-
 		return sr;
 	}
 
 	@Override
 	public List<Sensor> getSensors(List<String> sensorIds, Date from, Date to) {
 		List<Sensor> ret = new ArrayList<Sensor>();
-		// TODO: cycle all sensors and add to ret if correspond do conditions
-		// NB: why this method has a from and a to ????
 		if (sensorIds == null && from == null && to == null) {
 			for (Sensor currentSensor : sensors.values()) {
 				ret.add(currentSensor);
@@ -128,11 +123,12 @@ public class SensormixServiceMemoryImpl implements SensormixService {
 
 	@Override
 	public void registerSensor(Sensor sensor) {
-		// TODO: add the sensor to sensors
 		boolean found = false;
-		for (Sensor currentSensor : sensors.values()) {
-			if (currentSensor.getId().equalsIgnoreCase(sensor.getId())) {
-				found = true;
+		if (sensors != null && sensors.values() != null && sensors.values().size() > 0) {
+			for (Sensor currentSensor : sensors.values()) {
+				if (currentSensor.getId().equalsIgnoreCase(sensor.getId())) {
+					found = true;
+				}
 			}
 		}
 		if (!found) {
@@ -142,16 +138,17 @@ public class SensormixServiceMemoryImpl implements SensormixService {
 
 	@Override
 	public void recordSamples(List<AbstractSample> samplesToAdd) {
-		// TODO: add samplesToAdd to samples
 		if (samplesToAdd != null && samplesToAdd.size() > 0) {
 			samples.addAll(samplesToAdd);
 		}
 	}
 
+	/**
+	 * TODO: Add implementation: ignore for the moment
+	 */
 	@Override
 	public List<String> listSamplesTypes() {
 		List<String> ret = new ArrayList<String>();
-		// TODO: ignore for now
 		return ret;
 	}
 	
