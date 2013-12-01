@@ -60,7 +60,8 @@ public class Serializer {
 		}
 		classesDerived = new ArrayList<Class<?>>(new LinkedHashSet<Class<?>>(classesDerived));
 		for (Class<?> cl : classesDerived) {
-			k.register(cl, cl.hashCode());
+			logger.log(Level.INFO, "Register class " + cl + " with id " + cl.hashCode());
+			k.register(cl);
 		}
 	}
 

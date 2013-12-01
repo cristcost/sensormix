@@ -375,27 +375,30 @@ public class SensormixServiceJpaImpl implements SensormixService,
 
 	@Override
 	public void registerSensor(Sensor sensor) {
-		if (sensor != null) {
-			JpaSensor s = new JpaSensor();
-			s.setId(sensor.getId());
-			s.setName(sensor.getName());
-			s.setDescription(sensor.getDescription());
-			s.setLastSeen(sensor.getLastSeen());
-			s.setLat(sensor.getLat());
-			s.setLng(sensor.getLng());
-			s.setType(sensor.getType());
+		if (sensor != null && sensor.getId() != null) {
 			EntityManager em = null;
 			EntityTransaction tx = null;
 
 			try {
 				em = entityManagerFactory.createEntityManager();
+				JpaSensor s = em.find(JpaSensor.class, sensor.getId());
+				if(s == null) {
+					s = new JpaSensor();
+				}
+				s.setId(sensor.getId());
+				s.setName(sensor.getName());
+				s.setDescription(sensor.getDescription());
+				s.setLastSeen(sensor.getLastSeen());
+				s.setLat(sensor.getLat());
+				s.setLng(sensor.getLng());
+				s.setType(sensor.getType());
 				tx = em.getTransaction();
 				tx.begin();
 				em.merge(s);
 				tx.commit();
 
 			} catch (Exception e) {
-				logger.log(Level.SEVERE, "Error during sensor registration", e);
+ 				logger.log(Level.SEVERE, "Error during sensor registration", e);
 				if (tx.isActive())
 					tx.rollback();
 			} finally {
