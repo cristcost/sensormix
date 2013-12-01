@@ -1,0 +1,12 @@
+package com.google.developers.gdgfirenze.protobuf;
+
+option java_package = "com.google.developers.gdgfirenze.protobuf";
+option java_outer_classname = "SensormixProtos";
+
+message SampleMessage {
+
+  required string device_id = 1;
+  required int64 time = 2;
+  optional int64 faces = 3;
+
+}
