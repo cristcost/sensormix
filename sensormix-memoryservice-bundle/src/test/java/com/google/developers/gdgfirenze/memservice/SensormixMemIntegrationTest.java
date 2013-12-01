@@ -12,6 +12,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.Sensor;
 
 public class SensormixMemIntegrationTest {
@@ -120,17 +121,97 @@ public class SensormixMemIntegrationTest {
 		
 		serviceMemoryImpl.recordSamples(Util.newSamples(
 				Util.newNumericValueSample("Galaxy-Nexus-Battery", "NUMERIC", Util.newDateTime("2013-01-01 09:01:00.000"), 0.68),
-				Util.newPositionSample("Galaxy-Nexus-GPS_1A23", "POSITION", Util.newDateTime("2013-01-01 09:01:10.000"), 43.768301, 11.253394, 15.0, 0.85, 0.45, 40.0),
-				Util.newStringValueSample("Arduino-FHR_MC", "STRING", Util.newDateTime("2013-01-01 09:01:20.000"), "25°"),
-				Util.newWifiSignalSample("Galaxy-Nexus-WiFi_AP", "WIFI", Util.newDateTime("2013-01-01 09:01:30.000"), "Silence", 
-						"00:22:3f:56:38:6a", "[WPA2-PSK-CCMP][ESS]", 2437.0, -50.0)));
+				Util.newNumericValueSample("Galaxy-Nexus-Battery", "NUMERIC", Util.newDateTime("2013-01-01 09:02:00.000"), 0.58),
+				Util.newNumericValueSample("Galaxy-Nexus-Battery", "NUMERIC", Util.newDateTime("2013-01-01 09:03:00.000"), 0.51),
+				Util.newPositionSample("Galaxy-Nexus-GPS_1A23", "POSITION", Util.newDateTime("2013-01-01 09:02:10.000"), 43.768300, 11.253394, 15.0, 0.85, 0.45, 40.0),
+				Util.newPositionSample("Galaxy-Nexus-GPS_1A23", "POSITION", Util.newDateTime("2013-01-01 09:02:12.000"), 43.768301, 11.253395, 15.0, 0.85, 0.45, 40.0),
+				Util.newPositionSample("Galaxy-Nexus-GPS_1A23", "POSITION", Util.newDateTime("2013-01-01 09:02:14.000"), 43.768302, 11.253396, 15.0, 0.85, 0.45, 40.0),
+				Util.newPositionSample("Galaxy-Nexus-GPS_1A23", "POSITION", Util.newDateTime("2013-01-01 09:02:16.000"), 43.768303, 11.253397, 15.0, 0.85, 0.45, 40.0),
+				Util.newPositionSample("Galaxy-Nexus-GPS_1A23", "POSITION", Util.newDateTime("2013-01-01 09:02:18.000"), 43.768304, 11.253398, 15.0, 0.85, 0.45, 40.0),
+				Util.newStringValueSample("Arduino-FHR_MC", "STRING", Util.newDateTime("2013-01-01 09:00:00.000"), "25°"),
+				Util.newStringValueSample("Arduino-FHR_MC", "STRING", Util.newDateTime("2013-01-01 10:00:00.000"), "25.2°"),
+				Util.newStringValueSample("Arduino-FHR_MC", "STRING", Util.newDateTime("2013-01-01 11:00:00.000"), "25.3°"),
+				Util.newStringValueSample("Arduino-FHR_MC", "STRING", Util.newDateTime("2013-01-01 12:00:00.000"), "25.5°"),
+				Util.newWifiSignalSample("Galaxy-Nexus-WiFi_AP", "WIFI", Util.newDateTime("2013-01-01 09:05:00.000"), "Silence", 
+						"00:22:3f:56:38:6a", "[WPA2-PSK-CCMP][ESS]", 2437.0, -50.0),
+				Util.newWifiSignalSample("Galaxy-Nexus-WiFi_AP", "WIFI", Util.newDateTime("2013-01-01 09:05:00.000"), "BaffoWiNet", 
+						"00:22:3f:56:38:6a", "[WPA2-PSK-CCMP][ESS]", 2437.0, -45.0),
+				Util.newWifiSignalSample("Galaxy-Nexus-WiFi_AP", "WIFI", Util.newDateTime("2013-01-01 09:15:00.000"), "AliceCristiano", 
+						"00:22:3f:56:38:6a", "[WPA2-PSK-CCMP][ESS]", 2437.0, -48.0)));
 		
+		// IGNORED: MISS IMPLEMENTATION
+		// List<String> sampleTypeList = serviceMemoryImpl.listSamplesTypes();
 		
+		long sampleCount = serviceMemoryImpl.countSamples(null, null, null, null);
+		assertEquals(15, sampleCount);
+		sampleCount = serviceMemoryImpl.countSamples("Galaxy-Nexus-Battery", null, null, null);
+		assertEquals(3, sampleCount);
+		sampleCount = serviceMemoryImpl.countSamples("Galaxy-Nexus-GPS_1A23", null, null, null);
+		assertEquals(5, sampleCount);
+		sampleCount = serviceMemoryImpl.countSamples("Arduino-FHR_MC", null, null, null);
+		assertEquals(4, sampleCount);
+		sampleCount = serviceMemoryImpl.countSamples("Galaxy-Nexus-WiFi_AP", null, null, null);
+		assertEquals(3, sampleCount);
+		sampleCount = serviceMemoryImpl.countSamples("fake", null, null, null);
+		assertEquals(0, sampleCount);
+		sampleCount = serviceMemoryImpl.countSamples(null, "NUMERIC", null, null);
+		assertEquals(3, sampleCount);
+		sampleCount = serviceMemoryImpl.countSamples(null, null, Util.newDateTime("2013-01-01 08:50:00.000"), null);
+		assertEquals(15, sampleCount);
+		sampleCount = serviceMemoryImpl.countSamples(null, null, Util.newDateTime("2013-01-01 09:20:00.000"), null);
+		assertEquals(3, sampleCount);
+		sampleCount = serviceMemoryImpl.countSamples(null, null, null, Util.newDateTime("2013-01-01 13:00:00.000"));
+		assertEquals(15, sampleCount);
+		sampleCount = serviceMemoryImpl.countSamples(null, null, null, Util.newDateTime("2013-01-01 09:21:00.000"));
+		assertEquals(12, sampleCount);
+		sampleCount = serviceMemoryImpl.countSamples(null, null, Util.newDateTime("2013-01-01 09:11:00.000"), Util.newDateTime("2013-01-01 10:15:00.000"));
+		assertEquals(2, sampleCount);
+		sampleCount = serviceMemoryImpl.countSamples("Galaxy-Nexus-GPS_1A23", "POSITION", Util.newDateTime("2013-01-01 09:02:11.000"), Util.newDateTime("2013-01-01 09:02:17.000"));
+		assertEquals(3, sampleCount);
+		sampleCount = serviceMemoryImpl.countSamples("Galaxy-Nexus-GPS_1A23", "fake", Util.newDateTime("2013-01-01 09:02:11.000"), Util.newDateTime("2013-01-01 09:02:17.000"));
+		assertEquals(0, sampleCount);
 		
-	//List<String> listSamplesTypes(); IGNORED - Miss implementation
-	//long countSamples(String sensorId, String sampleType, Date from, Date to);
-	//List<AbstractSample> getSamples(String sensorId, String sampleType, Date from, Date to, Long limitFrom, Long limitCount );
-	//SampleReport getSampleReport(String sensorId, String sampleType, Date from, Date to); IGNORED - Miss implementation
+		List<AbstractSample> abstractSamples = serviceMemoryImpl.getSamples(null, null, null, null, null, null);
+		assertEquals(15, abstractSamples.size());
+		abstractSamples.clear();
+		abstractSamples = serviceMemoryImpl.getSamples("Galaxy-Nexus-Battery", null, null, null, null, null);
+		assertEquals(3, abstractSamples.size());
+		abstractSamples.clear();
+		abstractSamples = serviceMemoryImpl.getSamples("Galaxy-Nexus-GPS_1A23", null, null, null, null, null);
+		assertEquals(5, abstractSamples.size());
+		abstractSamples.clear();
+		abstractSamples = serviceMemoryImpl.getSamples(null, "STRING", null, null, null, null);
+		assertEquals(4, abstractSamples.size());
+		abstractSamples.clear();
+		abstractSamples = serviceMemoryImpl.getSamples(null, null, Util.newDateTime("2013-01-01 08:50:00.000"), null, null, null);
+		assertEquals(15, abstractSamples.size());
+		abstractSamples.clear();
+		abstractSamples = serviceMemoryImpl.getSamples(null, null, Util.newDateTime("2013-01-01 09:20:00.000"), null, null, null);
+		assertEquals(3, abstractSamples.size());
+		abstractSamples.clear();
+		abstractSamples = serviceMemoryImpl.getSamples(null, null, null, Util.newDateTime("2013-01-01 13:00:00.000"), null, null);
+		assertEquals(15, abstractSamples.size());
+		abstractSamples.clear();
+		abstractSamples = serviceMemoryImpl.getSamples(null, null, null, Util.newDateTime("2013-01-01 09:21:00.000"), null, null);
+		assertEquals(12, abstractSamples.size());
+		abstractSamples.clear();
+		abstractSamples = serviceMemoryImpl.getSamples(null, null, Util.newDateTime("2013-01-01 09:11:00.000"), Util.newDateTime("2013-01-01 10:15:00.000"), null, null);
+		assertEquals(2, abstractSamples.size());
+		abstractSamples.clear();
+		abstractSamples = serviceMemoryImpl.getSamples(null, null, null, null, null, (long) 10);
+		assertEquals(10, abstractSamples.size());
+		abstractSamples.clear();
+		abstractSamples = serviceMemoryImpl.getSamples("Galaxy-Nexus-GPS_1A23", "POSITION", Util.newDateTime("2013-01-01 09:02:11.000"), Util.newDateTime("2013-01-01 09:02:17.000"), null, (long) 10);
+		assertEquals(3, abstractSamples.size());
+		abstractSamples.clear();
+		abstractSamples = serviceMemoryImpl.getSamples("Galaxy-Nexus-GPS_1A23", "POSITION", Util.newDateTime("2013-01-01 09:02:11.000"), Util.newDateTime("2013-01-01 09:02:17.000"), null, (long) 2);
+		assertEquals(2, abstractSamples.size());
+		abstractSamples.clear();
+		abstractSamples = serviceMemoryImpl.getSamples("fake", "POSITION", Util.newDateTime("2013-01-01 09:02:11.000"), Util.newDateTime("2013-01-01 09:02:17.000"), null, null);
+		assertEquals(0, abstractSamples.size());
+
+		// IGNORED: MISS IMPLEMENTATION
+		// SampleReport sampleReport = serviceMemoryImpl.getSampleReport(String sensorId, String sampleType, Date from, Date to);
 	}
 	
 }

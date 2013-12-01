@@ -49,10 +49,16 @@ public class SensormixServiceMemoryImpl implements SensormixService {
 		} else {
 			for (AbstractSample currentSample : samples) {
 				if(!isSampleToFilter(currentSample, sensorId, sampleType, from, to)) {
-					if (limitCount != null && ret.size() <= limitCount) {
+					if (limitCount != null && ret.size() >= limitCount) {
+						
+					} else {
 						ret.add(currentSample);
 					}
-					
+//					if (limitCount == null) {
+//						ret.add(currentSample);
+//					} else if (limitCount != null && ret.size() <= limitCount) {
+//						ret.add(currentSample);
+//					}
 				}
 			}
 		}
@@ -171,7 +177,7 @@ public class SensormixServiceMemoryImpl implements SensormixService {
 			}
 		}
 		if (isToFilter == false && from != null && to != null) {
-			if (currentSample.getTime().compareTo(from) < 0 && currentSample.getTime().compareTo(to) > 0) {
+			if (currentSample.getTime().compareTo(from) < 0 || currentSample.getTime().compareTo(to) > 0) {
 				isToFilter = true;
 			}
 		} else if (isToFilter == false && from != null && to == null) {
