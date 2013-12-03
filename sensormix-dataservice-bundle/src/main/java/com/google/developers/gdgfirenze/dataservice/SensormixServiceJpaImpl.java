@@ -375,91 +375,105 @@ public class SensormixServiceJpaImpl implements SensormixService,
 
 	@Override
 	public void registerSensor(Sensor sensor) {
-		if (sensor != null && sensor.getId() != null) {
-			EntityManager em = null;
-			EntityTransaction tx = null;
+		if (!inMaintenance) {
+			if (sensor != null && sensor.getId() != null) {
+				EntityManager em = null;
+				EntityTransaction tx = null;
 
-			try {
-				em = entityManagerFactory.createEntityManager();
-				JpaSensor s = em.find(JpaSensor.class, sensor.getId());
-				if(s == null) {
-					s = new JpaSensor();
+				try {
+					em = entityManagerFactory.createEntityManager();
+					JpaSensor s = em.find(JpaSensor.class, sensor.getId());
+					if (s == null) {
+						s = new JpaSensor();
+					}
+					s.setId(sensor.getId());
+					s.setName(sensor.getName());
+					s.setDescription(sensor.getDescription());
+					s.setLastSeen(sensor.getLastSeen());
+					s.setLat(sensor.getLat());
+					s.setLng(sensor.getLng());
+					s.setType(sensor.getType());
+					tx = em.getTransaction();
+					tx.begin();
+					em.merge(s);
+					tx.commit();
+
+				} catch (Exception e) {
+					logger.log(Level.SEVERE,
+							"Error during sensor registration", e);
+					if (tx.isActive())
+						tx.rollback();
+				} finally {
+					if (em != null && em.isOpen())
+						em.close();
 				}
-				s.setId(sensor.getId());
-				s.setName(sensor.getName());
-				s.setDescription(sensor.getDescription());
-				s.setLastSeen(sensor.getLastSeen());
-				s.setLat(sensor.getLat());
-				s.setLng(sensor.getLng());
-				s.setType(sensor.getType());
-				tx = em.getTransaction();
-				tx.begin();
-				em.merge(s);
-				tx.commit();
-
-			} catch (Exception e) {
- 				logger.log(Level.SEVERE, "Error during sensor registration", e);
-				if (tx.isActive())
-					tx.rollback();
-			} finally {
-				if (em != null && em.isOpen())
-					em.close();
+			} else {
+				logger.log(Level.WARNING,
+						"sensor must be not null to register it");
 			}
 		} else {
-			logger.log(Level.WARNING, "sensor must be not null to register it");
+			logger.log(Level.INFO, "Cannot register sensor because DataServiceJpaImpl is in maintenace");
+			throw new RuntimeException("Cannot register sensor because DataServiceJpaImpl is in maintenace");
 		}
 	}
 
 	@Override
 	public void recordSamples(List<AbstractSample> samples) {
-		if (samples != null) {
-			List<String> checkList = listSensorsIds();
-			EntityManager em = null;
-			EntityTransaction transaction = null;
+		if (!inMaintenance) {
+			if (samples != null) {
+				List<String> checkList = listSensorsIds();
+				EntityManager em = null;
+				EntityTransaction transaction = null;
 
-			try {
-				em = entityManagerFactory.createEntityManager();
-				transaction = em.getTransaction();
+				try {
+					em = entityManagerFactory.createEntityManager();
+					transaction = em.getTransaction();
 
-				transaction.begin();
-				for (AbstractSample sample : samples) {
-					if (!checkList.contains(sample.getSensorId())) {
-						Sensor s = new Sensor();
-						s.setId(sample.getSensorId());
-						s.setName("Unknown");
-						s.setDescription("Unknown");
-						s.setLastSeen(sample.getTime());
+					transaction.begin();
+					for (AbstractSample sample : samples) {
+						if (!checkList.contains(sample.getSensorId())) {
+							Sensor s = new Sensor();
+							s.setId(sample.getSensorId());
+							s.setName("Unknown");
+							s.setDescription("Unknown");
+							s.setLastSeen(sample.getTime());
 
-						registerSensor(s);
-						checkList.add(new String(sample.getSensorId()));
-					} else {
-						List<String> sensorList = new ArrayList<String>();
-						sensorList.add(sample.getSensorId());
-						Sensor s = getSensors(sensorList, null, null).get(0);
-						s.setLastSeen(sample.getTime());
+							registerSensor(s);
+							checkList.add(new String(sample.getSensorId()));
+						} else {
+							List<String> sensorList = new ArrayList<String>();
+							sensorList.add(sample.getSensorId());
+							Sensor s = getSensors(sensorList, null, null)
+									.get(0);
+							s.setLastSeen(sample.getTime());
 
-						registerSensor(s);
+							registerSensor(s);
+						}
+						JpaAbstractSample s = new JpaAbstractSample();
+						s.setSensorId(sample.getSensorId());
+						s.setTime(sample.getTime());
+						s.setType(sample.getType());
+						s.setValue(localSerializer.get().serialize(sample));
+
+						em.persist(s);
 					}
-					JpaAbstractSample s = new JpaAbstractSample();
-					s.setSensorId(sample.getSensorId());
-					s.setTime(sample.getTime());
-					s.setType(sample.getType());
-					s.setValue(localSerializer.get().serialize(sample));
-
-					em.persist(s);
+					transaction.commit();
+				} catch (Exception e) {
+					logger.log(Level.SEVERE,
+							"Error during samples registration", e);
+					if (transaction.isActive())
+						transaction.rollback();
+				} finally {
+					if (em != null && em.isOpen())
+						em.close();
 				}
-				transaction.commit();
-			} catch (Exception e) {
-				logger.log(Level.SEVERE, "Error during samples registration", e);
-				if (transaction.isActive())
-					transaction.rollback();
-			} finally {
-				if (em != null && em.isOpen())
-					em.close();
+			} else {
+				logger.log(Level.WARNING,
+						"samples must be not null to register them");
 			}
 		} else {
-			logger.log(Level.WARNING,
-					"samples must be not null to register them");
+			logger.log(Level.INFO, "Cannot register samples because DataServiceJpaImpl is in maintenace");
+			throw new RuntimeException("Cannot register samples because DataServiceJpaImpl is in maintenace");
 		}
 	}
 
