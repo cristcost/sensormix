@@ -47,7 +47,7 @@ public final class SensormixProtos {
     long getFaces();
   }
   /**
-   * Protobuf type {@code com.google.developers.gdgfirenze.protobuf.SampleMessage}
+   * Protobuf type {@code sensormix.SampleMessage}
    */
   public static final class SampleMessage extends
       com.google.protobuf.GeneratedMessage
@@ -126,12 +126,12 @@ public final class SensormixProtos {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.google.developers.gdgfirenze.protobuf.SensormixProtos.internal_static_com_google_developers_gdgfirenze_protobuf_SampleMessage_descriptor;
+      return com.google.developers.gdgfirenze.protobuf.SensormixProtos.internal_static_sensormix_SampleMessage_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.google.developers.gdgfirenze.protobuf.SensormixProtos.internal_static_com_google_developers_gdgfirenze_protobuf_SampleMessage_fieldAccessorTable
+      return com.google.developers.gdgfirenze.protobuf.SensormixProtos.internal_static_sensormix_SampleMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.google.developers.gdgfirenze.protobuf.SensormixProtos.SampleMessage.class, com.google.developers.gdgfirenze.protobuf.SensormixProtos.SampleMessage.Builder.class);
     }
@@ -361,19 +361,19 @@ public final class SensormixProtos {
       return builder;
     }
     /**
-     * Protobuf type {@code com.google.developers.gdgfirenze.protobuf.SampleMessage}
+     * Protobuf type {@code sensormix.SampleMessage}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements com.google.developers.gdgfirenze.protobuf.SensormixProtos.SampleMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.google.developers.gdgfirenze.protobuf.SensormixProtos.internal_static_com_google_developers_gdgfirenze_protobuf_SampleMessage_descriptor;
+        return com.google.developers.gdgfirenze.protobuf.SensormixProtos.internal_static_sensormix_SampleMessage_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.google.developers.gdgfirenze.protobuf.SensormixProtos.internal_static_com_google_developers_gdgfirenze_protobuf_SampleMessage_fieldAccessorTable
+        return com.google.developers.gdgfirenze.protobuf.SensormixProtos.internal_static_sensormix_SampleMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 com.google.developers.gdgfirenze.protobuf.SensormixProtos.SampleMessage.class, com.google.developers.gdgfirenze.protobuf.SensormixProtos.SampleMessage.Builder.class);
       }
@@ -413,7 +413,7 @@ public final class SensormixProtos {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.google.developers.gdgfirenze.protobuf.SensormixProtos.internal_static_com_google_developers_gdgfirenze_protobuf_SampleMessage_descriptor;
+        return com.google.developers.gdgfirenze.protobuf.SensormixProtos.internal_static_sensormix_SampleMessage_descriptor;
       }
 
       public com.google.developers.gdgfirenze.protobuf.SensormixProtos.SampleMessage getDefaultInstanceForType() {
@@ -646,7 +646,7 @@ public final class SensormixProtos {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:com.google.developers.gdgfirenze.protobuf.SampleMessage)
+      // @@protoc_insertion_point(builder_scope:sensormix.SampleMessage)
     }
 
     static {
@@ -654,14 +654,14 @@ public final class SensormixProtos {
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:com.google.developers.gdgfirenze.protobuf.SampleMessage)
+    // @@protoc_insertion_point(class_scope:sensormix.SampleMessage)
   }
 
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_google_developers_gdgfirenze_protobuf_SampleMessage_descriptor;
+    internal_static_sensormix_SampleMessage_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_com_google_developers_gdgfirenze_protobuf_SampleMessage_fieldAccessorTable;
+      internal_static_sensormix_SampleMessage_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -671,23 +671,22 @@ public final class SensormixProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\037src/main/resources/sample.proto\022)com.g" +
-      "oogle.developers.gdgfirenze.protobuf\"?\n\r" +
-      "SampleMessage\022\021\n\tdevice_id\030\001 \002(\t\022\014\n\004time" +
-      "\030\002 \002(\003\022\r\n\005faces\030\003 \001(\003B<\n)com.google.deve" +
-      "lopers.gdgfirenze.protobufB\017SensormixPro" +
-      "tos"
+      "\n\037src/main/resources/sample.proto\022\tsenso" +
+      "rmix\"?\n\rSampleMessage\022\021\n\tdevice_id\030\001 \002(\t" +
+      "\022\014\n\004time\030\002 \002(\003\022\r\n\005faces\030\003 \001(\003B<\n)com.goo" +
+      "gle.developers.gdgfirenze.protobufB\017Sens" +
+      "ormixProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
             com.google.protobuf.Descriptors.FileDescriptor root) {
           descriptor = root;
-          internal_static_com_google_developers_gdgfirenze_protobuf_SampleMessage_descriptor =
+          internal_static_sensormix_SampleMessage_descriptor =
             getDescriptor().getMessageTypes().get(0);
-          internal_static_com_google_developers_gdgfirenze_protobuf_SampleMessage_fieldAccessorTable = new
+          internal_static_sensormix_SampleMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_google_developers_gdgfirenze_protobuf_SampleMessage_descriptor,
+              internal_static_sensormix_SampleMessage_descriptor,
               new java.lang.String[] { "DeviceId", "Time", "Faces", });
           return null;
         }
