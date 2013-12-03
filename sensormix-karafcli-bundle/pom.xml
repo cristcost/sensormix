@@ -23,6 +23,16 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<version>${osgi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.compendium</artifactId>
+			<version>${osgi.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>com.google.developers.gdgfirenze</groupId>
 			<artifactId>sensormix-datamodel-api</artifactId>
 			<version>${project.version}</version>

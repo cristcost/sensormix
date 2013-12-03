@@ -1,4 +1,4 @@
-package com.google.developers.gdgfirenze.karafcli;
+package com.google.developers.gdgfirenze.karafcli.completers;
 
 import java.util.List;
 
@@ -10,8 +10,7 @@ public class MigrateDataCompleter implements Completer {
 	@Override
 	public int complete(String buffer, int cursor, List<String> candidates) {
 		StringsCompleter delegate = new StringsCompleter();
-	    delegate.getStrings().add("START");
-	    delegate.getStrings().add("END");
+	    delegate.getStrings().add("migrate");
 	    return delegate.complete(buffer, cursor, candidates);
 	}
 

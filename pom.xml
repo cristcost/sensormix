@@ -34,6 +34,7 @@
 			<modules>
 				<module>sensormix-datamodel-api</module>
 				<module>sensormix-dataservice-bundle</module>
+				<module>sensormix-karafcli-bundle</module>
 				<module>sensormix-memoryservice-bundle</module>
 				<module>sensormix-datawebservice-bundle</module>
 				<module>sensormix-integration-bundle</module>
@@ -48,6 +49,7 @@
 			<modules>
 				<module>sensormix-datamodel-api</module>
 				<module>sensormix-dataservice-bundle</module>
+				<module>sensormix-karafcli-bundle</module>
 				<module>sensormix-memoryservice-bundle</module>
 				<module>sensormix-datawebservice-bundle</module>
 				<module>sensormix-webgui-webapp</module>

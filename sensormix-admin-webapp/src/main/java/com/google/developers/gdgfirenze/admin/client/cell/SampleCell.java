@@ -4,6 +4,7 @@ import com.google.developers.gdgfirenze.admin.client.icon.IconBundle;
 import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.NumericValueSample;
 import com.google.developers.gdgfirenze.model.PositionSample;
+import com.google.developers.gdgfirenze.model.StringValueSample;
 import com.google.developers.gdgfirenze.model.WifiSignalSample;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
@@ -45,7 +46,12 @@ public class SampleCell extends AbstractCell<AbstractSample> {
 			sb.appendHtmlConstant("<tr><td>Value: </td><td>");
 			sb.appendEscaped(fromDoubleToString(numericValueSample.getValue()));
 			sb.appendHtmlConstant("</td><td>");
-		} else if (sample instanceof PositionSample) {
+		} else if (sample instanceof StringValueSample) {
+			StringValueSample stringValueSample = (StringValueSample) sample;
+			sb.appendHtmlConstant("<tr><td>Value: </td><td>");
+			sb.appendEscaped(stringValueSample.getValue());
+			sb.appendHtmlConstant("</td><td>");
+		}else if (sample instanceof PositionSample) {
 			PositionSample positionSample = (PositionSample) sample;
 			sb.appendHtmlConstant("<tr><td>Latitude,Longitude: </td><td>");
 			sb.appendEscaped(fromDoubleToString(positionSample.getLat()) + "," + fromDoubleToString(positionSample.getLng()));

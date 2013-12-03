@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	You under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+	<!-- Examples available on camel-2.10.4\platforms\karaf\commands\src\main\resources\OSGI-INF\blueprint\camel-commands.xml -->
+
+	<command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.0.0">
+		<command name="sensormix/migrate-data">
+			<action
+				class="com.google.developers.gdgfirenze.karafcli.commands.MigrateDataCommand" />
+			<completers>
+				<ref component-id="sensormixMigrateDataCompleter" />
+				<null />
+			</completers>
+		</command>
+	</command-bundle>
+
+	<bean id="sensormixMigrateDataCompleter"
+		class="com.google.developers.gdgfirenze.karafcli.completers.MigrateDataCompleter">
+	</bean>
+
+	<command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.0.0">
+		<command name="sensormix/maintenance">
+			<action
+				class="com.google.developers.gdgfirenze.karafcli.commands.MaintenanceCommand" />
+			<completers>
+				<ref component-id="sensormixMaintenanceCompleter" />
+				<null />
+			</completers>
+		</command>
+	</command-bundle>
+
+	<bean id="sensormixMaintenanceCompleter"
+		class="com.google.developers.gdgfirenze.karafcli.completers.MaintenanceCompleter">
+	</bean>
+</blueprint>

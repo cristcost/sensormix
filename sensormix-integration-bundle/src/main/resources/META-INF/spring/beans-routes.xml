@@ -47,7 +47,8 @@
 	<routeContext id="jsonProcessingRoutes" xmlns="http://camel.apache.org/schema/spring">
 		<route id="jsonProcessingRoute">
 			<from uri="seda:jsonEntry?waitForTaskToComplete=Never" />
-			<convertBodyTo type="java.lang.String" />
+			<convertBodyTo type="java.lang.String" />	
+<!-- 			<to uri="log:rawJson" /> -->
 			<unmarshal>
 				<xmljson elementName="item" arrayName="list" rootName="root" />
 			</unmarshal>
@@ -70,7 +71,7 @@
 			</unmarshal>
 
 			<!-- Debug Log -->
-			<to uri="log:unmarshalledCdmJava" />
+<!-- 			<to uri="log:unmarshalledCdmJava" /> -->
 			<setHeader headerName="sensormixBodyType">
 				<simple>${body.getClass.getName}</simple>
 			</setHeader>
