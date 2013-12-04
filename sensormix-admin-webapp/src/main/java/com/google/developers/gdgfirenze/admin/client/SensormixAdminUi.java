@@ -28,7 +28,7 @@ public class SensormixAdminUi extends Composite {
 	public SensormixAdminUi() {
 		TreeViewModel model = new SensorTreeModel();
 		navigator = new CellBrowser.Builder<Object>(model, null).build();
-		navigator.setDefaultColumnWidth(500);
+		navigator.setDefaultColumnWidth(600);
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 

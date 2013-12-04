@@ -22,7 +22,10 @@
 		<prop key="sensormix_db.password"></prop>
 	</osgix:cm-properties>
 
-	<osgi:service ref="sensormixService"
-		interface="com.google.developers.gdgfirenze.service.SensormixService" />
-
+	<osgi:service ref="sensormixService">
+		<osgi:interfaces>
+			<value>com.google.developers.gdgfirenze.service.SensormixService</value>
+			<value>com.google.developers.gdgfirenze.service.SensormixAdminInterface</value>
+		</osgi:interfaces>
+	</osgi:service>
 </beans>

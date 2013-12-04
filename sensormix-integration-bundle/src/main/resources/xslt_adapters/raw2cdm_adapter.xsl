@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:s="http://developers.google.com/gdgfirenze/ns/service" xmlns:m="http://developers.google.com/gdgfirenze/ns/model"
-	version="1.0">
+	xmlns:s="http://developers.google.com/gdgfirenze/ns/service" xmlns:m="http://developers.google.com/gdgfirenze/ns/model" 
+	xmlns:fn="http://www.w3.org/2005/xpath-functions" version="1.0">
 	<xsl:output method="xml" indent="yes" />
 	<xsl:template match="/root">
 		<s:data>
 			<s:samples xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">	 
 			<xsl:for-each select="sample">
-				<xsl:variable name="deviceId" select="normalize-space(device_id)" />	
-				<xsl:variable name="sampleTime" select="concat(substring-before(time, ' '),'T',substring-after(time, ' '))" />
+				<xsl:variable name="deviceId" select="normalize-space(device_id)" />
+				<xsl:variable name="sampleTime" select="ex:date-time()" xmlns:ex="http://exslt.org/dates-and-times" />
+				<xsl:if test="time">
+					<xsl:variable name="sampleTime" select="concat(substring-before(time, ' '),'T',substring-after(time, ' '))" />
+				</xsl:if>
 						
 					<!-- TODO: here are 3 fixed examples that need to be adapted from data as visible on src/test/resources/xml_raw_sample.xml -->
 					<!-- 
@@ -28,6 +31,24 @@
 						<xsl:attribute name="time"><xsl:value-of select="$sampleTime"/></xsl:attribute>
 						<xsl:attribute name="type">urn:rixf:net.sensormix/sample_types/battery_level</xsl:attribute>
 						<xsl:attribute name="value"><xsl:value-of select="battery_level" /></xsl:attribute>
+					</s:numericValueSample>
+				</xsl:if>
+				
+				<xsl:if test="temp">
+					<s:numericValueSample>
+						<xsl:attribute name="sensorId"><xsl:value-of select="$deviceId" /></xsl:attribute>
+						<xsl:attribute name="time"><xsl:value-of select="$sampleTime"/></xsl:attribute>
+						<xsl:attribute name="type">urn:rixf:net.sensormix/sample_types/temp</xsl:attribute>
+						<xsl:attribute name="value"><xsl:value-of select="temp" /></xsl:attribute>
+					</s:numericValueSample>
+				</xsl:if>
+				
+				<xsl:if test="lux">
+					<s:numericValueSample>
+						<xsl:attribute name="sensorId"><xsl:value-of select="$deviceId" /></xsl:attribute>
+						<xsl:attribute name="time"><xsl:value-of select="$sampleTime"/></xsl:attribute>
+						<xsl:attribute name="type">urn:rixf:net.sensormix/sample_types/light</xsl:attribute>
+						<xsl:attribute name="value"><xsl:value-of select="lux" /></xsl:attribute>
 					</s:numericValueSample>
 				</xsl:if>
 				
@@ -60,6 +81,15 @@
 							<xsl:attribute name="ssid"><xsl:value-of select="ssid" /></xsl:attribute>
 						</s:wifiSignalSample>
 					</xsl:for-each>
+				</xsl:if>
+				
+				<xsl:if test="nfc">
+					<s:stringValueSample>
+						<xsl:attribute name="sensorId"><xsl:value-of select="$deviceId" /></xsl:attribute>
+						<xsl:attribute name="time"><xsl:value-of select="$sampleTime"/></xsl:attribute>
+						<xsl:attribute name="type">urn:rixf:net.sensormix/sample_types/nfc</xsl:attribute>
+						<xsl:attribute name="value"><xsl:value-of select="nfc" /></xsl:attribute>
+					</s:stringValueSample>
 				</xsl:if>
 			</xsl:for-each>
 			</s:samples>

@@ -6,12 +6,9 @@
 		.navigator {
 			bottom: 5px;
 			border: 1px solid #ccc;
+			width: 100%;
 		}
-		
-		.sensorDetail {
-			bottom: 5px;
-			border: 1px solid #ccc;
-		}
+
 	</ui:style>
 	<g:DockLayoutPanel unit='PX'>
 		<g:north size='90'>

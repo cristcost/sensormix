@@ -73,6 +73,14 @@ public class SampleCell extends AbstractCell<AbstractSample> {
 			sb.appendHtmlConstant("<tr><td>Value: </td><td>");
 			sb.appendEscaped(stringValueSample.getValue());
 			sb.appendHtmlConstant("</td><td>");
+<<<<<<< HEAD
+=======
+		} else if (sample instanceof StringValueSample) {
+			StringValueSample stringValueSample = (StringValueSample) sample;
+			sb.appendHtmlConstant("<tr><td>Value: </td><td>");
+			sb.appendEscaped(stringValueSample.getValue());
+			sb.appendHtmlConstant("</td><td>");
+>>>>>>> 9bb01dc69824d638ec658003119ea8cc62029361
 		}else if (sample instanceof PositionSample) {
 			PositionSample positionSample = (PositionSample) sample;
 			sb.appendHtmlConstant(getTableRow("Latitude,Longitude", fromDoubleToString(positionSample.getLat()) + "," + fromDoubleToString(positionSample.getLng())));
