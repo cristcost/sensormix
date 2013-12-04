@@ -4,6 +4,7 @@ import com.google.developers.gdgfirenze.admin.client.icon.IconBundle;
 import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.NumericValueSample;
 import com.google.developers.gdgfirenze.model.PositionSample;
+import com.google.developers.gdgfirenze.model.StringValueSample;
 import com.google.developers.gdgfirenze.model.WifiSignalSample;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
@@ -16,73 +17,6 @@ public class SampleCell extends AbstractCell<AbstractSample> {
 
 	public static final IconBundle ICON_BUNDLE = GWT.create(IconBundle.class);
 
-	@Override
-	public void render(Context context, AbstractSample sample,
-			SafeHtmlBuilder sb) {
-		// Value can be null, so do a null check..
-		if (sample == null) {
-			return;
-		}
-		sb.appendHtmlConstant("<table><tr><td>");
-		sb.appendEscaped(sample.getTime().toString());
-		if (sample.getType() != null) {
-			sb.appendHtmlConstant("</td><td>");
-			ResourcePrototype icon = ICON_BUNDLE
-					.getResource(findIconName(sample.getType()));
-			if (icon != null) {
-				// String img = AbstractImagePrototype
-				// .create((ImageResource) icon).getHTML();
-				 Image image = new Image((ImageResource) icon);
-				 image.setTitle(sample.getType());
-				sb.appendHtmlConstant(image.toString());
-			} else {
-				sb.appendEscaped(sample.getType());
-			}
-		}
-		sb.appendHtmlConstant("</td></tr>");
-		if (sample instanceof NumericValueSample) {
-			NumericValueSample numericValueSample = (NumericValueSample) sample;
-			sb.appendHtmlConstant("<tr><td>Value: </td><td>");
-			sb.appendEscaped(fromDoubleToString(numericValueSample.getValue()));
-			sb.appendHtmlConstant("</td><td>");
-		} else if (sample instanceof PositionSample) {
-			PositionSample positionSample = (PositionSample) sample;
-			sb.appendHtmlConstant("<tr><td>Latitude,Longitude: </td><td>");
-			sb.appendEscaped(fromDoubleToString(positionSample.getLat()) + "," + fromDoubleToString(positionSample.getLng()));
-			sb.appendHtmlConstant("</td><td>");
-			sb.appendHtmlConstant("<tr><td>Altitude: </td><td>");
-			sb.appendEscaped(fromDoubleToString(positionSample.getAlt()));
-			sb.appendHtmlConstant("</td><td>");
-			sb.appendHtmlConstant("<tr><td>Bearing: </td><td>");
-			sb.appendEscaped(fromDoubleToString(positionSample.getBearing()));
-			sb.appendHtmlConstant("</td><td>");
-			sb.appendHtmlConstant("<tr><td>Speed: </td><td>");
-			sb.appendEscaped(fromDoubleToString(positionSample.getSpeed()));
-			sb.appendHtmlConstant("</td><td>");
-			sb.appendHtmlConstant("<tr><td>Accuracy: </td><td>");
-			sb.appendEscaped(fromDoubleToString(positionSample.getAccuracy()));
-			sb.appendHtmlConstant("</td><td>");
-		} else if (sample instanceof WifiSignalSample) {
-			WifiSignalSample wifiSignalSample = (WifiSignalSample) sample;
-			sb.appendHtmlConstant("<tr><td>Frequency: </td><td>");
-			sb.appendEscaped(fromDoubleToString(wifiSignalSample.getFrequency()));
-			sb.appendHtmlConstant("</td><td>");
-			sb.appendHtmlConstant("<tr><td>Level: </td><td>");
-			sb.appendEscaped(fromDoubleToString(wifiSignalSample.getLevel()));
-			sb.appendHtmlConstant("</td><td>");
-			sb.appendHtmlConstant("<tr><td>BSSID: </td><td>");
-			sb.appendEscaped(wifiSignalSample.getBssid());
-			sb.appendHtmlConstant("</td><td>");
-			sb.appendHtmlConstant("<tr><td>SSID: </td><td>");
-			sb.appendEscaped(wifiSignalSample.getSsid());
-			sb.appendHtmlConstant("</td><td>");
-			sb.appendHtmlConstant("<tr><td>Capabilities: </td><td>");
-			sb.appendEscaped(wifiSignalSample.getCapabilities());
-			sb.appendHtmlConstant("</td><td>");			
-		}
-		sb.appendHtmlConstant("</table>");
-	}
-
 	private String findIconName(String type) {
 		try {
 			String[] split = type.split("/");
@@ -91,12 +25,70 @@ public class SampleCell extends AbstractCell<AbstractSample> {
 			return null;
 		}
 	}
+
 	private String fromDoubleToString(Double value) {
 		String ret = "0";
 		if(value != null) {
 			ret = value.toString();
 		}
 		return ret;			
+	}
+	private String getTableRow(String firstColumn, Object secondColumn) {		
+		String secondColAsString = secondColumn.toString();
+		if (secondColumn instanceof Double) {
+			secondColAsString = fromDoubleToString ((Double) secondColumn);
+			
+		}
+		return "<tr><td>" + firstColumn + ": </td><td>" + secondColAsString + "</td></tr>";
+	}
+	@Override
+	public void render(Context context, AbstractSample sample,
+			SafeHtmlBuilder sb) {
+		// Value can be null, so do a null check..
+		if (sample == null) {
+			return;
+		}
+		sb.appendHtmlConstant("<table><tr><td colspan=\"2\">");		
+		if (sample.getType() != null) {
+			ResourcePrototype icon = ICON_BUNDLE
+					.getResource(findIconName(sample.getType()));
+			if (icon != null) {
+				 Image image = new Image((ImageResource) icon);
+				 image.setTitle(sample.getType());
+				sb.appendHtmlConstant(image.toString());
+			} else {
+				sb.appendEscaped(sample.getType());
+			}
+		}
+		sb.appendEscaped(sample.getTime().toString());
+		sb.appendHtmlConstant("</td></tr>");
+		if (sample instanceof NumericValueSample) {
+			NumericValueSample numericValueSample = (NumericValueSample) sample;
+			sb.appendHtmlConstant(getTableRow("Value", numericValueSample.getValue()));
+		} else if (sample instanceof StringValueSample) {
+			StringValueSample stringValueSample = (StringValueSample) sample;
+			sb.appendHtmlConstant(getTableRow("Value", stringValueSample.getValue()));
+		} else if (sample instanceof StringValueSample) {
+			StringValueSample stringValueSample = (StringValueSample) sample;
+			sb.appendHtmlConstant("<tr><td>Value: </td><td>");
+			sb.appendEscaped(stringValueSample.getValue());
+			sb.appendHtmlConstant("</td><td>");
+		}else if (sample instanceof PositionSample) {
+			PositionSample positionSample = (PositionSample) sample;
+			sb.appendHtmlConstant(getTableRow("Latitude,Longitude", fromDoubleToString(positionSample.getLat()) + "," + fromDoubleToString(positionSample.getLng())));
+			sb.appendHtmlConstant(getTableRow("Altitude", positionSample.getAlt()));
+			sb.appendHtmlConstant(getTableRow("Bearing", positionSample.getBearing()));
+			sb.appendHtmlConstant(getTableRow("Speed", positionSample.getSpeed()));
+			sb.appendHtmlConstant(getTableRow("Accuracy", positionSample.getAccuracy()));
+		} else if (sample instanceof WifiSignalSample) {
+			WifiSignalSample wifiSignalSample = (WifiSignalSample) sample;
+			sb.appendHtmlConstant(getTableRow("Frequency", wifiSignalSample.getFrequency()));
+			sb.appendHtmlConstant(getTableRow("Level", wifiSignalSample.getLevel()));
+			sb.appendHtmlConstant(getTableRow("BSSID", wifiSignalSample.getBssid()));
+			sb.appendHtmlConstant(getTableRow("SSID", wifiSignalSample.getSsid()));
+			sb.appendHtmlConstant(getTableRow("Capabilities", wifiSignalSample.getCapabilities()));		
+		}
+		sb.appendHtmlConstant("</table>");
 	}
 
 }
