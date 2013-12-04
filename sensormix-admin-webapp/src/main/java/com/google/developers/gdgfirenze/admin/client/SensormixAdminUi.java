@@ -19,8 +19,6 @@ public class SensormixAdminUi extends Composite {
 	private static SensormixAdminUiUiBinder uiBinder = GWT
 			.create(SensormixAdminUiUiBinder.class);
 
-	@UiField
-	Label infoMessage;
 
 	@UiField(provided = true)
 	CellBrowser navigator;
