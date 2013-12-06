@@ -146,34 +146,6 @@
 
 
 	<build>
-		<!-- Always generate source and javadoc artifacts -->
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-
 		<!-- Manage version of default plugin -->
 		<pluginManagement>
 			<plugins>
@@ -203,13 +175,40 @@
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${surefire.plugin.version}</version>
+					<configuration>
+						<excludes>
+							<exclude>**/*IntegrationTest.java</exclude>
+							<exclude>**/*DebugTest.java</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
 					<version>${source.plugin.version}</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>${javadoc.plugin.version}</version>
+					<executions>
+						<execution>
+							<id>attach-javadocs</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
 					<configuration>
 						<attach>true</attach>
 						<source>${java.version}</source>
@@ -296,72 +295,25 @@
 				<gwt.plugin.version>2.6.0-SNAPSHOT</gwt.plugin.version>
 			</properties>
 		</profile>
-	
-		<!-- Profiles for Style check -->
+
+		<!-- skip style checks -->
 		<profile>
 			<id>nochecks</id>
 			<properties>
-				<sourcecheck.skip>true</sourcecheck.skip>
 				<pmd.skip>true</pmd.skip>
 				<checkstyle.skip>true</checkstyle.skip>
 			</properties>
 		</profile>
-		<profile>
-			<id>sourcecheck</id>
-			<activation>
-				<property>
-					<name>!sourcecheck.skip</name>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-checkstyle-plugin</artifactId>
-					</plugin>
-					<!-- <plugin> -->
-					<!-- <groupId>org.apache.maven.plugins</groupId> -->
-					<!-- <artifactId>maven-pmd-plugin</artifactId> -->
-					<!-- </plugin> -->
-				</plugins>
-			</build>
-		</profile>
-
+	
 		<!-- Profiles for integration tests --> 
-		<profile>
-			<id>unittests</id>
-			<activation>
-				<property>
-					<name>!integration.tests</name>
-				</property>
-			</activation>
-			<build>				
-				<pluginManagement>
-					<plugins>
-						<plugin>
-							<artifactId>maven-surefire-plugin</artifactId>
-							<version>${surefire.plugin.version}</version>
-							<configuration>
-								<excludes>
-									<exclude>**/*IntegrationTest.java</exclude>
-									<exclude>**/*DebugTest.java</exclude>
-								</excludes>
-							</configuration>
-						</plugin>
-					</plugins>
-				</pluginManagement>
-			</build>
-		</profile>
 		<profile>
 			<id>inttests</id>
 			<activation>
 				<property>
-					<name>integration.tests</name>
-				</property>
+					<name>test.level</name>
+          			<value>integration</value>				
+          		</property>
 			</activation>
-			<properties>
-				<integration.tests>true</integration.tests>
-			</properties>
 			<build>				
 				<pluginManagement>
 					<plugins>
