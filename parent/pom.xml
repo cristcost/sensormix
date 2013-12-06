@@ -14,6 +14,10 @@
 		<name>GDG Firenze :: Sensormix Team</name>
 	</organization>
 
+	<modules>
+		<module>style</module>
+	</modules>
+
 	<developers>
 		<developer>
 			<id>ccostantini</id>
@@ -49,6 +53,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+		<!-- Version for checks - need to be set explicitly, do not use ${project.version} -->
+		<sensormix-checks.version>1-SNAPSHOT</sensormix-checks.version>
+
 		<!-- Artifacts versions -->
 		<activemq.version>5.7.0</activemq.version>
 		<apacheds.version>1.5.7</apacheds.version>
@@ -56,6 +63,7 @@
 		<batik-transcoder.version>1.7-cristcost-00</batik-transcoder.version>
 		<batik.version>1.7</batik.version>
 		<camel.version>2.10.7</camel.version>
+		<checkstyle.version>5.6</checkstyle.version>
 		<commons-cli.version>1.2</commons-cli.version>
 		<commons-fileupload.version>1.2</commons-fileupload.version>
 		<commons-io.version>2.0</commons-io.version>
@@ -138,6 +146,35 @@
 
 
 	<build>
+		<!-- Always generate source and javadoc artifacts -->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+		<!-- Manage version of default plugin -->
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -184,11 +221,19 @@
 					</configuration>
 				</plugin>
 
-
+				<!-- Configure Checkstyle -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-checkstyle-plugin</artifactId>
 					<version>${checkstyle.plugin.version}</version>
+					<dependencies>
+						<!-- Include our custom rules -->
+						<dependency>
+							<groupId>com.google.developers.gdgfirenze</groupId>
+							<artifactId>sensormix-style</artifactId>
+							<version>${sensormix-checks.version}</version>
+						</dependency>
+					</dependencies>
 					<configuration>
 						<encoding>${project.build.sourceEncoding}</encoding>
 					</configuration>
@@ -197,7 +242,7 @@
 							<id>validate</id>
 							<phase>validate</phase>
 							<configuration>
-								<configLocation>config/sun_checks.xml</configLocation>
+								<configLocation>sensormix-checkstyle.xml</configLocation>
 								<consoleOutput>true</consoleOutput>
 								<failsOnError>true</failsOnError>
 								<linkXRef>false</linkXRef>
@@ -209,6 +254,8 @@
 						</execution>
 					</executions>
 				</plugin>
+
+				<!-- Configure PMD -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-pmd-plugin</artifactId>
@@ -238,33 +285,6 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
 	</build>
 
 
@@ -295,10 +315,10 @@
 			</activation>
 			<build>
 				<plugins>
-					<!-- <plugin> -->
-					<!-- <groupId>org.apache.maven.plugins</groupId> -->
-					<!-- <artifactId>maven-checkstyle-plugin</artifactId> -->
-					<!-- </plugin> -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-checkstyle-plugin</artifactId>
+					</plugin>
 					<!-- <plugin> -->
 					<!-- <groupId>org.apache.maven.plugins</groupId> -->
 					<!-- <artifactId>maven-pmd-plugin</artifactId> -->

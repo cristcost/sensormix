@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.google.developers.gdgfirenze</groupId>
+		<artifactId>sensormix-parent</artifactId>
+		<version>1-SNAPSHOT</version>
+	</parent>
+
+	<name>GDG Firenze :: Sensormix Checkstyle rules for Java Code</name>
+
+	<artifactId>sensormix-style</artifactId>
+	
+	<properties>
+		<!-- Do not self check the project of checks -->
+		<sourcecheck.skip>true</sourcecheck.skip>
+		<pmd.skip>true</pmd.skip>
+		<checkstyle.skip>true</checkstyle.skip>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.puppycrawl.tools</groupId>
+			<artifactId>checkstyle</artifactId>
+			<version>${checkstyle.version}</version>
+		</dependency>
+	</dependencies>
+</project>

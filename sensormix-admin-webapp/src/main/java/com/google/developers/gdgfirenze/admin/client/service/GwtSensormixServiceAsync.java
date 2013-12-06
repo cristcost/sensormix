@@ -1,4 +1,4 @@
-package com.google.developers.gdgfirenze.admin.client;
+package com.google.developers.gdgfirenze.admin.client.service;
 
 import java.util.Date;
 import java.util.List;

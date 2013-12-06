@@ -6,21 +6,21 @@
 		.navigator {
 			bottom: 5px;
 			border: 1px solid #ccc;
+			width: 100%;
 		}
-		
-		.sensorDetail {
-			bottom: 5px;
-			border: 1px solid #ccc;
-		}
+
 	</ui:style>
 	<g:DockLayoutPanel unit='PX'>
 		<g:north size='90'>
-			<g:HTMLPanel>
-				<h1>Sensormix Admin Webapp</h1>
-				<span>
-					<g:Label ui:field="infoMessage" />
-				</span>
-			</g:HTMLPanel>
+			<g:AbsolutePanel>
+			<g:at left='10' top='0'>
+				<g:Image url="/logo.png" />
+			</g:at>
+			<g:at left='120' top='0'>
+				<g:HTML><h1>Sensormix Admin Webapp</h1></g:HTML>
+			</g:at>
+				
+			</g:AbsolutePanel>
 		</g:north>
 		<g:center>
 			<c:CellBrowser ui:field="navigator" addStyleNames='{style.navigator}'/>

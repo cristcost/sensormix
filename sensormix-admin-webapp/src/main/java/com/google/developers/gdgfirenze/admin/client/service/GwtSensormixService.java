@@ -1,4 +1,4 @@
-package com.google.developers.gdgfirenze.admin.client;
+package com.google.developers.gdgfirenze.admin.client.service;
 
 import com.google.developers.gdgfirenze.service.SensormixService;
 import com.google.gwt.user.client.rpc.RemoteService;

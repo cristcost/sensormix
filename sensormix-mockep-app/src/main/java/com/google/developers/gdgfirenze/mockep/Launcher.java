@@ -1,3 +1,17 @@
+/*
+ * Copyright 2013, Cristiano Costantini, Giuseppe Gerla, Michele Ficarra, Sergio Ciampi, Stefano
+ * Cigheri.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package com.google.developers.gdgfirenze.mockep;
 
 import com.google.developers.gdgfirenze.protobuf.SensormixProtos.SampleMessage;
@@ -7,22 +21,21 @@ import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.netty.ChannelHandlerFactories;
 import org.apache.camel.component.netty.ChannelHandlerFactory;
-import org.apache.camel.component.netty.ShareableChannelHandlerFactory;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.SimpleRegistry;
-import org.jboss.netty.buffer.ChannelBuffer;
-import org.jboss.netty.channel.Channel;
-import org.jboss.netty.channel.ChannelHandlerContext;
-import org.jboss.netty.handler.codec.oneone.OneToOneDecoder;
 
 import java.util.Date;
 
 /**
- * Hello world!
- * 
+ * The Class for Launching the test endpoints.
  */
 public class Launcher {
 
+  /**
+   * The Class SampleAdapter.
+   * 
+   * It implements a transformer made with Java.
+   */
   public static class SampleAdapter {
     public String transform(SampleMessage message) {
       StringBuilder sb = new StringBuilder();
@@ -55,13 +68,15 @@ public class Launcher {
       public void configure() {
         from("jetty:http://0.0.0.0:8080/test").to("log:dump?showAll=true").choice().when(
             header(Exchange.HTTP_METHOD).in("POST", "PUT")).to(
-            "file:target/incoming?fileName=msg-http-${date:now:yyyyMMdd_HHmmss_SSS}.js").end().setHeader(
-            "Content-Type", constant("application/json")).to("velocity:response_template.vm");
+            "file:target/incoming?fileName=msg-http-${date:now:yyyyMMdd_HHmmss_SSS}.js").end().
+            setHeader("Content-Type", constant("application/json")).
+            to("velocity:response_template.vm");
 
         // Arduino route
         from("mina2:udp://0.0.0.0:10081").to("log:dump?showAll=true").to(
             "file:target/incoming?fileName=msg-udp-${date:now:yyyyMMdd_HHmmss_SSS}.js");
 
+        // Protocol buffer route
         from("netty:tcp://0.0.0.0:10082/?decoder=#decoder&sync=false").unmarshal().protobuf(
             SampleMessage.getDefaultInstance()).to("log:dump?showAll=true").bean(
             new SampleAdapter()).to(

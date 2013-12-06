@@ -19,6 +19,15 @@ public class SensorCell extends AbstractCell<Sensor> {
 	public static final IconBundle ICON_BUNDLE = GWT.create(IconBundle.class);
 
 
+	private String findIconName(String type) {
+		try {
+			String[] split = type.split("/");
+			return split[split.length - 1];
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	@Override
 	public void render(Context context, Sensor sensor, SafeHtmlBuilder sb) {
 
@@ -61,14 +70,5 @@ public class SensorCell extends AbstractCell<Sensor> {
 		}
 
 		sb.appendHtmlConstant("</td></td></table>");
-	}
-	
-	private String findIconName(String type) {
-		try {
-			String[] split = type.split("/");
-			return split[split.length - 1];
-		} catch (Exception e) {
-			return null;
-		}
 	}
 }
