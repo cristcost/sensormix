@@ -10,7 +10,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.util.tracker.ServiceTracker;
 
-import com.google.developers.gdgfirenze.admin.client.GwtSensormixService;
+import com.google.developers.gdgfirenze.admin.client.service.GwtSensormixService;
 import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.SampleReport;
 import com.google.developers.gdgfirenze.model.Sensor;
@@ -30,14 +30,9 @@ public class SensormixServiceProxy extends RemoteServiceServlet implements
 	private ServiceTracker tracker = null;
 
 	@Override
-	public void init() throws ServletException {
-		super.init();
-
-		BundleContext context = FrameworkUtil.getBundle(this.getClass())
-				.getBundleContext();
-		tracker = new ServiceTracker(context, SensormixService.class.getName(),
-				null);
-		tracker.open();
+	public long countSamples(String sensorId, String sampleType, Date from,
+			Date to) {
+		return getService().countSamples(sensorId, sampleType, from, to);
 	}
 
 	@Override
@@ -48,30 +43,10 @@ public class SensormixServiceProxy extends RemoteServiceServlet implements
 		}
 	}
 
-	private SensormixService getService() {
-		try {
-			return (SensormixService) tracker.waitForService(10000);
-		} catch (InterruptedException e) {
-			throw new RuntimeException(
-					"Error accessing OSGi service for SensormixService", e);
-		}
-	}
-
 	@Override
-	public List<String> listSensorsIds() {
-		List<String> listSensorsIds = getService().listSensorsIds();
-		if (listSensorsIds != null) {
-			logger.info("Sending " + listSensorsIds.size()
-					+ " sensor ids to GWT");
-		} else {
-			logger.warning("Sensor IDs are null!");
-		}
-		return listSensorsIds;
-	}
-
-	@Override
-	public List<String> listSamplesTypes() {
-		return getService().listSamplesTypes();
+	public SampleReport getSampleReport(String sensorId, String sampleType,
+			Date from, Date to) {
+		return getService().getSampleReport(sensorId, sampleType, from, to);
 	}
 
 	@Override
@@ -88,18 +63,6 @@ public class SensormixServiceProxy extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public long countSamples(String sensorId, String sampleType, Date from,
-			Date to) {
-		return getService().countSamples(sensorId, sampleType, from, to);
-	}
-
-	@Override
-	public SampleReport getSampleReport(String sensorId, String sampleType,
-			Date from, Date to) {
-		return getService().getSampleReport(sensorId, sampleType, from, to);
-	}
-
-	@Override
 	public List<Sensor> getSensors(List<String> sensorIds, Date from, Date to) {
 		List<Sensor> sensors = getService().getSensors(sensorIds, from, to);
 		if (sensors != null) {
@@ -110,14 +73,51 @@ public class SensormixServiceProxy extends RemoteServiceServlet implements
 		return sensors;
 	}
 
+	private SensormixService getService() {
+		try {
+			return (SensormixService) tracker.waitForService(10000);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(
+					"Error accessing OSGi service for SensormixService", e);
+		}
+	}
+
 	@Override
-	public void registerSensor(Sensor sensor) {
-		getService().registerSensor(sensor);
+	public void init() throws ServletException {
+		super.init();
+
+		BundleContext context = FrameworkUtil.getBundle(this.getClass())
+				.getBundleContext();
+		tracker = new ServiceTracker(context, SensormixService.class.getName(),
+				null);
+		tracker.open();
+	}
+
+	@Override
+	public List<String> listSamplesTypes() {
+		return getService().listSamplesTypes();
+	}
+
+	@Override
+	public List<String> listSensorsIds() {
+		List<String> listSensorsIds = getService().listSensorsIds();
+		if (listSensorsIds != null) {
+			logger.info("Sending " + listSensorsIds.size()
+					+ " sensor ids to GWT");
+		} else {
+			logger.warning("Sensor IDs are null!");
+		}
+		return listSensorsIds;
 	}
 
 	@Override
 	public void recordSamples(List<AbstractSample> samples) {
 		getService().recordSamples(samples);
+	}
+
+	@Override
+	public void registerSensor(Sensor sensor) {
+		getService().registerSensor(sensor);
 	}
 
 }

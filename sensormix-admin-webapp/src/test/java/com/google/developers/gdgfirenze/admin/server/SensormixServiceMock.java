@@ -7,7 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 
-import com.google.developers.gdgfirenze.admin.client.GwtSensormixService;
+import com.google.developers.gdgfirenze.admin.client.service.GwtSensormixService;
 import com.google.developers.gdgfirenze.dataservice.SensormixServiceJpaImpl;
 import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.SampleReport;
@@ -23,15 +23,13 @@ public class SensormixServiceMock extends RemoteServiceServlet implements
 		GwtSensormixService {
 
 	private EntityManagerFactory emf;
-	private SensormixServiceJpaImpl sensormixServiceJpaImpl;
 	private String jpaPersistenceUnitName = "sm_mysql_db_test";
+	private SensormixServiceJpaImpl sensormixServiceJpaImpl;
 
 	@Override
-	public void init() throws ServletException {
-		super.init();
-		emf = Persistence.createEntityManagerFactory(jpaPersistenceUnitName);
-		sensormixServiceJpaImpl = new SensormixServiceJpaImpl();
-		sensormixServiceJpaImpl.setEntityManagerFactory(emf);
+	public long countSamples(String sensorId, String sampleType, Date from,
+			Date to) {
+		return getService().countSamples(sensorId, sampleType, from, to);
 	}
 
 	@Override
@@ -40,18 +38,10 @@ public class SensormixServiceMock extends RemoteServiceServlet implements
 		emf.close();
 	}
 
-	private SensormixService getService() {
-		return sensormixServiceJpaImpl;
-	}
-
 	@Override
-	public List<String> listSensorsIds() {
-		return getService().listSensorsIds();
-	}
-
-	@Override
-	public List<String> listSamplesTypes() {
-		return getService().listSamplesTypes();
+	public SampleReport getSampleReport(String sensorId, String sampleType,
+			Date from, Date to) {
+		return getService().getSampleReport(sensorId, sampleType, from, to);
 	}
 
 	@Override
@@ -62,30 +52,40 @@ public class SensormixServiceMock extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public long countSamples(String sensorId, String sampleType, Date from,
-			Date to) {
-		return getService().countSamples(sensorId, sampleType, from, to);
-	}
-
-	@Override
-	public SampleReport getSampleReport(String sensorId, String sampleType,
-			Date from, Date to) {
-		return getService().getSampleReport(sensorId, sampleType, from, to);
-	}
-
-	@Override
 	public List<Sensor> getSensors(List<String> sensorIds, Date from, Date to) {
 		return getService().getSensors(sensorIds, from, to);
 	}
 
+	private SensormixService getService() {
+		return sensormixServiceJpaImpl;
+	}
+
 	@Override
-	public void registerSensor(Sensor sensor) {
-		getService().registerSensor(sensor);
+	public void init() throws ServletException {
+		super.init();
+		emf = Persistence.createEntityManagerFactory(jpaPersistenceUnitName);
+		sensormixServiceJpaImpl = new SensormixServiceJpaImpl();
+		sensormixServiceJpaImpl.setEntityManagerFactory(emf);
+	}
+
+	@Override
+	public List<String> listSamplesTypes() {
+		return getService().listSamplesTypes();
+	}
+
+	@Override
+	public List<String> listSensorsIds() {
+		return getService().listSensorsIds();
 	}
 
 	@Override
 	public void recordSamples(List<AbstractSample> samples) {
 		getService().recordSamples(samples);
+	}
+
+	@Override
+	public void registerSensor(Sensor sensor) {
+		getService().registerSensor(sensor);
 	}
 
 }

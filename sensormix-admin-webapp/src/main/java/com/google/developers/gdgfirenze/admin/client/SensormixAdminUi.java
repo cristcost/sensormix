@@ -19,8 +19,6 @@ public class SensormixAdminUi extends Composite {
 	private static SensormixAdminUiUiBinder uiBinder = GWT
 			.create(SensormixAdminUiUiBinder.class);
 
-	@UiField
-	Label infoMessage;
 
 	@UiField(provided = true)
 	CellBrowser navigator;
@@ -28,7 +26,7 @@ public class SensormixAdminUi extends Composite {
 	public SensormixAdminUi() {
 		TreeViewModel model = new SensorTreeModel();
 		navigator = new CellBrowser.Builder<Object>(model, null).build();
-		navigator.setDefaultColumnWidth(500);
+		navigator.setDefaultColumnWidth(600);
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 

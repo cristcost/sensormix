@@ -2,10 +2,10 @@ package com.google.developers.gdgfirenze.admin.client.tree;
 
 import java.util.List;
 
-import com.google.developers.gdgfirenze.admin.client.GwtSensormixService;
-import com.google.developers.gdgfirenze.admin.client.GwtSensormixServiceAsync;
 import com.google.developers.gdgfirenze.admin.client.cell.SampleCell;
 import com.google.developers.gdgfirenze.admin.client.cell.SensorCell;
+import com.google.developers.gdgfirenze.admin.client.service.GwtSensormixService;
+import com.google.developers.gdgfirenze.admin.client.service.GwtSensormixServiceAsync;
 import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.Sensor;
 import com.google.gwt.core.client.GWT;
@@ -16,42 +16,6 @@ import com.google.gwt.view.client.Range;
 import com.google.gwt.view.client.TreeViewModel;
 
 public class SensorTreeModel implements TreeViewModel {
-
-	private final GwtSensormixServiceAsync sensormixService = GWT
-			.create(GwtSensormixService.class);
-
-	private final class SensorDataProvider extends AsyncDataProvider<Sensor> {
-
-		@Override
-		protected void onRangeChanged(HasData<Sensor> display) {
-			final Range range = display.getVisibleRange();
-
-			sensormixService.getSensors(null, null, null,
-					new AsyncCallback<List<Sensor>>() {
-
-						@Override
-						public void onSuccess(List<Sensor> result) {
-							if (result != null) {
-								int start = range.getStart();
-								int end = start + range.getLength();
-								if (end > result.size()) {
-									end = result.size();
-								}
-								List<Sensor> dataInRange = result.subList(
-										start, end);
-								updateRowCount(result.size(), true);
-								updateRowData(start, dataInRange);
-							}
-						}
-
-						@Override
-						public void onFailure(Throwable caught) {
-							// TODO Error handling
-							caught.printStackTrace();
-						}
-					});
-		}
-	}
 
 	private final class SampleDataProvider extends
 			AsyncDataProvider<AbstractSample> {
@@ -71,16 +35,16 @@ public class SensorTreeModel implements TreeViewModel {
 					new AsyncCallback<Long>() {
 
 						@Override
+						public void onFailure(Throwable caught) {
+							// TODO Error handling
+							caught.printStackTrace();
+						}
+
+						@Override
 						public void onSuccess(Long result) {
 							if (result != null) {
 								updateRowCount(result.intValue(), true);
 							}
-						}
-
-						@Override
-						public void onFailure(Throwable caught) {
-							// TODO Error handling
-							caught.printStackTrace();
 						}
 					});
 			sensormixService.getSamples(sensorId, null, null, null,
@@ -88,20 +52,56 @@ public class SensorTreeModel implements TreeViewModel {
 					new AsyncCallback<List<AbstractSample>>() {
 
 						@Override
+						public void onFailure(Throwable caught) {
+							// TODO Error handling
+							caught.printStackTrace();
+						}
+
+						@Override
 						public void onSuccess(List<AbstractSample> result) {
 							if (result != null) {
 								updateRowData(start, result);
 							}
 						}
+					});
+		}
+	}
+
+	private final class SensorDataProvider extends AsyncDataProvider<Sensor> {
+
+		@Override
+		protected void onRangeChanged(HasData<Sensor> display) {
+			final Range range = display.getVisibleRange();
+
+			sensormixService.getSensors(null, null, null,
+					new AsyncCallback<List<Sensor>>() {
 
 						@Override
 						public void onFailure(Throwable caught) {
 							// TODO Error handling
 							caught.printStackTrace();
 						}
+
+						@Override
+						public void onSuccess(List<Sensor> result) {
+							if (result != null) {
+								int start = range.getStart();
+								int end = start + range.getLength();
+								if (end > result.size()) {
+									end = result.size();
+								}
+								List<Sensor> dataInRange = result.subList(
+										start, end);
+								updateRowCount(result.size(), true);
+								updateRowData(start, dataInRange);
+							}
+						}
 					});
 		}
 	}
+
+	private final GwtSensormixServiceAsync sensormixService = GWT
+			.create(GwtSensormixService.class);
 
 	// Get the NodeInfo that provides the children of the specified value.
 	public <T> NodeInfo<?> getNodeInfo(final T value) {
