@@ -123,7 +123,7 @@
 		<assembly.plugin.version>2.4</assembly.plugin.version>
 		<build-helper.plugin.version>1.8</build-helper.plugin.version>
 		<bundle.plugin.version>2.3.7</bundle.plugin.version>
-		<checkstyle.plugin.version>2.9.1</checkstyle.plugin.version>
+		<checkstyle.plugin.version>2.11</checkstyle.plugin.version>
 		<clean.plugin.version>2.5</clean.plugin.version>
 		<compiler.plugin.version>3.1</compiler.plugin.version>
 		<cxf.plugin.version>2.6.8</cxf.plugin.version>
