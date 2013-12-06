@@ -15,7 +15,7 @@ import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.DailySampleReport;
 import com.google.developers.gdgfirenze.model.SampleReport;
 import com.google.developers.gdgfirenze.model.Sensor;
-import com.google.developers.gdgfirenze.service.SensormixAdminInterface;
+import com.google.developers.gdgfirenze.osgi.SensormixAdminInterface;
 import com.google.developers.gdgfirenze.service.SensormixService;
 
 public class SensormixServiceMemoryImpl implements SensormixService,

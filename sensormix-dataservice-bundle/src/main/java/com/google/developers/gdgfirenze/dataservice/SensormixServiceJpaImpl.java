@@ -27,8 +27,8 @@ import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.DailySampleReport;
 import com.google.developers.gdgfirenze.model.SampleReport;
 import com.google.developers.gdgfirenze.model.Sensor;
+import com.google.developers.gdgfirenze.osgi.SensormixAdminInterface;
 import com.google.developers.gdgfirenze.serializer.Serializer;
-import com.google.developers.gdgfirenze.service.SensormixAdminInterface;
 import com.google.developers.gdgfirenze.service.SensormixService;
 
 public class SensormixServiceJpaImpl implements SensormixService,
@@ -412,8 +412,10 @@ public class SensormixServiceJpaImpl implements SensormixService,
 						"sensor must be not null to register it");
 			}
 		} else {
-			logger.log(Level.INFO, "Cannot register sensor because DataServiceJpaImpl is in maintenace");
-			throw new RuntimeException("Cannot register sensor because DataServiceJpaImpl is in maintenace");
+			logger.log(Level.INFO,
+					"Cannot register sensor because DataServiceJpaImpl is in maintenace");
+			throw new RuntimeException(
+					"Cannot register sensor because DataServiceJpaImpl is in maintenace");
 		}
 	}
 
@@ -472,8 +474,10 @@ public class SensormixServiceJpaImpl implements SensormixService,
 						"samples must be not null to register them");
 			}
 		} else {
-			logger.log(Level.INFO, "Cannot register samples because DataServiceJpaImpl is in maintenace");
-			throw new RuntimeException("Cannot register samples because DataServiceJpaImpl is in maintenace");
+			logger.log(Level.INFO,
+					"Cannot register samples because DataServiceJpaImpl is in maintenace");
+			throw new RuntimeException(
+					"Cannot register samples because DataServiceJpaImpl is in maintenace");
 		}
 	}
 
