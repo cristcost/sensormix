@@ -1,3 +1,17 @@
+/*
+ * Copyright 2013, Cristiano Costantini, Giuseppe Gerla, Michele Ficarra, Sergio Ciampi, Stefano
+ * Cigheri.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package com.google.developers.gdgfirenze.memservice;
 
 import java.text.DateFormat;
@@ -18,22 +32,58 @@ import com.google.developers.gdgfirenze.model.Sensor;
 import com.google.developers.gdgfirenze.osgi.SensormixAdminInterface;
 import com.google.developers.gdgfirenze.service.SensormixService;
 
+/**
+ * The Class SensormixServiceMemoryImpl.
+ * This class implements the methods from the SensormixService interface
+ * in order to execute CRUD operation on main data structures from the
+ * data model project: samples and sensors.
+ * This implementation stores all the data in the volatile memory
+ * instead of physical memory.
+ * When the service is stopped, all the data are lost.
+ */
 public class SensormixServiceMemoryImpl implements SensormixService,
-		SensormixAdminInterface {
+SensormixAdminInterface {
 
-	private static Logger logger = Logger
-			.getLogger(SensormixServiceMemoryImpl.class.getName());
+	/**
+	 * The class logger.
+	 */
+	private static Logger logger = Logger.getLogger(SensormixServiceMemoryImpl.class.getName());
 
+	/**
+	 * Data structure to save the samples.
+	 */
 	private List<AbstractSample> samples = new ArrayList<AbstractSample>();
+	
+	/**
+	 * Data structure to save the sensors.
+	 */
 	private Map<String, Sensor> sensors = new HashMap<String, Sensor>();
 
+	/**
+	 * Data structure to save the samples based on their type.
+	 */
 	private Map<String, List<AbstractSample>> samplesForType = new HashMap<String, List<AbstractSample>>();
+	
+	/**
+	 * Data structure to save the samples based on their date.
+	 */
 	private Map<String, List<AbstractSample>> samplesForDate = new HashMap<String, List<AbstractSample>>();
+	
+	/**
+	 * Data structure to save the samples based on their sensorId.
+	 */
 	private Map<String, List<AbstractSample>> samplesForSensorId = new HashMap<String, List<AbstractSample>>();
-	private DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+	
+	/**
+	 * Date format.
+	 */
+	private DateFormat df = new SimpleDateFormat("MM-dd-yyyy");	
 
 	private boolean inMaintenace;
 
+	/**
+	 * Lists all the sensor identifiers.
+	 */
 	@Override
 	public List<String> listSensorsIds() {
 		List<String> ret = new ArrayList<String>();
@@ -46,6 +96,7 @@ public class SensormixServiceMemoryImpl implements SensormixService,
 	}
 
 	/**
+	 * Get the samples based on filter criteria.
 	 * Search criteria: null sensorId => any sensor null sampleType => any
 	 * sample type limitCount != null => stop when ret.size() >= limitCount
 	 * limitFrom != null => skip the first limitFrom items
@@ -81,6 +132,9 @@ public class SensormixServiceMemoryImpl implements SensormixService,
 		return ret;
 	}
 
+	/**
+	 * Count the samples based on filter criteria.
+	 */
 	@Override
 	public long countSamples(String sensorId, String sampleType, Date from,
 			Date to) {
@@ -100,7 +154,7 @@ public class SensormixServiceMemoryImpl implements SensormixService,
 	}
 
 	/**
-	 * TODO: Add implementation: ignore for the moment
+	 * Get the sample report based on filter criteria.
 	 */
 	@Override
 	public SampleReport getSampleReport(String sensorId, String sampleType,
@@ -143,8 +197,7 @@ public class SensormixServiceMemoryImpl implements SensormixService,
 					List<AbstractSample> appoList = new ArrayList<AbstractSample>();
 					appoList.addAll(filtered);
 
-					appoList.retainAll(samplesForDate.get(df
-							.format(internalStart)));
+					appoList.retainAll(samplesForDate.get(df.format(internalStart)));
 
 					DailySampleReport dsr = new DailySampleReport();
 					dsr.setDate(internalStart);
@@ -157,6 +210,9 @@ public class SensormixServiceMemoryImpl implements SensormixService,
 		return sr;
 	}
 
+	/**
+	 * Get the sensors based on filter criteria.
+	 */
 	@Override
 	public List<Sensor> getSensors(List<String> sensorIds, Date from, Date to) {
 		List<Sensor> ret = new ArrayList<Sensor>();
@@ -172,7 +228,7 @@ public class SensormixServiceMemoryImpl implements SensormixService,
 						if (from != null && to != null) {
 							if (currentSensor.getLastSeen().compareTo(from) >= 0
 									&& currentSensor.getLastSeen()
-											.compareTo(to) <= 0) {
+									.compareTo(to) <= 0) {
 								ret.add(currentSensor);
 							}
 						} else if (from == null && to != null) {
@@ -193,6 +249,9 @@ public class SensormixServiceMemoryImpl implements SensormixService,
 		return ret;
 	}
 
+	/**
+	 * Register the sensors.
+	 */
 	@Override
 	public void registerSensor(Sensor sensor) {
 		if (!inMaintenace) {
@@ -216,6 +275,9 @@ public class SensormixServiceMemoryImpl implements SensormixService,
 		}
 	}
 
+	/**
+	 * Record the samples.
+	 */
 	@Override
 	public void recordSamples(List<AbstractSample> samplesToAdd) {
 		if (!inMaintenace) {
@@ -259,13 +321,29 @@ public class SensormixServiceMemoryImpl implements SensormixService,
 	}
 
 	/**
-	 * TODO: Add implementation: ignore for the moment
+	 * List the samples based on type filtering.
 	 */
 	@Override
 	public List<String> listSamplesTypes() {
 		List<String> ret = new ArrayList<String>();
 		ret.addAll(samplesForType.keySet());
 		return ret;
+	}
+	
+	/**
+	 * setter of the maintenance property.
+	 */
+	@Override
+	public void setInMaintenace(boolean value) {
+		inMaintenace = value;
+	}
+
+	/**
+	 * check if 
+	 */
+	@Override
+	public boolean isInMaintenance() {
+		return inMaintenace;
 	}
 
 	/**************************************
@@ -300,16 +378,6 @@ public class SensormixServiceMemoryImpl implements SensormixService,
 			}
 		}
 		return isToFilter;
-	}
-
-	@Override
-	public void setInMaintenace(boolean value) {
-		inMaintenace = value;
-	}
-
-	@Override
-	public boolean isInMaintenance() {
-		return inMaintenace;
 	}
 
 }
