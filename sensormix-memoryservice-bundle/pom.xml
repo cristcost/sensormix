@@ -9,13 +9,6 @@
 		<artifactId>sensormix-main-project</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-
-	<properties>
-		<!-- TODO: remove these properties and fix checkstyle! -->
-		<sourcecheck.skip>true</sourcecheck.skip>
-		<pmd.skip>true</pmd.skip>
-		<checkstyle.skip>true</checkstyle.skip>
-	</properties>
 	
 	<artifactId>sensormix-memoryservice-bundle</artifactId>
 	<packaging>bundle</packaging>
