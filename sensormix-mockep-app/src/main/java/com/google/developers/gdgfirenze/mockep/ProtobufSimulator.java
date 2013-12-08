@@ -35,7 +35,7 @@ public class ProtobufSimulator {
     UnknownHostException, IOException {
     SampleMessage message = null;
 
-    Socket socket = new Socket("localhost", 10082);
+    Socket socket = new Socket("localhost", 5001);
     Random rand = new Random();
     for (int i = 0; i < 10; i++) {
 

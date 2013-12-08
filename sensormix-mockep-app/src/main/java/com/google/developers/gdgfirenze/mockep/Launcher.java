@@ -44,7 +44,8 @@ public class Launcher {
       sb.append(System.lineSeparator());
 
       sb.append("Time: ");
-      sb.append(new Date(message.getTime()));
+      Date date = new Date(message.getTime() * 1000L);
+      sb.append(date);
       sb.append(System.lineSeparator());
 
       sb.append("Faces: ");
@@ -68,9 +69,8 @@ public class Launcher {
       public void configure() {
         from("jetty:http://0.0.0.0:8080/test").to("log:dump?showAll=true").choice().when(
             header(Exchange.HTTP_METHOD).in("POST", "PUT")).to(
-            "file:target/incoming?fileName=msg-http-${date:now:yyyyMMdd_HHmmss_SSS}.js").end().
-            setHeader("Content-Type", constant("application/json")).
-            to("velocity:response_template.vm");
+            "file:target/incoming?fileName=msg-http-${date:now:yyyyMMdd_HHmmss_SSS}.js").end().setHeader(
+            "Content-Type", constant("application/json")).to("velocity:response_template.vm");
 
         // Arduino route
         from("mina2:udp://0.0.0.0:10081").to("log:dump?showAll=true").to(
