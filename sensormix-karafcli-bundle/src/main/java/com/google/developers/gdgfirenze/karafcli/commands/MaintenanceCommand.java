@@ -12,7 +12,7 @@ import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 
-import com.google.developers.gdgfirenze.service.SensormixAdminInterface;
+import com.google.developers.gdgfirenze.osgi.SensormixAdminInterface;
 
 @Command(scope = "sensormix", name = "maintenance", description = "Set SensormixAdmin services maintenance state in on/off")
 public class MaintenanceCommand extends OsgiCommandSupport {

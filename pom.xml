@@ -17,52 +17,43 @@
 	<packaging>pom</packaging>
 	<name>GDG Firenze :: Sensormix Main project</name>
 
+	<modules>
+		<module>sensormix-datamodel-api</module>
+		<module>sensormix-dataservice-bundle</module>
+		<module>sensormix-karafcli-bundle</module>
+		<module>sensormix-memoryservice-bundle</module>
+		<module>sensormix-datawebservice-bundle</module>
+		<module>sensormix-webgui-webapp</module>
+		<module>sensormix-admin-webapp</module>
+		<module>sensormix-integration-bundle</module>
+
+		<module>sensormix-deploy-features</module>
+		<module>sensormix-deploy-dist</module>
+
+    	<module>sensormix-mockep-app</module>
+  	</modules>
 
 
-	<profiles>
-		<profile>
-			<id>frontend</id>
-			<modules>
-				<module>sensormix-datamodel-api</module>
-				<module>sensormix-webgui-webapp</module>
-				<module>sensormix-admin-webapp</module>
-				<module>sensormix-deploy-features</module>
-		  	</modules>
-		</profile>
-		<profile>
-			<id>backend</id>
-			<modules>
-				<module>sensormix-datamodel-api</module>
-				<module>sensormix-dataservice-bundle</module>
-				<module>sensormix-karafcli-bundle</module>
-				<module>sensormix-memoryservice-bundle</module>
-				<module>sensormix-datawebservice-bundle</module>
-				<module>sensormix-integration-bundle</module>
-				<module>sensormix-deploy-features</module>
-		  	</modules>
-		</profile>
-		<profile>
-			<id>full</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<modules>
-				<module>sensormix-datamodel-api</module>
-				<module>sensormix-dataservice-bundle</module>
-				<module>sensormix-karafcli-bundle</module>
-				<module>sensormix-memoryservice-bundle</module>
-				<module>sensormix-datawebservice-bundle</module>
-				<module>sensormix-webgui-webapp</module>
-				<module>sensormix-admin-webapp</module>
-				<module>sensormix-integration-bundle</module>
-				<!--<module>sensormix-karafcli-bundle</module>-->
-
-				<module>sensormix-deploy-features</module>
-				<module>sensormix-deploy-dist</module>
-
-		    	<module>sensormix-mockep-app</module>
-		  	</modules>
-		</profile>
-	</profiles>
+	<build>
+		<!-- Always generate source and javadoc artifacts -->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-pmd-plugin</artifactId> -->
+			<!-- </plugin> -->
+		</plugins>
+	</build>
 	
 </project>

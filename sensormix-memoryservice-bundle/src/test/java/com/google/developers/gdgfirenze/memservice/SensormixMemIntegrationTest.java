@@ -13,6 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.google.developers.gdgfirenze.model.AbstractSample;
+import com.google.developers.gdgfirenze.model.SampleReport;
 import com.google.developers.gdgfirenze.model.Sensor;
 
 public class SensormixMemIntegrationTest {
@@ -33,7 +34,9 @@ public class SensormixMemIntegrationTest {
 	 * - registerSensor
 	 * Then i test the following service methods:
 	 * - sensorList
-	 * - getSensors
+	 * - getSensors.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void sensorsTest() throws ParseException {
@@ -106,7 +109,9 @@ public class SensormixMemIntegrationTest {
 	 * - listSamplesTypes
 	 * - countSamples
 	 * - getSamples
-	 * - getSampleReport
+	 * - getSampleReport.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void samplesTest() throws ParseException {
@@ -139,8 +144,8 @@ public class SensormixMemIntegrationTest {
 				Util.newWifiSignalSample("Galaxy-Nexus-WiFi_AP", "WIFI", Util.newDateTime("2013-01-01 09:15:00.000"), "AliceCristiano", 
 						"00:22:3f:56:38:6a", "[WPA2-PSK-CCMP][ESS]", 2437.0, -48.0)));
 		
-		// IGNORED: MISS IMPLEMENTATION
-		// List<String> sampleTypeList = serviceMemoryImpl.listSamplesTypes();
+		List<String> sampleTypeList = serviceMemoryImpl.listSamplesTypes();
+		assertEquals(4, sampleTypeList.size());
 		
 		long sampleCount = serviceMemoryImpl.countSamples(null, null, null, null);
 		assertEquals(15, sampleCount);
@@ -210,8 +215,9 @@ public class SensormixMemIntegrationTest {
 		abstractSamples = serviceMemoryImpl.getSamples("fake", "POSITION", Util.newDateTime("2013-01-01 09:02:11.000"), Util.newDateTime("2013-01-01 09:02:17.000"), null, null);
 		assertEquals(0, abstractSamples.size());
 
-		// IGNORED: MISS IMPLEMENTATION
-		// SampleReport sampleReport = serviceMemoryImpl.getSampleReport(String sensorId, String sampleType, Date from, Date to);
+		 SampleReport sampleReport = serviceMemoryImpl.getSampleReport("Galaxy-Nexus-GPS_1A23", "POSITION", Util.newDateTime("2013-01-01 08:50:00.000"), Util.newDateTime("2013-01-01 18:00:00.000"));
+		 assertEquals(1, sampleReport.getDailySampleReports().size());
+		 assertEquals(5, sampleReport.getDailySampleReports().get(0).getSampleCount());
 	}
 	
 }
