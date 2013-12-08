@@ -35,10 +35,9 @@ public class ProtobufSimulator {
     UnknownHostException, IOException {
     SampleMessage message = null;
 
-    Socket socket = new Socket("localhost", 5001);
+    Socket socket = new Socket("localhost", 10082);
     Random rand = new Random();
     for (int i = 0; i < 10; i++) {
-
       message =
           SampleMessage.newBuilder().setDeviceId("urn:rixf:org.example/protobuf/sensor_id").
           setFaces(rand.nextLong() % 10).setTime(System.currentTimeMillis()).build();

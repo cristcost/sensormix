@@ -19,6 +19,8 @@
 	   http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
+	<bean id="sampleAdapter"
+		class="com.google.developers.gdgfirenze.integration.SampleAdapter" />
 
 	<routeContext id="jsonHttpProcessingRoutes" xmlns="http://camel.apache.org/schema/spring">
 		<route id="jsonHttpProcessingRoute">
@@ -47,31 +49,37 @@
 	<routeContext id="jsonProcessingRoutes" xmlns="http://camel.apache.org/schema/spring">
 		<route id="jsonProcessingRoute">
 			<from uri="seda:jsonEntry?waitForTaskToComplete=Never" />
-			<convertBodyTo type="java.lang.String" />	
-<!-- 			<to uri="log:rawJson" /> -->
+			<convertBodyTo type="java.lang.String" />
 			<unmarshal>
 				<xmljson elementName="item" arrayName="list" rootName="root" />
 			</unmarshal>
-<!-- 			<to uri="log:rawCdmXml" /> -->
 			<to uri="seda:rawXmlEntry" />
 		</route>
 	</routeContext>
 
-	<!-- TODO: write here XSLT transformation from raw XML to Canonical Data 
-		Model Xml -->
+
+	<routeContext id="protobufProcessingRoutes" xmlns="http://camel.apache.org/schema/spring">
+		<route id="protobufProcessingRoute">
+			<from uri="seda:protobufEntry?waitForTaskToComplete=Never" />
+			<to uri="log:dump?showAll=true" />
+			<unmarshal>
+				<protobuf
+					instanceClass="com.google.developers.gdgfirenze.protobuf.SensormixProtos$SampleMessage" />
+			</unmarshal>
+			<bean ref="sampleAdapter" method="transform" />
+			<to uri="seda:normalizedJavaSample" />
+		</route>
+	</routeContext>
+
 	<routeContext id="xmlAdapterRoutes" xmlns="http://camel.apache.org/schema/spring">
 		<route id="xmlAdapterRoute">
 			<from uri="seda:rawXmlEntry" />
 			<to uri="xslt:xslt_adapters/raw2cdm_adapter.xsl" />
 
-			<!-- Debug Log -->
-<!-- 			<to uri="log:adaptedCdmXml" /> -->
 			<unmarshal>
 				<jaxb contextPath="com.google.developers.gdgfirenze.service" />
 			</unmarshal>
 
-			<!-- Debug Log -->
-<!-- 			<to uri="log:unmarshalledCdmJava" /> -->
 			<setHeader headerName="sensormixBodyType">
 				<simple>${body.getClass.getName}</simple>
 			</setHeader>
@@ -82,8 +90,6 @@
 				<simple>${body.sensor}</simple>
 			</setHeader>
 
-			<!-- Debug Log -->
-			<!-- <to uri="log:sendingRecordsToService?showAll=true" /> -->
 			<to uri="seda:normalizedJavaSample" />
 		</route>
 	</routeContext>

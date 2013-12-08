@@ -101,6 +101,7 @@
 		<oracle.version>1.0.0</oracle.version>
 		<osgi.version>4.2.0</osgi.version>
 		<powermock.version>1.4.12</powermock.version>
+		<protobuf.version>2.5.0</protobuf.version>
 		<selenium.version>2.4.0</selenium.version>
 		<servicemix.version>4.5.2</servicemix.version>
 		<servlet-api.version>2.5</servlet-api.version>
