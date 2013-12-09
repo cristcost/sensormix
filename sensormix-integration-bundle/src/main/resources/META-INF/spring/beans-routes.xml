@@ -61,7 +61,6 @@
 	<routeContext id="protobufProcessingRoutes" xmlns="http://camel.apache.org/schema/spring">
 		<route id="protobufProcessingRoute">
 			<from uri="seda:protobufEntry?waitForTaskToComplete=Never" />
-			<to uri="log:dump?showAll=true" />
 			<unmarshal>
 				<protobuf
 					instanceClass="com.google.developers.gdgfirenze.protobuf.SensormixProtos$SampleMessage" />
