@@ -20,7 +20,17 @@ package com.google.developers.gdgfirenze.osgi;
  * Interface that exposes method for technical maintenance of the services.
  */
 public interface SensormixAdminInterface {
+  /**
+   * Set maintenance state.
+   *
+   * @param value true for maintenance state
+   */
   void setInMaintenace(boolean value);
 
+  /**
+   * Get maintenance state.
+   *
+   * @return true if the service is in maintenance
+   */
   boolean isInMaintenance();
 }
