@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.google.developers.gdgfirenze.admin.client.cell.SampleCell;
 import com.google.developers.gdgfirenze.admin.client.cell.SensorCell;
+import com.google.developers.gdgfirenze.admin.client.event.NumberDetectedEvent;
+import com.google.developers.gdgfirenze.admin.client.event.NumberDetectedEvent.TypeOfNumberDetected;
 import com.google.developers.gdgfirenze.admin.client.service.GwtSensormixService;
 import com.google.developers.gdgfirenze.admin.client.service.GwtSensormixServiceAsync;
 import com.google.developers.gdgfirenze.model.AbstractSample;
@@ -14,6 +16,7 @@ import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.Range;
 import com.google.gwt.view.client.TreeViewModel;
+import com.google.web.bindery.event.shared.EventBus;
 
 public class SensorTreeModel implements TreeViewModel {
 
@@ -94,7 +97,30 @@ public class SensorTreeModel implements TreeViewModel {
 										start, end);
 								updateRowCount(result.size(), true);
 								updateRowData(start, dataInRange);
+								refreshHeaderCounter(result);
 							}
+						}
+
+						private void refreshHeaderCounter(
+								List<Sensor> sensorCount) {
+							eventBus.fireEventFromSource(new NumberDetectedEvent(TypeOfNumberDetected.SENSOR, sensorCount.size()), this);
+							
+							sensormixService.countSamples(null, null, null, null,
+									new AsyncCallback<Long>() {
+
+										@Override
+										public void onFailure(Throwable caught) {
+											// TODO Error handling
+											caught.printStackTrace();
+										}
+
+										@Override
+										public void onSuccess(Long result) {
+											if (result != null) {
+												eventBus.fireEventFromSource(new NumberDetectedEvent(TypeOfNumberDetected.SAMPLE, result), this);
+											}
+										}
+									});
 						}
 					});
 		}
@@ -102,6 +128,11 @@ public class SensorTreeModel implements TreeViewModel {
 
 	private final GwtSensormixServiceAsync sensormixService = GWT
 			.create(GwtSensormixService.class);
+	private EventBus eventBus;
+
+	public SensorTreeModel(EventBus eventBus) {
+		this.eventBus = eventBus;
+	}
 
 	// Get the NodeInfo that provides the children of the specified value.
 	public <T> NodeInfo<?> getNodeInfo(final T value) {
