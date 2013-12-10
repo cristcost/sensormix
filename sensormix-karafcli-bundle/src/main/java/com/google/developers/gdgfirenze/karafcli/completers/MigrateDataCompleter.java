@@ -32,7 +32,7 @@ public class MigrateDataCompleter implements Completer {
    */
   @Override
   public int complete(String buffer, int cursor, List<String> candidates) {
-    StringsCompleter delegate = new StringsCompleter();
+    final StringsCompleter delegate = new StringsCompleter();
     delegate.getStrings().add("migrate");
     return delegate.complete(buffer, cursor, candidates);
   }

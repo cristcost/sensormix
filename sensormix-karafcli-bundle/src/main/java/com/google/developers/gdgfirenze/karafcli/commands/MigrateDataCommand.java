@@ -56,11 +56,17 @@ public class MigrateDataCommand extends OsgiCommandSupport {
 
   private SensormixService destination;
 
+  /**
+   * Retrieve a specific implementation of SensormixService by its bean name.
+   *
+   * @param id the name of the bean implementation
+   * @return the instance of implementation if exists
+   */
   private SensormixService getSensormixServiceById(String id) {
     SensormixService service = null;
     ServiceReference[] refs = null;
-    Bundle b = FrameworkUtil.getBundle(this.getClass());
-    BundleContext bc = b.getBundleContext();
+    final Bundle b = FrameworkUtil.getBundle(this.getClass());
+    final BundleContext bc = b.getBundleContext();
     try {
       refs =
           bc.getAllServiceReferences(SensormixService.class.getName(),
@@ -94,12 +100,12 @@ public class MigrateDataCommand extends OsgiCommandSupport {
       destination = getSensormixServiceById(destinationBeanName);
 
       logger.info("Moving sensors data ");
-      List<Sensor> sensors = source.getSensors(null, null, null);
+      final List<Sensor> sensors = source.getSensors(null, null, null);
       for (Sensor s : sensors) {
         destination.registerSensor(s);
       }
       logger.info("Moving samples data ");
-      List<AbstractSample> samples = source.getSamples(null, null, null, null, null, null);
+      final List<AbstractSample> samples = source.getSamples(null, null, null, null, null, null);
       destination.recordSamples(samples);
     } else {
       logger.warning("Invalid syntax");

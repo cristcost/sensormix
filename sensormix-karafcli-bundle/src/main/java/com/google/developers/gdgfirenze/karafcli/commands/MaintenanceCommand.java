@@ -47,11 +47,18 @@ public class MaintenanceCommand extends OsgiCommandSupport {
 
   private SensormixAdminInterface bundleInMaintenance;
 
+  /**
+   * Retrieve a specific implementation of SensormixAdminInterface by its bean
+   * name.
+   * 
+   * @param id the name of the bean implementation
+   * @return the instance of implementation if exists
+   */
   private SensormixAdminInterface getSensormixAdminServiceById(String id) {
     SensormixAdminInterface service = null;
     ServiceReference[] refs = null;
-    Bundle b = FrameworkUtil.getBundle(this.getClass());
-    BundleContext bc = b.getBundleContext();
+    final Bundle b = FrameworkUtil.getBundle(this.getClass());
+    final BundleContext bc = b.getBundleContext();
     try {
       refs =
           bc.getAllServiceReferences(SensormixAdminInterface.class.getName(),
@@ -82,8 +89,9 @@ public class MaintenanceCommand extends OsgiCommandSupport {
     if ("on".equals(state) && serviceBeanName != null) {
       logger.info("Set maintenance state of " + serviceBeanName + " to On ");
       bundleInMaintenance = getSensormixAdminServiceById(serviceBeanName);
-      if (bundleInMaintenance != null)
+      if (bundleInMaintenance != null) {
         bundleInMaintenance.setInMaintenace(true);
+      }
     } else if ("off".equals(state) && serviceBeanName != null) {
       logger.info("Set maintenance state of " + serviceBeanName + " to Off ");
       bundleInMaintenance = getSensormixAdminServiceById(serviceBeanName);
