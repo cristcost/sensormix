@@ -68,8 +68,9 @@ public class SensorCell extends AbstractCell<Sensor> {
       return;
     }
 
-    sb.appendHtmlConstant("<table><tr><td title=\"" + sensor.getId() + "\">");
+    sb.appendHtmlConstant("<table><tr><td title=\"" + sensor.getId() + "\"><strong>");
     sb.appendEscaped(sensor.getName());
+    sb.appendHtmlConstant("</strong>");
     if (sensor.getType() != null) {
       sb.appendHtmlConstant("</td><td>");
       final ResourcePrototype icon = ICON_BUNDLE.getResource(findIconName(sensor.getType()));

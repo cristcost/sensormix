@@ -48,7 +48,7 @@ public class SampleCell extends AbstractCell<AbstractSample> {
     if (sample == null) {
       return;
     }
-    sb.appendHtmlConstant("<table><tr><td colspan=\"2\">");
+    sb.appendHtmlConstant("<table><tr><td colspan=\"2\"><strong>");
     if (sample.getType() != null) {
       final ResourcePrototype icon = ICON_BUNDLE.getResource(findIconName(sample.getType()));
       if (icon != null) {
@@ -60,7 +60,7 @@ public class SampleCell extends AbstractCell<AbstractSample> {
       }
     }
     sb.appendEscaped(sample.getTime().toString());
-    sb.appendHtmlConstant("</td></tr>");
+    sb.appendHtmlConstant("</strong></td></tr>");
     if (sample instanceof NumericValueSample) {
       final NumericValueSample numericValueSample = (NumericValueSample) sample;
       sb.appendHtmlConstant(getTableRow("Value", numericValueSample.getValue()));

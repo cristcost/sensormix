@@ -17,13 +17,11 @@ package com.google.developers.gdgfirenze.admin.client.tree;
 import com.google.developers.gdgfirenze.admin.client.cell.SampleCell;
 import com.google.developers.gdgfirenze.admin.client.cell.SensorCell;
 import com.google.developers.gdgfirenze.admin.client.event.NumberDetectedEvent;
-import com.google.developers.gdgfirenze.admin.client.event.NumberDetectedEvent.TypeOfNumberDetected;
-import com.google.developers.gdgfirenze.admin.client.service.GwtSensormixService;
+import com.google.developers.gdgfirenze.admin.client.event.NumberDetectedEventHandler;
 import com.google.developers.gdgfirenze.admin.client.service.GwtSensormixServiceAsync;
 import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.Sensor;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
@@ -137,30 +135,7 @@ public class SensorTreeModel implements TreeViewModel {
             final List<Sensor> dataInRange = result.subList(start, end);
             updateRowCount(result.size(), true);
             updateRowData(start, dataInRange);
-            refreshHeaderCounter(result);
           }
-        }
-
-        private void refreshHeaderCounter(List<Sensor> sensorCount) {
-          eventBus.fireEventFromSource(new NumberDetectedEvent(TypeOfNumberDetected.SENSOR,
-              sensorCount.size()), this);
-
-          sensormixService.countSamples(null, null, null, null, new AsyncCallback<Long>() {
-
-            @Override
-            public void onFailure(Throwable caught) {
-              // TODO Error handling
-              caught.printStackTrace();
-            }
-
-            @Override
-            public void onSuccess(Long result) {
-              if (result != null) {
-                eventBus.fireEventFromSource(new NumberDetectedEvent(TypeOfNumberDetected.SAMPLE,
-                    result), this);
-              }
-            }
-          });
         }
       });
     }
@@ -168,18 +143,27 @@ public class SensorTreeModel implements TreeViewModel {
 
   /** The event bus. */
   private EventBus eventBus;
-
-  /** The sensormix service. */
-  private final GwtSensormixServiceAsync sensormixService = GWT.create(GwtSensormixService.class);
+  private GwtSensormixServiceAsync sensormixService;
+  final SensorDataProvider dataProvider = new SensorDataProvider();
 
   /**
    * Instantiates a new sensor tree model.
    * 
    * @param eventBus
    *          the event bus
+   * @param sensormixService
    */
-  public SensorTreeModel(EventBus eventBus) {
+  public SensorTreeModel(EventBus eventBus, GwtSensormixServiceAsync sensormixService) {
     this.eventBus = eventBus;
+    this.sensormixService = sensormixService;
+    eventBus.addHandler(NumberDetectedEvent.TYPE, new NumberDetectedEventHandler() {
+      @Override
+      public void onNotificationEvent(NumberDetectedEvent event) {
+        if (!this.equals(event.getSource())) {
+          dataProvider.updateRowCount((int) event.getDetectedNumber(), false);
+        }
+      }
+    });
   }
 
   /*
@@ -189,18 +173,17 @@ public class SensorTreeModel implements TreeViewModel {
    */
   @Override
   public <T> NodeInfo<?> getNodeInfo(final T value) {
+    NodeInfo<?> nodeInfo = null;
     // Get the NodeInfo that provides the children of the specified value.
     if (value == null) {
-      final SensorDataProvider dataProvider = new SensorDataProvider();
       // Return a node info that pairs the data with a cell.
-      return new DefaultNodeInfo<Sensor>(dataProvider, new SensorCell());
+      nodeInfo = new DefaultNodeInfo<Sensor>(dataProvider, new SensorCell());
     } else if (value instanceof Sensor) {
       final Sensor sensor = (Sensor) value;
       final SampleDataProvider sampleDataProvider = new SampleDataProvider(sensor.getId());
-      return new DefaultNodeInfo<AbstractSample>(sampleDataProvider, new SampleCell());
-    } else {
-      return null;
+      nodeInfo = new DefaultNodeInfo<AbstractSample>(sampleDataProvider, new SampleCell());
     }
+    return nodeInfo;
   }
 
   /*

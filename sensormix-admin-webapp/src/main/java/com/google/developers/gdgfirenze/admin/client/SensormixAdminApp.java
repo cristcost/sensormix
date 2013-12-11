@@ -14,6 +14,9 @@
  */
 package com.google.developers.gdgfirenze.admin.client;
 
+import com.google.developers.gdgfirenze.admin.client.service.GwtSensormixService;
+import com.google.developers.gdgfirenze.admin.client.service.GwtSensormixServiceAsync;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -31,7 +34,8 @@ public class SensormixAdminApp implements EntryPoint {
   @Override
   public void onModuleLoad() {
     final EventBus eventBus = GWT.create(SimpleEventBus.class);
-    final SensormixAdminUi ui = new SensormixAdminUi(eventBus);
+    final GwtSensormixServiceAsync sensormixService = GWT.create(GwtSensormixService.class);
+    final SensormixAdminUi ui = new SensormixAdminUi(eventBus, sensormixService);
     RootLayoutPanel.get().add(ui);
   }
 }

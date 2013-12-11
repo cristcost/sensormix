@@ -15,18 +15,24 @@
 package com.google.developers.gdgfirenze.admin.client;
 
 import com.google.developers.gdgfirenze.admin.client.event.NumberDetectedEvent;
-import com.google.developers.gdgfirenze.admin.client.event.NumberDetectedEventHandler;
+import com.google.developers.gdgfirenze.admin.client.event.NumberDetectedEvent.TypeOfNumberDetected;
+import com.google.developers.gdgfirenze.admin.client.service.GwtSensormixServiceAsync;
 import com.google.developers.gdgfirenze.admin.client.tree.SensorTreeModel;
+import com.google.developers.gdgfirenze.model.Sensor;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellBrowser;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.TreeViewModel;
 import com.google.web.bindery.event.shared.EventBus;
+
+import java.util.List;
 
 /**
  * The Class SensormixAdminUi.
@@ -38,6 +44,8 @@ public class SensormixAdminUi extends Composite {
    */
   interface SensormixAdminUiUiBinder extends UiBinder<Widget, SensormixAdminUi> {
   }
+
+  private static final int PERIODREFRESHING = 5000;
 
   /** The ui binder. */
   private static SensormixAdminUiUiBinder uiBinder = GWT.create(SensormixAdminUiUiBinder.class);
@@ -54,32 +62,70 @@ public class SensormixAdminUi extends Composite {
   @UiField
   Label numOfSensors;
 
+  private GwtSensormixServiceAsync sensormixService;
+
+  private EventBus eventBus;
+  private static boolean init = true;
+
   /**
    * Instantiates a new sensormix admin ui.
    * 
    * @param eventBus
    *          the event bus
+   * @param sensormixService
    */
-  public SensormixAdminUi(EventBus eventBus) {
-    final TreeViewModel model = new SensorTreeModel(eventBus);
+  public SensormixAdminUi(EventBus eventBus, GwtSensormixServiceAsync sensormixService) {
+    this.sensormixService = sensormixService;
+    this.eventBus = eventBus;
+    final TreeViewModel model = new SensorTreeModel(eventBus, sensormixService);
     navigator = new CellBrowser.Builder<Object>(model, null).build();
     navigator.setDefaultColumnWidth(600);
     initWidget(uiBinder.createAndBindUi(this));
-    eventBus.addHandler(NumberDetectedEvent.TYPE, new NumberDetectedEventHandler() {
+    final Timer timer = new Timer() {
+      @Override
+      public void run() {
+        refreshHeaderCounters();
+      }
+    };
+    timer.scheduleRepeating(PERIODREFRESHING);
+  }
+
+  private void refreshHeaderCounters() {
+    sensormixService.getSensors(null, null, null, new AsyncCallback<List<Sensor>>() {
 
       @Override
-      public void onNotificationEvent(NumberDetectedEvent event) {
-        if (this != event.getSource() && event.getTypeOfNumberDetected() != null) {
-          switch (event.getTypeOfNumberDetected()) {
-            case SAMPLE:
-              numOfSamples.setText("" + event.getDetectedNumber());
-              break;
-            case SENSOR:
-              numOfSensors.setText("" + event.getDetectedNumber());
-              break;
-            default:
-              break;
+      public void onFailure(Throwable caught) {
+        // TODO Error handling
+        caught.printStackTrace();
+      }
+
+      @Override
+      public void onSuccess(List<Sensor> result) {
+        if (result != null) {
+          if (!init) {
+            if (numOfSensors.getText().equals("" + result.size())) {
+              eventBus.fireEventFromSource(new NumberDetectedEvent(TypeOfNumberDetected.SENSOR,
+                  result.size()), this);
+            }
           }
+          init = false;
+          numOfSensors.setText("" + result.size());
+        }
+      }
+    });
+
+    sensormixService.countSamples(null, null, null, null, new AsyncCallback<Long>() {
+
+      @Override
+      public void onFailure(Throwable caught) {
+        // TODO Error handling
+        caught.printStackTrace();
+      }
+
+      @Override
+      public void onSuccess(Long result) {
+        if (result != null) {
+          numOfSamples.setText("" + result);
         }
       }
     });
