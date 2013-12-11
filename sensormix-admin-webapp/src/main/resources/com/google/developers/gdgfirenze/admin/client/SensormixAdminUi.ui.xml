@@ -14,10 +14,10 @@
 	<g:DockLayoutPanel unit='PX'>
 		<g:north size='90'>
 			<g:LayoutPanel>
-				<g:layer left='10px' width='90px' top='0' bottom='0'>
-					<g:Image url="/logo.png" />
+				<g:layer left='10px' width='400px' top='0' bottom='0'>
+					<g:Image url="/logo.png" height="90px"/>
 				</g:layer>
-				<g:layer left='120px' top='0' bottom='0' width='400px'>
+				<g:layer left='520px' top='0' bottom='0' width='400px'>
 					<g:HTML>
 						<h1>Sensormix Admin Webapp</h1>
 					</g:HTML>
