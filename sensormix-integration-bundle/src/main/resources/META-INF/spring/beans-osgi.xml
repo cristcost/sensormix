@@ -67,7 +67,7 @@
 			<to uri="bean:sensormixService?method=recordSamples(${body.samples})" />
 			<filter>
 				<simple>${body.sensor} != null</simple>
-				<to uri="bean:mockService?method=registerSensor(${body.sensor})" />
+				<to uri="bean:sensormixService?method=registerSensor(${body.sensor})" />
 			</filter>
 		</route>
 	</camelContext>

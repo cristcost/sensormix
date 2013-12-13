@@ -25,7 +25,7 @@
 	<osgi:service ref="sensormixService">
 		<osgi:interfaces>
 			<value>com.google.developers.gdgfirenze.service.SensormixService</value>
-			<value>com.google.developers.gdgfirenze.service.SensormixAdminInterface</value>
+			<value>com.google.developers.gdgfirenze.osgi.SensormixAdminInterface</value>
 		</osgi:interfaces>
 	</osgi:service>
 </beans>
