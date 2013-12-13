@@ -66,9 +66,8 @@ public class SensormixServiceJpaImpl implements SensormixService, SensormixAdmin
     @Override
     protected Serializer initialValue() {
       logger.log(Level.INFO, "Initializing a new Kryo instance");
-      Serializer serializer = new Serializer();
-      serializer.registerAllDerivedClass(AbstractSample.class);
-
+      final Serializer serializer = new Serializer();
+     
       return serializer;
     }
   };
