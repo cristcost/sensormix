@@ -138,6 +138,7 @@ public class SensormixServiceJpaImpl implements SensormixService, SensormixAdmin
         CriteriaQuery<JpaAbstractSample> cq = cb.createQuery(JpaAbstractSample.class);
         Root<JpaAbstractSample> jas = cq.from(JpaAbstractSample.class);
         cq.select(jas);
+        cq.orderBy(cb.desc(jas.get("time")));
         List<Predicate> criteria = new ArrayList<Predicate>();
         if (sensorId != null && !"".equals(sensorId)) {
           ParameterExpression<String> p = cb.parameter(String.class, "sensorId");
@@ -372,6 +373,7 @@ public class SensormixServiceJpaImpl implements SensormixService, SensormixAdmin
       CriteriaQuery<JpaSensor> cq = cb.createQuery(JpaSensor.class);
       Root<JpaSensor> js = cq.from(JpaSensor.class);
       cq.select(js);
+      cq.orderBy(cb.desc(js.get("lastSeen")));
       List<Predicate> criteria = new ArrayList<Predicate>();
       if (sensorIds != null && sensorIds.size() > 0) {
         Expression<String> p = js.get("id");
