@@ -461,7 +461,7 @@ public class SensormixServiceMemoryImpl implements SensormixService, SensormixAd
     Date pivotDate = inputList.get(0).getTime();
     int pivotIndex = 0;
     for (AbstractSample currentSample : inputList) {
-      if (pivotDate.compareTo(currentSample.getTime()) > 0) {
+      if (pivotDate.compareTo(currentSample.getTime()) < 0) {
         pivotDate = currentSample.getTime();
         pivotIndex = inputList.indexOf(currentSample);
       }
