@@ -14,6 +14,8 @@
  */
 package com.google.developers.gdgfirenze.memservice;
 
+import com.google.developers.gdgfirenze.comparators.SamplesDescDateComparator;
+import com.google.developers.gdgfirenze.comparators.SensorsDescDateComparator;
 import com.google.developers.gdgfirenze.model.AbstractSample;
 import com.google.developers.gdgfirenze.model.DailySampleReport;
 import com.google.developers.gdgfirenze.model.SampleReport;
@@ -25,6 +27,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -204,10 +207,10 @@ public class SensormixServiceMemoryImpl implements SensormixService, SensormixAd
         }
       }
     }
-    return orderSamples(ret);
-//    return ret;
-  }
+    Collections.sort(ret, new SamplesDescDateComparator());
 
+    return ret;
+  }
 
   /**
    * Get the sensors based on filter criteria.
@@ -249,6 +252,7 @@ public class SensormixServiceMemoryImpl implements SensormixService, SensormixAd
         }
       }
     }
+    Collections.sort(ret, new SensorsDescDateComparator());
     return ret;
   }
 
@@ -434,41 +438,5 @@ public class SensormixServiceMemoryImpl implements SensormixService, SensormixAd
     }
     return isToFilter;
   }
-  
-  /**
-   * This method order the input list, based on the time parameter of each sample given in the input list.
-   * @param ret a list of unordered abstract samples
-   * @return a list of AbstractSample ordered from the newest to the oldest
-   */
-  private List<AbstractSample> orderSamples(List<AbstractSample> inputList) {
-    
-    final List<AbstractSample> ret = new ArrayList<>();
-    int numberSamples = inputList.size();
-    for (int i = 0; i < numberSamples; i++) {
-      final AbstractSample newestSample = findNewestSample(inputList);
-      ret.add(newestSample);
-      inputList.remove(newestSample);
-    }
-    return ret;
-  }
-
-  /**
-   * Find the newest sample in the input list
-   * @param inputList
-   * @return the newest sample
-   */
-  private AbstractSample findNewestSample(List<AbstractSample> inputList) {
-    Date pivotDate = inputList.get(0).getTime();
-    int pivotIndex = 0;
-    for (AbstractSample currentSample : inputList) {
-      if (pivotDate.compareTo(currentSample.getTime()) < 0) {
-        pivotDate = currentSample.getTime();
-        pivotIndex = inputList.indexOf(currentSample);
-      }
-    }
-    return inputList.get(pivotIndex);
-  }
-  
-  
 
 }
