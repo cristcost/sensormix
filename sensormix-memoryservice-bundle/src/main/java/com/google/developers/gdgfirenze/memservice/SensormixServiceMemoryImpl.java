@@ -204,8 +204,10 @@ public class SensormixServiceMemoryImpl implements SensormixService, SensormixAd
         }
       }
     }
-    return ret;
+    return orderSamples(ret);
+//    return ret;
   }
+
 
   /**
    * Get the sensors based on filter criteria.
@@ -432,5 +434,41 @@ public class SensormixServiceMemoryImpl implements SensormixService, SensormixAd
     }
     return isToFilter;
   }
+  
+  /**
+   * This method order the input list, based on the time parameter of each sample given in the input list.
+   * @param ret a list of unordered abstract samples
+   * @return a list of AbstractSample ordered from the newest to the oldest
+   */
+  private List<AbstractSample> orderSamples(List<AbstractSample> inputList) {
+    
+    final List<AbstractSample> ret = new ArrayList<>();
+    int numberSamples = inputList.size();
+    for (int i = 0; i < numberSamples; i++) {
+      final AbstractSample newestSample = findNewestSample(inputList);
+      ret.add(newestSample);
+      inputList.remove(newestSample);
+    }
+    return ret;
+  }
+
+  /**
+   * Find the newest sample in the input list
+   * @param inputList
+   * @return the newest sample
+   */
+  private AbstractSample findNewestSample(List<AbstractSample> inputList) {
+    Date pivotDate = inputList.get(0).getTime();
+    int pivotIndex = 0;
+    for (AbstractSample currentSample : inputList) {
+      if (pivotDate.compareTo(currentSample.getTime()) > 0) {
+        pivotDate = currentSample.getTime();
+        pivotIndex = inputList.indexOf(currentSample);
+      }
+    }
+    return inputList.get(pivotIndex);
+  }
+  
+  
 
 }
