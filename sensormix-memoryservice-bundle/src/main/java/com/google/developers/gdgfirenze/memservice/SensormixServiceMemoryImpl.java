@@ -33,10 +33,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The Class SensormixServiceMemoryImpl. This class implements the methods from the SensormixService
- * interface in order to execute CRUD operation on main data structures from the data model project:
- * samples and sensors. This implementation stores all the data in the volatile memory instead of
- * physical memory. When the service is stopped, all the data are lost.
+ * The Class SensormixServiceMemoryImpl. This class implements the methods from
+ * the SensormixService interface in order to execute CRUD operation on main
+ * data structures from the data model project: samples and sensors. This
+ * implementation stores all the data in the volatile memory instead of physical
+ * memory. When the service is stopped, all the data are lost.
  */
 public class SensormixServiceMemoryImpl implements SensormixService, SensormixAdminInterface {
 
@@ -58,17 +59,20 @@ public class SensormixServiceMemoryImpl implements SensormixService, SensormixAd
   /**
    * Data structure to save the samples based on their type.
    */
-  private Map<String, List<AbstractSample>> samplesForType = new HashMap<String, List<AbstractSample>>();
+  private Map<String, List<AbstractSample>> samplesForType =
+      new HashMap<String, List<AbstractSample>>();
 
   /**
    * Data structure to save the samples based on their date.
    */
-  private Map<String, List<AbstractSample>> samplesForDate = new HashMap<String, List<AbstractSample>>();
+  private Map<String, List<AbstractSample>> samplesForDate =
+      new HashMap<String, List<AbstractSample>>();
 
   /**
    * Data structure to save the samples based on their sensorId.
    */
-  private Map<String, List<AbstractSample>> samplesForSensorId = new HashMap<String, List<AbstractSample>>();
+  private Map<String, List<AbstractSample>> samplesForSensorId =
+      new HashMap<String, List<AbstractSample>>();
 
   /**
    * Date format.
@@ -79,7 +83,7 @@ public class SensormixServiceMemoryImpl implements SensormixService, SensormixAd
 
   /**
    * Count the samples based on filter criteria.
-   *
+   * 
    * @param sensorId the sensor id
    * @param sampleType the sample type
    * @param from date from
@@ -103,7 +107,7 @@ public class SensormixServiceMemoryImpl implements SensormixService, SensormixAd
 
   /**
    * Get the sample report based on filter criteria.
-   *
+   * 
    * @param sensorId the sensor id
    * @param sampleType the sample type
    * @param from date from
@@ -161,10 +165,11 @@ public class SensormixServiceMemoryImpl implements SensormixService, SensormixAd
   }
 
   /**
-   * Get the samples based on filter criteria. Search criteria: null sensorId => any sensor null
-   * sampleType => any sample type limitCount != null => stop when ret.size() >= limitCount
-   * limitFrom != null => skip the first limitFrom items
-   *
+   * Get the samples based on filter criteria. Search criteria: null sensorId =>
+   * any sensor null sampleType => any sample type limitCount != null => stop
+   * when ret.size() >= limitCount limitFrom != null => skip the first limitFrom
+   * items
+   * 
    * @param sensorId the sensor id
    * @param sampleType the sample type
    * @param from date from
@@ -204,7 +209,7 @@ public class SensormixServiceMemoryImpl implements SensormixService, SensormixAd
 
   /**
    * Get the sensors based on filter criteria.
-   *
+   * 
    * @param sensorIds the sensor ids
    * @param from date from
    * @param to date to
@@ -247,7 +252,7 @@ public class SensormixServiceMemoryImpl implements SensormixService, SensormixAd
 
   /**
    * check if is in mainteinance.
-   *
+   * 
    * @return true, if is in maintenance
    */
   @Override
@@ -257,7 +262,7 @@ public class SensormixServiceMemoryImpl implements SensormixService, SensormixAd
 
   /**
    * List the samples based on type filtering.
-   *
+   * 
    * @return the list of types of samples
    */
   @Override
@@ -269,7 +274,7 @@ public class SensormixServiceMemoryImpl implements SensormixService, SensormixAd
 
   /**
    * Lists all the sensor identifiers.
-   *
+   * 
    * @return the list of sensor identifiers
    */
   @Override
@@ -285,40 +290,58 @@ public class SensormixServiceMemoryImpl implements SensormixService, SensormixAd
 
   /**
    * Record the samples.
-   *
+   * 
    * @param samplesToAdd the samples to add to the samples data structure
    */
   @Override
   public void recordSamples(List<AbstractSample> samplesToAdd) {
     if (!inMaintenace) {
       if (samplesToAdd != null && samplesToAdd.size() > 0) {
-        for (AbstractSample s : samplesToAdd) {
-          samples.add(s);
+        final List<String> checkList = new ArrayList<String>();
+        checkList.addAll(listSensorsIds());
+        for (AbstractSample sample : samplesToAdd) {
+          if (!checkList.contains(sample.getSensorId())) {
+            Sensor s = new Sensor();
+            s.setId(sample.getSensorId());
+            s.setName("Unknown");
+            s.setDescription("Unknown");
+            s.setLastSeen(sample.getTime());
+
+            registerSensor(s);
+            checkList.add(new String(sample.getSensorId()));
+          } else {
+            List<String> sensorList = new ArrayList<String>();
+            sensorList.add(sample.getSensorId());
+            Sensor s = getSensors(sensorList, null, null).get(0);
+            s.setLastSeen(sample.getTime());
+          }
+
+          samples.add(sample);
 
           // index for type
-          List<AbstractSample> partialSamples = samplesForType.get(s.getType());
+          List<AbstractSample> partialSamples = samplesForType.get(sample.getType());
           if (partialSamples == null) {
             partialSamples = new ArrayList<AbstractSample>();
-            samplesForType.put(s.getType(), partialSamples);
+            samplesForType.put(sample.getType(), partialSamples);
           }
-          partialSamples.add(s);
+          partialSamples.add(sample);
 
           // index for sensor
-          partialSamples = samplesForSensorId.get(s.getSensorId());
+          partialSamples = samplesForSensorId.get(sample.getSensorId());
           if (partialSamples == null) {
             partialSamples = new ArrayList<AbstractSample>();
-            samplesForSensorId.put(s.getSensorId(), partialSamples);
+            samplesForSensorId.put(sample.getSensorId(), partialSamples);
           }
-          partialSamples.add(s);
+          partialSamples.add(sample);
 
           // index for date
-          final String dateFormatted = df.format(s.getTime());
+          final String dateFormatted = df.format(sample.getTime());
           partialSamples = samplesForDate.get(dateFormatted);
           if (partialSamples == null) {
             partialSamples = new ArrayList<AbstractSample>();
             samplesForDate.put(dateFormatted, partialSamples);
           }
-          partialSamples.add(s);
+          partialSamples.add(sample);
         }
       }
     } else {
@@ -331,7 +354,7 @@ public class SensormixServiceMemoryImpl implements SensormixService, SensormixAd
 
   /**
    * Register the sensors.
-   *
+   * 
    * @param sensor the sensor that shall be added to the sensor data structure.
    */
   @Override
@@ -347,6 +370,9 @@ public class SensormixServiceMemoryImpl implements SensormixService, SensormixAd
       }
       if (!found) {
         sensors.put(sensor.getId(), sensor);
+      } else {
+        final Sensor s = sensors.get(sensor.getId());
+        s.setLastSeen(sensor.getLastSeen());
       }
     } else {
       logger.log(Level.INFO,
