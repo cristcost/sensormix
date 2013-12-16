@@ -1,0 +1,67 @@
+/* line 3, ../scss/svg.scss */
+.who-we-are-text {
+  fill: #515151;
+  font-weight: bold;
+  font-size: 40px;
+  text-align: center;
+  text-anchor: middle;
+}
+
+/* line 11, ../scss/svg.scss */
+.diagram-block {
+  fill: #ffffff;
+  stroke: #000000;
+  stroke-width: 2.04933667;
+  stroke-linecap: round;
+  stroke-linejoin: miter;
+  stroke-miterlimit: 4;
+  stroke-opacity: 1;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+}
+
+/* line 23, ../scss/svg.scss */
+.diagram-block-shadow {
+  fill: #797979;
+  filter: url(#box-shadow-filter);
+}
+
+/* line 28, ../scss/svg.scss */
+.diagram-block-text {
+  font-size: 40px;
+  text-align: center;
+  text-anchor: middle;
+}
+
+/* line 34, ../scss/svg.scss */
+.diagram-line {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 1px;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  stroke-opacity: 1;
+}
+
+/* line 43, ../scss/svg.scss */
+.diagram-line {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 3px;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  stroke-opacity: 1;
+}
+
+/* line 52, ../scss/svg.scss */
+.diagram-line-dashed {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 3px;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  stroke-miterlimit: 4;
+  stroke-opacity: 1;
+  stroke-dasharray: 3, 3;
+  stroke-dashoffset: 0;
+}

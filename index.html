@@ -1,0 +1,1980 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="all" href="theme/css/svg.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<svg>
+  <defs>
+    <filter id="box-shadow-filter" x="0" y="0">
+      <feGaussianBlur stdDeviation="5"/>
+      <feOffset dx="10" dy="10"/>
+    </filter>
+    <marker id="arrow" orient="auto" refX="0" refY="0" style="stroke-linecap:butt;overflow:visible">
+      <path 
+      d="M 0.5,0 -5,3 -5,-3 z" />
+    </marker>
+  </defs>
+</svg>
+
+<slides class="layout-widescreen">
+  
+  <slide class="logoslide nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/gdg_firenze_logo.png"></span>
+    </article>
+  </slide>
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/logo_sensormix_c.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Chi Siamo</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <svg height="496" width="780">
+        <g transform="translate(193,248)">
+          <g>
+            <text class="who-we-are-text" filter="url(#box-shadow-filter)">Cristiano</text>
+            <text class="who-we-are-text">Cristiano</text>
+            <animateMotion begin="0s" dur="25s" path="m 0,0 c 0,-61.84 88.02,-111.98 196.60,-111.98 108.58,0 196.60,50.13 196.60,111.98 0,61.84 -88.02,111.98 -196.60,111.98 C 88.02,111.98 0,61.84 0,0 z" repeatCount="indefinite"/>
+          </g>
+          <g>
+            <text class="who-we-are-text" filter="url(#box-shadow-filter)">Giuseppe</text>
+            <text class="who-we-are-text">Giuseppe</text>
+            <animateMotion begin="5s" dur="25s" path="m 0,0 c 0,-61.84 88.02,-111.98 196.60,-111.98 108.58,0 196.60,50.13 196.60,111.98 0,61.84 -88.02,111.98 -196.60,111.98 C 88.02,111.98 0,61.84 0,0 z" repeatCount="indefinite"/>
+          </g>
+          <g>
+            <text class="who-we-are-text" filter="url(#box-shadow-filter)">Michele</text>
+            <text class="who-we-are-text">Michele</text>
+            <animateMotion begin="10s" dur="25s" path="m 0,0 c 0,-61.84 88.02,-111.98 196.60,-111.98 108.58,0 196.60,50.13 196.60,111.98 0,61.84 -88.02,111.98 -196.60,111.98 C 88.02,111.98 0,61.84 0,0 z" repeatCount="indefinite"/>
+          </g>
+          <g>
+            <text class="who-we-are-text" filter="url(#box-shadow-filter)">Sergio</text>
+            <text class="who-we-are-text">Sergio</text>
+            <animateMotion begin="15s" dur="25s" path="m 0,0 c 0,-61.84 88.02,-111.98 196.60,-111.98 108.58,0 196.60,50.13 196.60,111.98 0,61.84 -88.02,111.98 -196.60,111.98 C 88.02,111.98 0,61.84 0,0 z" repeatCount="indefinite"/>
+          </g>
+          <g>
+            <text class="who-we-are-text" filter="url(#box-shadow-filter)">Stefano</text>
+            <text class="who-we-are-text">Stefano</text>
+            <animateMotion begin="20s" dur="25s" path="m 0,0 c 0,-61.84 88.02,-111.98 196.60,-111.98 108.58,0 196.60,50.13 196.60,111.98 0,61.84 -88.02,111.98 -196.60,111.98 C 88.02,111.98 0,61.84 0,0 z" repeatCount="indefinite"/>
+          </g>
+        </g>
+      </svg>
+    </article>
+  </slide>
+
+   <slide>
+    <hgroup>
+      <h2>Sommario</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li class="yellow3"><b>Introduzione ad OSGi e ServiceMix</b></li>
+        <li class="blue3"><b>Introduzione ad Apache Camel</b></li>
+        <li class="red3"><b>Utilizzare GWT su ServiceMix</b></li>
+        <li class="green3"><b>SensorMix: Architettura di esempio</b></li>
+        <li class="gray4"><b>Cool Facts: perchè ci piace questa architettura</b></li>
+      </ul>
+    </article>
+  </slide>
+
+
+
+
+  <!-- Introduzione a OSGi e ServiceMix -->
+  <slide class="segue back-yellow nobackground">
+    <aside class="gdbar"><img src="images/logo_sensormix_c.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Introduzione a OSGi e ServiceMix</h2>
+      <h3>Ovvero un approccio modulare per backend SOA</h3>
+    </hgroup>
+  </slide>
+
+  <slide class="header-yellow">
+    <hgroup>
+      <h2>OSGi: questo sconosciuto</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>OSGi: Open Service Gateway initiative</li>
+        <li>OSGi Alliance: organizzazione fondata nel 1999 da <a href="http://it.wikipedia.org/wiki/Ericsson">Ericsson</a>, <a href="http://it.wikipedia.org/wiki/IBM">IBM</a>, <a href="http://it.wikipedia.org/wiki/Oracle">Oracle</a> e altri</li>
+        <li>OSGi Framework: è un layer di modularità per la piattaforma Java</li>
+      </ul>
+      <p>Il nucleo delle specifiche definisce la gestione del modello del ciclo di vita del software, i moduli (chiamati bundles), un service registry e un ambiente di esecuzione.</p>
+    </article>
+  </slide>
+
+  <slide class="header-yellow">
+    <hgroup>
+      <h2>Una Metafora:</h2>
+      <h3>Pensate ai servizi di Windows o demoni Unix ma completamente Java</h3>
+    </hgroup>
+    <article class="flexbox">
+      <div class="build fade">
+
+        <img style="position: absolute;left:50%;margin-left:-420px;margin-top:-30px;" src="images/servicemix_windows_services.png" alt="OSGi as Windows Services" title="OSGi as Windows Services" />
+        <img style="position: absolute;left:50%;margin-left:-310px;margin-top:20px;" src="images/servicemix_linux_daemons.png" alt="OSGi as Unix Daemons" title="OSGi as Unix Daemons" />
+        <img style="position: absolute;left:50%;margin-left:-255px;" src="images/servicemix_felix.png" alt="OSGi as a platform of services in Java" title="OSGi as a platform of services in Java" />
+
+      </div>
+    </article>
+  </slide>
+
+  <slide class="header-yellow">
+    <hgroup>
+      <h2>Perchè nasce OSGi</h2>
+    </hgroup>
+    <article>
+      <p>OSGi nasce con lo scopo di creare sistemi embedded per mercati residenziali, automotive e M2M. In questi contesti è spesso necessario comunicare con i devices attraverso protocolli differenti.</p>
+      <p>Il fine, quindi, era quello di fornire un modello di programmazione capace di realizzare servizi end-to-end creando uno strato di astrazione che unificasse i differenti protocolli.</p>
+    </article>
+  </slide>
+
+  <slide class="header-yellow">
+    <hgroup>
+      <h2>Perchè si espande</h2>
+    </hgroup>
+    <article class="flexbox vleft auto-fadein smaller">
+      <q>
+        We’ve all used development platforms in the past, such as Java Enterprise Edition (JEE), and even though there have been great advances in this industry, we’re still building large complex systems, which are hard to develop, maintain, and extend.
+      </q>
+      <div class="author">
+        <br/>Alexandre de Castro Alves<br/>
+        OSGi in Depth - Manning, <br/>
+        pagina 1, riga 1
+      </div>
+    </article>
+  </slide>
+
+  <slide class="header-yellow">
+    <hgroup>
+      <h2>Implementazioni OSGi</h2>
+    </hgroup>
+    <article class="bigger">
+      <p>Esistono diverse implementazioni di OSGi. Quelle più complete sono:</p>
+      <ul>
+        <li>Apache Felix</li>
+        <li>Eclipse Equinox</li>
+        <li>Knopflerfish</li>
+      </ul>
+    </article>
+  </slide>
+ 
+   <slide class="header-yellow">
+    <hgroup>
+      <h2>Come è fatto un framework OSGi</h2>
+    </hgroup>
+    <article>
+      <svg style="float:right;" height="496" width="370">
+        <g>
+          <g transform="translate(160,10)">
+            <rect x="-150" height="240" class="diagram-block-shadow" width="300"/>
+            <rect x="-150" height="80" class="diagram-block" width="300"/>
+            <text y="55">
+              <tspan class="diagram-block-text">Service</tspan>
+            </text>
+          </g>
+          <g transform="translate(160,90)">
+            <rect x="-150" height="80" class="diagram-block" width="300"/>
+            <text y="55">
+              <tspan class="diagram-block-text">Lifecycle</tspan>
+            </text>
+          </g>
+          <g transform="translate(160,170)">
+            <rect x="-150" height="80" class="diagram-block" width="300"/>
+            <text y="55">
+              <tspan class="diagram-block-text">Module</tspan>
+            </text>
+          </g>
+        </g>
+      </svg>
+      <p>Il framework può essere rappresentato con tre layer:</p>
+      <ul class="build fade">
+        <li>Il <b>module</b> layer definisce il concetto di modulo OSGi: il Bundle</li>
+        <li>Il <b>lifecycle</b> layer definisce come i bundles sono dinamicamente installati e gestiti nel framework OSGi</li>
+        <li>Il <b>service</b> layer supporta e promuove un modello di sviluppo di applicazioni flessibile che incapsula concetti resi di uso comune dal service-oriented programming</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="header-yellow">
+    <hgroup>
+      <h2>Il “Module layer”</h2>
+    </hgroup>
+    <article>
+      <img style="width:370px;float:right;" src="images/servicemix_image_2.png" alt="OSGi Bundles" title="OSGi Bundles" />
+      <p>Il cuore del module layer è il <b>Bundle</b>.</p>
+      <p>Un Bundle è un JAR che contiene metadati extra (manifest).</p>
+
+      <div class="build">
+        <p>A differenza dei JAR il bundle ha:</p>
+        <ul>
+          <li>un classpath “ristretto” al solo bundle</li>
+          <li>un manifest più ricco</li>
+        </ul>
+        <p>Grazie al manifest è possibile estendere la visibilità del classpath dichiarando esplicitamente le proprie dipendenze</p>
+      </div>
+    </article>
+  </slide>
+
+  <slide class="header-yellow">
+    <hgroup>
+      <h2>Il manifest OSGi</h2>
+    </hgroup>
+    <article>
+      <p>Nel manifest viene specificato anche:</p>
+      <ul>
+        <li>L’identificazione e la descrizione</li>
+        <li>Il classloading</li>
+        <li>L’attivazione</li>
+      </ul>
+      <p>Esempi:</p>
+    </article>
+  </slide>
+<slide class="header-yellow">
+    <hgroup>
+      <h2>Il manifest OSGi</h2>
+      <h3>Manifest di un semplice JAR compilato con maven</h3>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="manifest.mf">
+Manifest-Version: 1.0
+Build-Jdk: 1.7.0_40
+Built-By: gdg-firenze
+Created-By: Apache Maven
+      </pre>
+    </article>
+  </slide>
+  <slide class="header-yellow">
+    <hgroup>
+      <h2>Il manifest OSGi</h2>
+      <h3>Manifest di un Bundle</h3>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="manifest.mf">
+Manifest-Version: 1.0
+<b>Bnd-LastModified: 1386750447262</b>
+Build-Jdk: 1.7.0_40
+Built-By: gdg-firenze
+<b>Bundle-ManifestVersion: 2</b>
+<b>Bundle-Name: GDG Firenze :: Sensormix :: Example Bundle</b>
+<b>Bundle-SymbolicName: example-bundle</b>
+<b>Bundle-Vendor: GDG Firenze :: Sensormix Team</b>
+<b>Bundle-Version: 1.0.0.SNAPSHOT</b>
+<b>Bundle-Activator: com.google.developers.gdgfirenze.dataservice.Activator</b>
+Created-By: Apache Maven Bundle Plugin
+<b>Export-Package: 
+ com.google.developers.gdgfirenze.model;version="1.0.0.SNAPSHOT",
+ com.google.developers.gdgfirenze.osgi;version="1.0.0.SNAPSHOT",
+ com.google.developers.gdgfirenze.service;version="1.0.0.SNAPSHOT"</b>
+<b>Import-Package: 
+ javax.jws,javax.jws.soap,javax.xml.bind.annotation,javax.xml.ws</b>
+<b>Tool: Bnd-1.50.0</b>
+      </pre>
+    </article>
+  </slide>
+
+  <slide class="header-yellow">
+    <hgroup>
+      <h2>Il “Lifecycle layer”</h2>
+      <h3>Il lifecycle layer ha due scopi:</h3>
+    </hgroup>
+    <article>
+    <p>Esternamente gestisce il ciclo di vita del bundle.</p>
+    <img src="images/servicemix_image_3.png" alt="OSGi Lifecycle" title="OSGi Lifecycle" />
+    </article>
+  </slide>
+
+  <slide class="header-yellow">
+    <hgroup>
+      <h2>Il “Lifecycle layer”</h2>
+      <h3>Il lifecycle layer ha due scopi:</h3>
+    </hgroup>
+    <article>
+      <p>Internamente definisce Bundle Activator </p>
+      <img src="images/servicemix_image_4.png" alt="OSGi Bundle Activator" title="OSGi Bundle Activator" />
+      <div class="build"><p>= public static void main(String[] args)</p></div>
+    </article>
+  </slide>
+
+  <slide class="header-yellow">
+    <hgroup>
+      <h2>Il “Service layer”</h2>
+    </hgroup>
+    <article>
+      <p>L’OSGi service layer promuove l’approccio basato su interface ed in particolare la separazione tra interfacce e implementazioni.</p>
+      <p>I Servizi OSGi sono interfacce Java che rappresentano un contratto tra il service provider e i service clients.</p>
+      <img src="images/servicemix_image_5.png" alt="OSGi Bundle Activator" title="OSGi Bundle Activator" />
+    </article>
+  </slide>
+
+  <slide class="header-yellow">
+    <hgroup>
+      <h2>OSGi: la Service Platform</h2>
+    </hgroup>
+    <article>
+      <img style="width:370px;float:right;" src="images/servicemix_image_6.png" alt="OSGi Service Platform" title="OSGi Service Platform" />
+      <p>L’OSGi definisce un set minimo di servizi per agevolare lo sviluppo di applicazioni modulari</p>
+      <ul>
+        <li>Cofiguration Admin (hot configuration)</li>
+        <li>Event Admin</li>
+        <li>Console Admin</li>
+        <li>Log Service</li>
+        <li>Blueprint component framework</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="header-yellow">
+    <hgroup>
+      <h2>Karaf: un OSGi container</h2>
+    </hgroup>
+    <article>
+      <p>Karaf è un OSGi container in cui sono deployati bundles (e servizi) aggiuntivi per fornire ulteriori funzionalità tra cui Hot deployment, Dynamic configuration, Logging System, Extensible Shell console (SSH)</p>
+      <p>Karaf è un chiaro esempio di architettura basata su OSGi</p>
+      <img src="images/servicemix_image_7.png" alt="Apache Karaf Architecture" title="Apache Karaf Architecture" />
+    </article>
+  </slide>
+
+  <slide class="header-yellow">
+    <hgroup>
+      <h2>ServiceMix: un ESB su OSGi</h2>
+    </hgroup>
+    <article class="smaller">
+      <img style="width:370px;float:right;" src="images/servicemix_image_8.png" alt="OSGi Service Platform" title="OSGi Service Platform" />
+      <p>Le principali funzionalità di ServiceMix sono:</p>
+      <ul>
+        <li>reliable messaging with <a href="http://activemq.apache.org/">Apache ActiveMQ</a></li>
+        <li>messaging, routing and Enterprise Integration Patterns with <a href="http://camel.apache.org">Apache Camel</a></li>
+        <li>WS-\* and RESTful web services with <a href="http://cxf.apache.org">Apache CXF</a></li>
+        <li>OSGi-based server runtime powered by <a href="http://karaf.apache.org">Apache Karaf</a></li>
+      </ul>
+
+      <p>Altre funzionalità offerte da ServiceMix:</p>
+      <ul>
+        <li>loosely coupled integration between all the other components with Apache ServiceMix NMR including rich Event, Messaging and Audit API</li>
+        <li>complete WS-BPEL engine with <a href="http://ode.apache.org">Apache ODE</a></li>
+      </ul>
+
+    </article>
+  </slide>
+
+  <slide class="header-yellow">
+    <hgroup>
+      <h2>OSGi e Spring</h2>
+      <h3>Uso di Spring dentro a Karaf/ServiceMix</h3>
+    </hgroup>
+    <article class="smaller">
+      <p>Lo springframework fornisce molte features interessanti (dependency injection, ORM, AOP,...)</p>
+      <p>Lo Spring Deployer riconosce i file Spring all'interno del folder META-INF/spring di un Jar, e ne istanzia i bean che vi sono definiti, senza necessità di utilizzare le API OSGi</p>
+
+<pre class="prettyprint" data-lang="Spring">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot; 
+  xmlns:context=&quot;http://www.springframework.org/schema/context&quot; 
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+  xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&quot;&gt;
+
+  &lt;bean id=&quot;consumer&quot; class=&quot;com.myapplication.HelloWorldConsumer&quot; 
+    <b>destroy-method=&quot;osgiDestroy&quot; init-method=&quot;osgiInit&quot;</b>/&gt;
+    
+&lt;/beans&gt;
+</pre>
+    </article>
+  </slide>
+
+  <slide class="header-yellow">
+    <hgroup>
+      <h2>OSGi e Spring</h2>
+      <h3>Spring DM</h3>
+    </hgroup>
+    <article class="smaller">
+      <p>Spring DM permette di utilizzare servizi OSGi da Spring in modo trasparente.</p>
+<pre class="prettyprint" data-lang="Spring DM">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+  <b>xmlns:osgi=&quot;http://www.springframework.org/schema/osgi&quot;</b>
+  xmlns:util=&quot;http://www.springframework.org/schema/util&quot; 
+  xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+  <b>xsi:schemaLocation=&quot;http://www.springframework.org/schema/osgi 
+         http://www.springframework.org/schema/osgi/spring-osgi.xsd&quot;&gt;</b>
+
+  <b>&lt;osgi:service ref=&quot;eventService&quot;
+      interface=&quot;com.myapplication.HelloWorldService&quot; /&gt;</b>
+
+&lt;/beans&gt;
+</pre>
+    </article>
+  </slide>
+
+  <!-- Introduzione Camel -->
+  <slide class="segue back-blue nobackground">
+    <aside class="gdbar"><img src="images/logo_sensormix_c.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Introduzione ad Apache Camel</h2>
+      <h3>Ovvero un modo agile per integrare sistemi eterogenei</h3>
+    </hgroup>
+  </slide>
+
+  <slide class="header-blue">
+    <hgroup>
+      <h2>“Integrare”</h2>
+    </hgroup>
+    <article class="build">
+      <p>Cosa si intende quando parliamo di integrazione?</p>
+      <p>Trovare una soluzione al seguente problema:</p>
+      <q>Come posso far funzionare insieme molteplici applicazioni attraverso lo scambio di informazioni?</q>
+    </article>
+  </slide>
+
+  <slide class="header-blue">
+    <hgroup>
+      <h2>Enterprise Integration Patterns</h2>
+    </hgroup>
+    <article>
+      <p>Gli Enterprise Integration Patters offrono soluzioni per affrontare il precedente problema.</p>
+      <p>Cosa sono gli EIP?</p>
+    </article>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/eipbook.jpg)">
+    <hgroup>
+      <h2 class="white">Un libro!</h2>
+    </hgroup>
+    <footer><a class="source white" href="http://www.eaipatterns.com/">Gregor Hohpe and Bobby Woolf<br/>Addison-Wesley 2003</a></footer>
+  </slide>
+
+  <slide class="header-blue">
+    <hgroup>
+      <h2>EIP Importanti</h2>
+    </hgroup>
+    <article>
+      <dl style="font-size: 0.65em;">
+        <dt>Message Channel:</dt>
+          <dd style="font-size: 0.65em;">How does one application communicate with another using messaging?</dd>
+        <dt>Message:</dt>
+          <dd style="font-size: 0.65em;">How can two applications connected by a message channel exchange a piece of information?</dd>
+        <dt>Message Router:</dt>
+          <dd style="font-size: 0.65em;">How can you decouple individual processing steps so that messages can be passed to different filters depending on a set of conditions?</dd>
+        <dt>Message Translator:</dt>
+          <dd style="font-size: 0.65em;"> How can systems using different data formats communicate with each other using messaging?</dd>
+        <dt>Message Endpoint:</dt>
+          <dd style="font-size: 0.65em;">How does an application connect to a messaging channel to send and receive messages?</dd>
+        <dt>Dead Letter Channel:</dt>
+          <dd style="font-size: 0.65em;">What will the messaging system do with a message it cannot deliver?</dd>
+        <dt>Message Bus:</dt>
+          <dd style="font-size: 0.65em;"> What is an architecture that enables separate applications to work together, but in a decoupled fashion such that applications can be easily added or removed without affecting the others?</dd>
+        <dt>Command Message:</dt>
+          <dd style="font-size: 0.65em;">How can messaging be used to invoke a procedure in another application?</dd>
+        <dt>Document Message:</dt>
+          <dd style="font-size: 0.65em;">How can messaging be used to transfer data between applications?</dd>
+        <dt>Event Message:</dt>
+          <dd style="font-size: 0.65em;">How can messaging be used to transmit events from one application to another?</dd>
+        <dt>Request-Reply:</dt>
+          <dd style="font-size: 0.65em;">When an application sends a message, how can it get a response from the receiver?</dd>
+        <dt>Canonical Data Model:</dt>
+          <dd style="font-size: 0.65em;">How can you minimize dependencies when integrating applications that use different data formats?</dd>
+      </dl>
+    </article>
+  </slide>
+
+  <slide class="header-blue">
+    <hgroup>
+      <h2>Come si può fare integrazione?</h2>
+    </hgroup>
+    <article>
+      <p>I principali metodi tramite cui avviene integrazione sono:</p>
+      <ul class="build">
+        <li>Scambio di file
+          <div style="position:absolute;right:0px;top:0px;background-color:white;width:345px;height:153px;"><img src="images/camel_eip_file.gif" alt="EIP File Transfer" title="EIP File Transfer" /></div></li>
+        <li>Database condiviso
+          <div style="position:absolute;right:0px;top:0px;background-color:white;width:345px;height:153px;"><img src="images/camel_eip_db.gif" alt="EIP Shared DB" title="EIP Shared DB" /></div></li>
+        <li>Remote Procedure Invocation
+          <div style="position:absolute;right:0px;top:0px;background-color:white;width:345px;height:153px;"><img src="images/camel_eip_rmi.gif" alt="EIP Remote Procedure Invocation" title="EIP Remote Procedure Invocation" /></div></li>
+        <li>Messaging
+          <div style="position:absolute;right:0px;top:0px;background-color:white;width:345px;height:153px;"><img src="images/camel_eip_messaging.gif" alt="EIP Messaging" title="EIP Messaging" /></div></li>
+      </ul>
+      <div class="build"><p>Gli EIP si focalizzano sulla integrazione via “messaging” e definiscono una notazione per rappresentare le soluzioni di integrazione.</p></div>
+    </article>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/eipbookcover.jpg)">
+    <hgroup>
+      <h2 class="white">Notazione EIP</h2>
+    </hgroup>
+    <article class="build flexbox vcenter ">
+      <div>
+        <img src="images/camel_image_1.png" style="height:560px;margin-top:-50px;" alt="EIP Notation" title="EIP Notation" />
+        
+        <footer><a class="source white" href="http://www.eaipatterns.com/toc.html">http://www.eaipatterns.com/toc.html</a></footer>
+      <div>
+    </article>
+  </slide>
+
+  <slide class="header-blue">
+    <hgroup>
+      <h2>Soluzioni con EIP</h2>
+    </hgroup>
+     <article class="flexbox vcenter">
+      <div>
+        <img src="images/camel_eip_1.png" alt="Example of EIP" title="Example of EIP" />
+      </div>
+    </article>
+  </slide>
+
+  <slide class="header-blue">
+    <hgroup>
+      <h2>Soluzioni con EIP</h2>
+    </hgroup>
+     <article class="flexbox vcenter">
+      <div>
+        <img src="images/camel_eip_2.png" alt="Example of EIP" title="Example of EIP" />
+      </div>
+    </article>
+  </slide>
+
+
+  <slide class="header-blue">
+    <hgroup>
+      <h2>Soluzioni con EIP</h2>
+    </hgroup>
+     <article class="flexbox vcenter">
+      <div>
+        <img src="images/sensormix_cdm_eip.png" alt="Example of EIP" title="Example of EIP" />
+        <div class="build">
+          <h3>Attenti a questa qui!</h3>
+        </div>
+      </div>
+    </article>
+  </slide>
+
+  <slide class="header-blue">
+    <hgroup>
+      <h2>Come implementare facilmente EIP?</h2>
+      <h3>(domanda retorica)</h3>
+    </hgroup>
+    <article class="build">
+      <p>Integrare è però difficile perchè esiste una vasta eterogeneità di protocolli, interfacce e formati.</p>
+      <p>Come si possono implementare su una piattaforma Java gli Enterprise Integration Pattern?</p>
+      <div>
+        <p>con</p>
+        <q>Apache Camel</q>
+        <div class="build">
+          <span><b>C</b>oncise</span>
+          <span><b>A</b>pplication</span>
+          <span><b>M</b>essaging</span>
+          <span><b>E</b>xchange</span>
+          <span><b>L</b>anguage</span>
+        </div>
+      </div>
+ 
+    </article>
+  </slide>
+
+  <slide class="header-blue">
+    <hgroup>
+      <h2>Apache Camel</h2>
+    </hgroup>
+    <article class="build">
+      <p>Apache Camel è un framework di integrazione open-sorce versatile basato sugli Enterprise Integration Patterns del libro di Hohpe e Woolf.</p>
+      <p>Include un vasto insieme di <a href="http://camel.apache.org/components.html">componenti</a> per funzionare con molti <b>protocolli di trasporto</b> e <a href="http://camel.apache.org/data-format.html">formati dati</a> e permette di definire regole di <b>instradamento</b> e <b>intermediazione</b> attraverso l’uso di <a href="http://camel.apache.org/dsl.html">domain-specific language</a>.</p>
+      <p>...si presta talmente bene alla integrazione che ServiceMix, dalla versione 3 alla 4, ha abbandonato la tecnologia JBI per adottare un nuovo approccio alla integrazione basato su Camel e OSGi.</p>
+    </article>
+  </slide>
+
+  <slide class="header-blue">
+    <hgroup>
+      <h2>Esempio: Content Based Router</h2>
+    </hgroup>
+    <article class="bigger">
+      <img style="width:50%;" src="images/camel_eip_3.png" alt="Content Based Router" title="Content Based Router" />
+      <p class="build">
+          <span>from <b>newOrder</b><br/></span>
+          <span>&nbsp;&nbsp;choice<br/></span>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;when <b>isWidget</b> to <b>widget</b><br/></span>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;otherwise to <b>gadget</b></span>
+      </p>
+    </article>
+  </slide>
+
+  <slide class="header-blue">
+    <hgroup>
+      <h2>Content Based Router in Java DSL</h2>
+    </hgroup>
+    <article class="smaller">
+      <div style="float:right;">
+          from <b>newOrder</b><br/>
+          &nbsp;&nbsp;choice<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;when <b>isWidget</b> to <b>widget</b><br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;otherwise to <b>gadget</b>
+      </div>
+      <img style="width:50%;" src="images/camel_eip_3.png" alt="Content Based Router" title="Content Based Router" />
+
+<pre class="prettyprint" data-lang="java dsl">
+public class MyRoute extends RouteBuilder {
+
+  public void configure() throws Exception {
+    <b>from</b>(&quot;<b>activemq:queue:newOrder</b>&quot;)
+      .<b>choice</b>()
+        .<b>when</b>(xpath(&quot;<b>/order/product = 'widget'</b>&quot;))
+          .<b>to</b>(&quot;<b>activemq:queue:widget</b>&quot;)
+        .<b>otherwise</b>()
+          .<b>to</b>(&quot;<b>activemq:queue:gadget</b>&quot;)
+      .end();
+  }
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide class="header-blue">
+    <hgroup>
+      <h2>Content Based Router in Spring XML</h2>
+    </hgroup>
+    <article class="smaller">
+      <div style="float:right;">
+          from <b>newOrder</b><br/>
+          &nbsp;&nbsp;choice<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;when <b>isWidget</b> to <b>widget</b><br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;otherwise to <b>gadget</b>
+      </div>
+      <img style="width:50%;" src="images/camel_eip_3.png" alt="Content Based Router" title="Content Based Router" />
+<pre class="prettyprint" data-lang="spring xml">
+&lt;camelContext xmlns=&quot;http://camel.apache.org/schema/spring&quot;&gt;
+  &lt;route&gt;
+    &lt;<b>from</b> uri=&quot;<b>activemq:queue:newOrder</b>&quot;/&gt;
+    &lt;<b>choice</b>&gt;
+      &lt;<b>when</b>&gt;
+        &lt;xpath&gt;<b>/order/product = &apos;widget&apos;</b>&lt;/xpath&gt;
+        &lt;<b>to</b> uri=&quot;<b>activemq:queue:widget</b>&quot;/&gt;
+      &lt;/when&gt;
+      &lt;<b>otherwise</b>&gt;
+        &lt;<b>to</b> uri=&quot;<b>activemq:queue:gadget</b>&quot;/&gt;
+      &lt;/otherwise&gt;
+    &lt;/choice&gt;
+  &lt;/route&gt;
+&lt;/camelContext&gt;
+</pre>
+    </article>
+  </slide>
+
+  <slide class="header-blue">
+    <hgroup>
+      <h2>Una applicazione Camel completa:</h2>
+    </hgroup>
+    <article class="smaller">
+<pre class="prettyprint" data-lang="spring xml">
+import org.apache.camel.CamelContext;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.impl.DefaultCamelContext;
+
+public class CamelExample {
+  public static void main(String[] args) throws Exception {
+
+    CamelContext context = new DefaultCamelContext();
+
+    context.addRoutes(new RouteBuilder() {
+      public void configure() {
+        from(&quot;jetty:http://0.0.0.0:8080/tellMeSomething&quot;)
+        .transform(simple(&quot;You say ${in.body}&quot;))
+        .to(&quot;velocity:response.vm&quot;);
+      }
+    });
+
+    context.start();
+    System.out.println(&quot;Press ENTER to exit&quot;);
+    System.in.read();
+
+    context.stop();
+  }
+}
+</pre>
+    </article>
+  </slide>
+
+
+  <slide class="header-blue">
+    <hgroup>
+      <h2>Camel in ServiceMix</h2>
+    </hgroup>
+    <article>
+      <p>Una volta attivati i bundle di Camel su Karaf-ServiceMix... </p>
+      <div class="build">
+        <img src="images/camel_image_3.png" alt="Camel Bundles in ServiceMix" title="Camel Bundles in ServiceMix" />
+      </div>
+    </article>
+  </slide>
+
+  <slide class="header-blue">
+    <hgroup>
+      <h2>Camel in ServiceMix</h2>
+    </hgroup>
+    <article class="smaller">
+      <p>...è possibile definire rotte direttamente
+       nei file Spring XML, oppure utilizzare dei RouteBuilder in Java per avviare delle 
+       applicazioni che usano Camel all’interno di ServiceMix.</p>
+<div class="build">
+<pre class="prettyprint" data-lang="Spring XML">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;&gt;
+
+  &lt;camelContext xmlns=&quot;http://camel.apache.org/schema/spring&quot;&gt;
+   
+    &lt;route&gt;
+      &lt;from uri=&quot;jetty:http://0.0.0.0:8080/tellMeSomething&quot;/&gt;
+      &lt;convertBodyTo type=&quot;java.lang.String&quot;/&gt;
+      &lt;transform&gt;
+        &lt;simple&gt;You say ${in.body}&lt;/simple&gt;
+      &lt;/transform&gt;
+      &lt;to uri=&quot;velocity:response.vm&quot; /&gt;
+    &lt;/route&gt;
+
+  &lt;/camelContext&gt;
+
+&lt;/beans&gt;
+</pre></div>
+
+    </article>
+  </slide>
+
+
+
+  <slide class="header-blue">
+    <hgroup>
+      <h2>Camel: componenti</h2>
+      <h3>162 componenti elencati su <a href="http://camel.apache.org/components.html">camel.apache.org/components.html</a></h3>
+    </hgroup>
+    <article class="smaller">
+      <div style="height:460px;overflow:auto;margin-top:-30px;">
+        <table>
+          <tr><th></th><td class="highlight">ActiveMQ</td><td>ActiveMQ Broker</td><td>Activiti</td><td>AHC</td><td>AMQP</td><td>APNS</td><td>Atom</td><td>Avro</td></tr>
+          <tr><th></th><td>AWS-CW</td><td>AWS-DDB</td><td>AWS-S3</td><td>AWS-SDB</td><td>AWS-SES</td><td>AWS-SNS</td><td>AWS-SQS</td><td>Bean</td></tr>
+          <tr><th></th><td>Bean Validation</td><td>Browse</td><td>Cache</td><td>Class</td><td>CMIS</td><td>Cometd</td><td>Context</td><td>ControlBus</td></tr>
+          <tr><th></th><td>CouchDB</td><td>Crypto</td><td class="highlight">CXF</td><td>CXF Bean </td><td>CXFRS</td><td>DataFormat</td><td>DataSet</td><td>Db4o</td></tr>
+          <tr><th></th><td>Direct</td><td>Direct-VM</td><td>Disruptor</td><td>DNS</td><td>EJB</td><td>ElasticSearch</td><td>Esper</td><td>EventAdmin</td></tr>
+          <tr><th></th><td>Exec</td><td>Facebook</td><td class="highlight">File</td><td>Flatpack</td><td>FOP</td><td>FreeMarker</td><td class="highlight">FTP</td><td>FTPS</td></tr>
+          <tr><th></th><td>GAuth</td><td>Geocoder</td><td>GHttp</td><td>GLogin</td><td>GMail</td><td>GTask</td><td>Guava EventBus</td><td>Hazelcast</td></tr>
+          <tr><th></th><td>HBase</td><td>HDFS</td><td>Hibernate</td><td>HL7</td><td class="highlight">HTTP</td><td>HTTP4</td><td>iBATIS</td><td>IMAP</td></tr>
+          <tr><th></th><td>IMAPS</td><td>Infinispan</td><td>IRC</td><td>JavaSpace</td><td>JBI</td><td>JCIFS</td><td>jclouds</td><td>JCR</td></tr>
+          <tr><th></th><td>JDBC</td><td class="highlight">Jetty</td><td>JGroups</td><td>JMS</td><td>JMX</td><td>JPA</td><td>Jsch</td><td>JT/400 </td></tr>
+          <tr><th></th><td>Kestrel</td><td>Krati</td><td>Language</td><td>LDAP</td><td>Log</td><td>Lucene</td><td>MINA</td><td class="highlight">MINA2</td></tr>
+          <tr><th></th><td>Mock</td><td>MongoDB</td><td>MQTT</td><td>MSV</td><td>Mustache</td><td>MVEL</td><td>MyBatis</td><td>Nagios</td></tr>
+          <tr><th></th><td class="highlight">Netty</td><td>Netty HTTP</td><td>NMR</td><td>OptaPlanner</td><td>Pax-Logging</td><td>POP3</td><td>POP3S</td><td>Printer</td></tr>
+          <tr><th></th><td>Properties</td><td>Quartz</td><td>Quartz2</td><td>Quickfix</td><td>RabbitMQ</td><td>RCode</td><td>Ref</td><td>Restlet</td></tr>
+          <tr><th></th><td>RMI</td><td>RNC</td><td>RNG</td><td>Routebox</td><td>RSS</td><td>Salesforce</td><td>SAP NetWeaver</td><td>Scalate</td></tr>
+          <tr><th></th><td>SEDA</td><td>SERVLET</td><td>SFTP</td><td>Sip</td><td>SJMS</td><td>Smooks</td><td>SMPP</td><td>SMTP</td></tr>
+          <tr><th></th><td>SMTP</td><td>SNMP</td><td>Solr</td><td>Splunk</td><td>Spring Event</td><td>Spring LDAP</td><td>Spring Neo4j</td><td>Spring Redis</td></tr>
+          <tr><th></th><td>Spring Web Services</td><td>SpringBatch</td><td>SpringIntegration</td><td>SQL</td><td>StAX</td><td>Stomp</td><td>Stream</td><td>StringTemplate</td></tr>
+          <tr><th></th><td>Stub</td><td>Test</td><td>Timer</td><td>Twitter</td><td>Validation</td><td class="highlight">Velocity</td><td>Vertx</td><td>VirtualBox</td></tr>
+          <tr><th></th><td class="highlight">VM</td><td>Weather</td><td>Websocket</td><td>XML Security </td><td>XMPP</td><td>XQuery</td><td class="highlight">XSLT</td><td>Yammer</td></tr>
+          <tr><th></th><td>ZeroMQ</td><td>Zookeeper</td></tr>
+        </table>
+      </div>  
+    </article>
+  </slide>
+
+  <slide class="header-blue">
+    <hgroup>
+      <h2>Camel: data format</h2>
+      <h3>25+ data format elencati su <a href="http://camel.apache.org/data-format.html">camel.apache.org/data-format.html</a></h3>
+    </hgroup>
+    <article>
+      <table>
+        <tr><th></th><td>Avro</td><td>Base64</td><td>BeanIO</td><td>Bindy</td><td>Castor</td></tr>
+        <tr><th></th><td>Crypto</td><td>CSV</td><td>EDI</td><td>Flatpack DataFormat</td><td>GZip data format</td></tr>
+        <tr><th></th><td>HL7 DataFormat</td><td class="highlight">JAXB</td><td>JiBX</td><td class="highlight">JSON</td><td>PGP</td></tr>
+        <tr><th></th><td class="highlight">Protobuf</td><td class="highlight">Serialization</td><td>SOAP</td><td>String</td><td>XmlBeans</td></tr>
+        <tr><th></th><td class="highlight">XmlJson</td><td>XMLSecurity DataFormat</td><td>XStream</td><td>Zip DataFormat</td><td>Zip File DataFormat</td></tr>
+      </table>
+    </article>
+  </slide>
+
+
+  <!-- Usare GWT su ServiceMix -->
+  <slide class="segue back-red nobackground">
+    <aside class="gdbar"><img src="images/logo_sensormix_c.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Utilizzare GWT su ServiceMix</h2>
+      <h3>Ovvero un modo diverso per fare Web Application</h3>
+    </hgroup>
+  </slide>
+
+  <slide class="header-red">
+    <hgroup>
+      <h2>SOA e SOFEA</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/gwt_image_1.png" alt="SOFEA Architecture" title="SOFEA Architecture" />
+      <footer class="source"><a href="http://raibledesigns.com/">http://raibledesigns.com/</a></footer>
+    </article>
+  </slide>
+
+  <slide class="header-red">
+    <hgroup>
+      <h2>Framework Web per SOFEA</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/gwt_image_2.png" alt="SOFEA Web Frameworks" title="SOFEA Web Frameworks" />
+      <footer class="source"><a href="http://raibledesigns.com/">http://raibledesigns.com/</a></footer>
+    </article>
+  </slide>
+
+  <slide class="header-red">
+    <hgroup>
+      <h2>ServiceMix e le Web Application</h2>
+    </hgroup>
+    <article>
+      <p>ServiceMix non nasce come <a href="http://en.wikipedia.org/wiki/Web_container">Web Container</a> ma permette lo stesso di deployare delle web application. </p>
+      <p>In particolare risulta molto interessante qualora l’applicazione segua l’approccio precedente.</p>
+    </article>
+  </slide>
+
+  <slide class="header-red">
+    <hgroup>
+      <h2>La nostra SOFEA</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/gwt_image_3.png" alt="SOFEA with GWT and ServiceMix" title="SOFEA with GWT and ServiceMix" />
+    </article>
+  </slide>
+
+  <slide class="header-red">
+    <hgroup>
+      <h2>Deploy di WAR sotto Karaf/ServiceMix</h2>
+      <h3>WAR Deployer</h3>
+    </hgroup>
+    <article class="build">
+      <p>Il WAR Deployer è un bundle che si occupa del deploy di Web Application su Karaf/ServiceMix</p>
+      <div style="text-align:center;font-weight:bold;font-size:1.8em;"><p>Cosa fa?</p></div>
+      <ul>
+        <li>Cerca il file /WEB-INF/web.xml </li>
+        <li>Se lo trova, pubblica i file statici e le Servlet definite nel web.xml via HTTP</li>
+      </ul>
+      <div style="text-align:center;font-weight:bold;font-size:1.8em;"><p>Ma basta?</p></div>
+    </article>
+  </slide>
+
+  <slide class="header-red">
+    <hgroup>
+      <h2>Deploy di WAR sotto Karaf/ServiceMix</h2>
+      <h3>Il WAR ha bisogno di modifiche</h3>
+    </hgroup>
+    <article class="build">
+      <ul>
+        <li>Deve avere un file /META-INF/MANIFEST.MF nella root del JAR</li>
+        <li>Il MANIFEST.MF deve contenere:
+          <ul>
+            <li>L'header <code>Web-ContextPath</code> (l'applicazione verrà pubblicata al context path specificato da questo header)</li>
+            <li>L'header <code>Bundle-ClassPath: .,WEB-INF/classes</code> (informa Karaf/ServiceMix dove sono i bytecode)</li>
+          </ul>
+        </li>
+      </ul>
+
+      <p>É raccomandato fare uno <a href="http://maven.apache.org/plugins/maven-war-plugin/examples/skinny-wars.html">Skinny war</a> e usare dipendenze di Bundle (usando il maven-war-plugin e il maven-bundle-plugin)</p>
+
+      <div style="text-align:center;font-weight:bold;font-size:1.8em;"><p>Abbiamo Finito?</p></div>
+
+    </article>
+  </slide>
+
+  <slide class="header-red">
+    <hgroup>
+      <h2>Applicazioni GWT sotto Karaf/ServiceMix</h2>
+    </hgroup>
+    <article>
+      <div style="position: absolute; height:496px;top:90px;">
+        <img style="position: absolute;left:50%;margin-left:-420px;top:25px;" src="images/gwt_image_4.png" alt="gwt-servlet.jar is not an OSGi Bundle" title="gwt-servlet.jar is not an OSGi Bundle" />
+        <p style="margin-top:260px;">...anche gwt-servlet.jar ha bisogno di modifiche!</p>
+        <p>GWT non è predisposto per essere usato in OSGi.</p>
+        <p>Non è un bundle perchè al manifest della gwt-servlet.jar mancano gli header OSGi.</p>
+        <div style="text-align:center;font-weight:bold;font-size:1.8em;"><p>E allora?</p></div>
+      </div>
+    </article>
+  </slide>
+
+  <slide class="header-red">
+    <hgroup>
+      <h2>Come usare GWT con OSGi</h2>
+      <h3>Quattro strade:</h3>
+    </hgroup>
+    <article class="smaller">
+      <p>Ci sono 4 strade per ottenere un gwt-servlet.jar OSGi compliant e poterlo deployare su Karaf/ServiceMix.</p>
+      <dl class="build fade">
+        <div><dt>Caso 1:</dt><dd><a href="http://www.gwtproject.org/makinggwtbetter.html#compiling">Compilarsi</a> a mano il gwt-servlet.jar con gli <a href="https://gwt-review.googlesource.com/#/c/5351/">header OSGi</a> necessari</dd></div>
+        <div><dt>Caso 2:</dt><dd>Deployare il <a href="http://karaf.apache.org/manual/latest-2.2.x/users-guide/deployer.html#Wrapdeployer">Jar non-OSGi</a> configurandolo al momento della installazione su Karaf/ServiceMix passando come parametro le informazioni che dovrebbero essere contenute nel MANIFEST.MF</dd></div>
+        <div><dt>Caso 3:</dt><dd>Aspettare che il ServiceMix Team <a href="http://goo.gl/jFsVcP">rilasci</a> il Bundle per GWT-Servlet con gli header OSGi per la versione 2.6.0</dd></div>
+        <div><dt>Caso 4:</dt><dd>Sperare che il GWT Project Team <a href="https://gwt-review.googlesource.com/#/c/5351/">accetti la patch</a>, che abbiamo proposto, nella versione GWT 2.6.0 o successive. </dd></div>
+      </dl>
+    </article>
+  </slide>
+
+  <slide class="header-red">
+    <hgroup>
+      <h2>Come usare GWT con OSGi</h2>
+      <h3>Che cosa significa?</h3>
+    </hgroup>
+    <article class="smaller">
+    <dl style="font-size:0.6em;line-height:1em;">
+      <dt>Caso 1:</dt>
+        <dd>
+          <code>git fetch https://gwt.googlesource.com/gwt refs/changes/51/5351/7</code><br/>
+          <code>git checkout FETCH_HEAD</code><br/>
+          <code>ant dist</code><br/>
+          <code>install -s mvn:com.google.gwt/gwt-servlet/2.6.0</code><br/>
+        </dd>
+
+      <dt>Caso 2:</dt>
+        <dd><code>
+          install -s wrap:mvn:com.google.gwt/gwt-servlet/2.6.0$Bundle-Name=GWT-Servlet&amp;Bu<br/>
+          ndle-SymbolicName=com.google.gwt.gwt-servlet&amp;Bundle-Version=2.6.0&amp;Export-Packag<br/>
+          e=com.google.gwt.user.client.rpc.*,org.hibernate.validator.engine,com.google.we<br/>
+          b.bindery.requestfactory.vm.impl.*,!javax.validation,!org.hibernate.validator.*<br/>
+          ,!*.client.*,!*.impl.*,*&amp;Import-Package=javax.servlet.*,javax.validation;resolu<br/>
+          tion:=optional,org.json;resolution:=optional,javax.validation.*;resolution:=opt<br/>
+          ional,org.json.*;resolution:=optional,!com.google.gwt.*,*;resolution:=optional</code></dd>
+
+      <dt>Caso 3:</dt>
+        <dd><code>install -s mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.gwt-servlet/2.6.0_1</code></dd>
+
+      <dt>Caso 4:</dt>
+        <dd><code>install -s mvn:com.google.gwt/gwt-servlet/2.6.0</code></dd>
+    </dl>
+    </article>
+  </slide>
+
+
+
+  <slide class="header-red">
+    <hgroup>
+      <h2>Esempi GWT su ServiceMix</h2>
+    </hgroup>
+    <article class="bigger">
+
+<p>Abbiamo adattato alcuni esempi della distribuzione GWT per funzionare su Karaf/ServiceMix:</p>
+
+<p><a href="https://github.com/cristcost/gwt-karaf-examples">https://github.com/cristcost/gwt-karaf-examples</a></p>
+
+<p>Tra poco faremo vedere un esempio che mette insieme tutte le tecnologie raccontate fino ad ora.</p>
+    </article>
+  </slide>
+
+
+  <!-- SensorMix -->
+  <slide class="segue back-green nobackground">
+    <aside class="gdbar"><img src="images/logo_sensormix_c.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>SensorMix</h2>
+      <h3>Esempio di architettura basata su ServiceMix, Camel e GWT</h3>
+    </hgroup>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2>Come è composto SensorMix</h2>
+      <h3>Architettura esterna</h3>
+    </hgroup>
+    <article>
+      <img style="position: absolute;left:50%;margin-left:-340px;margin-top:-50px;" src="images/sensormix_arc_2.png" alt="SensorMix: Interfaces" title="SensorMix: Interfaces" />
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2>Come è composto SensorMix</h2>
+      <h3>Architettura interna</h3>
+    </hgroup>
+    <article>
+      <img style="position: absolute;left:50%;margin-left:-340px;margin-top:-50px;" src="images/sensormix_arc_1.png" alt="SensorMix: Architecture" title="SensorMix: Architecture" />
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <article class="flexbox vcenter">
+      <div>
+        <h2 style="font-size:10em;">Demo</h2>
+      </div>
+    </article>
+  </slide>
+
+  <!-- Canonical Data Model -->
+  <slide class="segue header-green no-back">
+    <aside class="gdbar big-green"><img src="images/sensormix_focus_cdm.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Data Model Bundle</h2>
+    </hgroup>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2> Il Canonical Data Model EIP</h2>
+    </hgroup>
+    <article>
+      <p>Dal libro EIP:</p>
+      <div class="build fade">
+        <p>“I am designing several applications to work together through Messaging. Each application has its own internal data format.”</p>
+        <p>“How can you minimize dependencies when integrating applications that use different data formats?”</p>
+        <img src="images/sensormix_cdm_problem.png" alt="Canonical Data Model problem" title="Canonical Data Model problem" />
+      </div>
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2> Il Canonical Data Model EIP</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <div>
+        <img src="images/sensormix_cdm_eip.png" alt="Example of EIP" title="Example of EIP" />
+      </div>
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2>Il nostro approccio al CDM</h2>
+    </hgroup>
+    <article class="build">
+      <p>A noi piace l’approccio <b>Java first</b>:</p>
+      <ul>
+        <li>Modello dati: <b>POJO</b></li>
+        <li>Modello servizi: <b>Interfacce Java</b></li>
+      </ul>
+      <p>Usiamo annotazioni JaxB e JaxWS per generare dal nostro modello gli XML Schema e WSDL.</p>
+      <div>
+        <p>Troviamo che cominciare dagli oggetti sia più naturale, lineare e agile:</p>
+        <ul class="build fade">
+          <li>Lo XML Schema finale risulta più pulito</li>
+          <li>Si può fare a meno della validazione XML 
+            <ul><li>eccezioni Java = XML non valido</li></ul>
+          </li>
+          <li>Lavorare sulle classi Java è più veloce (per noi che siamo sviluppatori)</li>
+        </ul>
+      </div>
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2>Binding Java-XML Schema</h2>
+    </hgroup>
+    <article class="smaller">
+<pre class="prettyprint" data-lang="java">
+@XmlAccessorType(XmlAccessType.FIELD)
+<b>@XmlType(name = &quot;SampleReport&quot;)</b>
+public class SampleReport implements Serializable {
+
+  <b>@XmlAttribute(required = true, name = &quot;sensorId&quot;)</b>
+  @XmlSchemaType(name = &quot;anyURI&quot;)
+  private String sensorId;
+
+  <b>@XmlAttribute(required = false, name = &quot;sampleType&quot;)</b>
+  private String sampleType;
+
+  <b>@XmlElement(required = false, name = &quot;dailySampleReport&quot;)</b>
+  private List&lt;DailySampleReport&gt; dailySampleReports;
+</pre>
+<div class="build">
+<pre class="prettyprint" data-lang="xml schema">
+&lt;<b>xs:complexType name=&quot;SampleReport&quot;</b>&gt;
+  &lt;<b>xs:attribute name=&quot;sensorId&quot;</b> type=&quot;xs:anyURI&quot; use=&quot;required&quot;/&gt;
+  &lt;<b>xs:attribute name=&quot;sampleType&quot;</b> type=&quot;xs:string&quot;/&gt;
+  &lt;xs:sequence&gt;
+    &lt;<b>xs:element name=&quot;dailySampleReport&quot;</b> type=&quot;tns:DailySampleReport&quot;
+          maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot; /&gt;
+  &lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+</pre>
+</div>
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2> POJO annotati JaxB</h2>
+    </hgroup>
+    <article class="flexbox build fade smaller">
+<pre class="prettyprint" data-lang="java">
+<b>@XmlAccessorType(XmlAccessType.FIELD)</b>
+<b>@XmlType(name = &quot;SampleReport&quot;)</b>
+public class SampleReport implements Serializable {
+
+  /** The sensor id. */
+  <b>@XmlAttribute(required = true, name = &quot;sensorId&quot;)</b>
+  <b>@XmlSchemaType(name = &quot;anyURI&quot;)</b>
+  private String sensorId;
+
+  /** The sample type. */
+  @XmlAttribute(required = false, name = &quot;sampleType&quot;)
+  private String sampleType;
+
+  /** The daily sample reports. */
+  @XmlElement(required = false, name = &quot;dailySampleReport&quot;)
+  private List&lt;DailySampleReport&gt; dailySampleReports;
+
+  // ...</pre>
+      <img style="position: absolute; top: 100px; right: 50px;" src="images/sensormix_cdm_image_1.png" alt="POJO annotated JaxB" title="POJO annotated JaxB" />
+    </article>
+  </slide>
+
+
+  <slide class="header-green">
+    <hgroup>
+      <h2> Interfaccia annotata JaxWS</h2>
+    </hgroup>
+ <article class="flexbox build fade smaller">
+<pre class="prettyprint" data-lang="java">
+<b>@WebService(name = &quot;SensormixService&quot;,
+    targetNamespace = &quot;http://developers.google.com/gdgfirenze/ns/service&quot;)</b>
+@SOAPBinding(parameterStyle = ParameterStyle.WRAPPED, style = Style.DOCUMENT, use = Use.LITERAL)
+public interface SensormixService {
+
+  <b>@WebMethod(action = &quot;urn:#listSensorsIds&quot;)</b>
+  @RequestWrapper(localName = &quot;listSensorsIdsIn&quot;,
+      targetNamespace = &quot;http://developers.google.com/gdgfirenze/ns/service&quot;)
+  @ResponseWrapper(localName = &quot;listSensorsIdsOut&quot;,
+      targetNamespace = &quot;http://developers.google.com/gdgfirenze/ns/service&quot;)
+  <b>@WebResult(name = &quot;sensorId&quot;)</b>
+  List&lt;String&gt; listSensorsIds();
+
+  @WebMethod(action = &quot;urn:#listSamplesTypes&quot;)
+  @RequestWrapper(localName = &quot;listSamplesTypesIn&quot;,
+      targetNamespace = &quot;http://developers.google.com/gdgfirenze/ns/service&quot;)
+  @ResponseWrapper(localName = &quot;listSamplesTypesOut&quot;,
+      targetNamespace = &quot;http://developers.google.com/gdgfirenze/ns/service&quot;)
+  @WebResult(name = &quot;sampleType&quot;)
+  List&lt;String&gt; listSamplesTypes();
+
+  // ...</pre>
+      <img style="position: absolute; top: 100px; right: 50px;" src="images/sensormix_cdm_image_2.png" alt="Interfaces annotated JaxWS" title="Interfaces annotated JaxWS" />
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2> Utilizzo del CDM su GWT</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <p>Infine, se si vuole usare il data model anche dentro un progetto GWT, basta aggiungere un modulo .gwt.xml:</p>
+      <div class="build fade">
+<pre class="prettyprint" data-lang="gwt xml">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!-- When updating your version of GWT, you should also update this DTD reference, 
+        so that your app can take advantage of the latest GWT module capabilities. --&gt;
+&lt;!DOCTYPE module PUBLIC &quot;-//Google Inc.//DTD Google Web Toolkit 2.5.1//EN&quot;
+  &quot;http://google-web-toolkit.googlecode.com/svn/tags
+  /2.5.1/distro-source/core/src/gwt-module.dtd&quot;&gt;
+&lt;module&gt;
+
+        &lt;!-- Specify the paths for translatable code --&gt;
+        &lt;source path='model' /&gt;
+        &lt;source path='service' /&gt;
+
+&lt;/module&gt;</pre>
+        <img style="position: absolute; top: 100px; right: 50px;" src="images/sensormix_cdm_image_3.png" alt="Interfaces annotated JaxWS" title="Interfaces annotated JaxWS" />
+      </div>
+    </article>
+  </slide>
+
+  <!-- Data Service -->
+  <slide class="segue header-green no-back">
+    <aside class="gdbar big-green"><img src="images/sensormix_focus_dataservice.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Data Service Bundle</h2>
+    </hgroup>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2> Il bundle dataservice</h2>
+    </hgroup>
+    <article>
+      <p>Contiene un servizio che espone funzionalità di memorizzazione e recupero di informazioni </p>
+      <p>Il servizio viene registrato in OSGi tramite Spring DM</p>
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2> La registrazione del servizio</h2>
+    </hgroup>
+    <article>
+<pre class="prettyprint" data-lang="spring dm">
+&lt;osgix:cm-properties id=&quot;dataSourceProperties&quot;
+  persistent-id=&quot;sensormix.jpa.persistenceunit&quot;&gt;
+  &lt;prop key=&quot;sensormix_db.driverClassName&quot;&gt;org.hsqldb.jdbcDriver&lt;/prop&gt;
+  &lt;prop key=&quot;sensormix_db.url&quot;&gt;jdbc:hsqldb:mem:sensormix_db&lt;/prop&gt;
+  &lt;prop key=&quot;sensormix_db.username&quot;&gt;sa&lt;/prop&gt;
+  &lt;prop key=&quot;sensormix_db.password&quot;&gt;&lt;/prop&gt;
+&lt;/osgix:cm-properties&gt;
+
+<b>&lt;osgi:service ref=&quot;sensormixService&quot;&gt;
+  &lt;osgi:interfaces&gt;
+    &lt;value&gt;com.google.developers.gdgfirenze.service.SensormixService&lt;/value&gt;
+    &lt;value&gt;com.google.developers.gdgfirenze.osgi.SensormixAdminInterface&lt;/value&gt;
+  &lt;/osgi:interfaces&gt;
+&lt;/osgi:service&gt;</b>
+</pre>
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2> Il servizio in java</h2>
+    </hgroup>
+    <article class="smaller">
+<pre class="prettyprint" data-lang="java">
+public class SensormixServiceJpaImpl implements SensormixService, SensormixAdminInterface {
+
+  private EntityManagerFactory entityManagerFactory;
+
+  @Override
+  public List&lt;String&gt; listSensorsIds() {
+    List&lt;String&gt; result = new ArrayList&lt;String&gt;();
+
+    try {
+      EntityManager em = entityManagerFactory.createEntityManager();
+      TypedQuery&lt;String&gt; q = em.createQuery(&quot;SELECT s.id FROM JpaSensor s&quot;, String.class);
+
+      result.addAll(q.getResultList());
+
+      em.close();
+    } catch (Exception e) {
+      logger.log(Level.SEVERE, &quot;Error during sensors list retrieving&quot;, e);
+    }
+
+    return result;
+  }
+</pre>
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2> Spring ORM</h2>
+    </hgroup>
+    <article class="smaller">
+<pre class="prettyprint" data-lang="spring dm">
+&lt;bean id=&quot;emf&quot; class=&quot;org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean&quot;&gt;
+  &lt;property name=&quot;persistenceUnitName&quot; value=&quot;sensormix_db&quot; /&gt;
+  &lt;property name=&quot;jpaVendorAdapter&quot;&gt;
+    &lt;bean class=&quot;org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter&quot;&gt;
+      &lt;property name=&quot;showSql&quot; value=&quot;true&quot; /&gt;
+    &lt;/bean&gt;
+  &lt;/property&gt;
+  &lt;property name=&quot;jpaProperties&quot;&gt;
+    &lt;props&gt;
+      &lt;prop key=&quot;eclipselink.ddl-generation&quot;&gt;create-tables&lt;/prop&gt;
+      &lt;prop key=&quot;eclipselink.logging.level&quot;&gt;INFO&lt;/prop&gt;
+      &lt;prop key=&quot;eclipselink.weaving&quot;&gt;false&lt;/prop&gt;
+      &lt;prop key=&quot;javax.persistence.jdbc.driver&quot;&gt;${sensormix_db.driverClassName}&lt;/prop&gt;
+      &lt;prop key=&quot;javax.persistence.jdbc.url&quot;&gt;${sensormix_db.url}&lt;/prop&gt;
+      &lt;prop key=&quot;javax.persistence.jdbc.user&quot;&gt;${sensormix_db.username}&lt;/prop&gt;
+      &lt;prop key=&quot;javax.persistence.jdbc.password&quot;&gt;${sensormix_db.password}&lt;/prop&gt;
+    &lt;/props&gt;
+  &lt;/property&gt;
+&lt;/bean&gt;
+
+&lt;bean id=&quot;sensormixService&quot;
+  class=&quot;com.google.developers.gdgfirenze.dataservice.SensormixServiceJpaImpl&quot;&gt;
+  &lt;property name=&quot;entityManagerFactory&quot; ref=&quot;emf&quot; /&gt;
+&lt;/bean&gt;
+
+</pre>
+    </article>
+  </slide>
+
+
+  <!-- Integration -->
+  <slide class="segue header-green no-back">
+    <aside class="gdbar big-green"><img src="images/sensormix_focus_integration.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Integration Bundle</h2>
+    </hgroup>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2> Il bundle di integrazione</h2>
+    </hgroup>
+    <article>
+      <p>Definisce le rotte Camel per l'ingresso dei campioni da Android, Arduino e iOS</p>
+      <p>Utilizza quasi esclusivamente configurazione via Spring XML</p>
+      <p>Unica eccezione: la classe <b>SampleAdapter</b> che trasforma da protocol buffer al nostro data model tramite codice java</p>
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2>Rivediamo le interfacce SensorMix</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/sensormix_camel_1.png" alt="SensorMix: Interfaces" title="SensorMix: Interfaces" />
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2> Le rotte di ingresso UDP e HTTP </h2>
+      <h3>Usate da Android e da Arduino</h3>
+    </hgroup>
+    <article>
+<pre class="prettyprint" data-lang="spring xml">
+&lt;route&gt;
+  <b>&lt;from uri=&quot;mina2:udp://0.0.0.0:10081&quot; /&gt;</b>
+  &lt;to uri=&quot;seda:jsonEntry&quot; /&gt;
+&lt;/route&gt;
+</pre>
+
+<pre class="prettyprint" data-lang="spring xml">
+&lt;route&gt;
+  <b>&lt;from uri=&quot;jetty:http://0.0.0.0:10080/sensormixSamplesEndpoint&quot; /&gt;</b>
+  &lt;to uri=&quot;seda:jsonEntry&quot; /&gt;
+
+  &lt;setHeader headerName=&quot;Content-Type&quot;&gt;
+    <b>&lt;constant&gt;application/json&lt;/constant&gt;</b>
+  &lt;/setHeader&gt;
+  <b>&lt;to uri=&quot;velocity:vm_templates/json_response_template.vm&quot; /&gt;</b>
+&lt;/route&gt;
+</pre>
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2> La rotta di trasformazione del JSON</h2>
+    </hgroup>
+    <article>
+<pre class="prettyprint" data-lang="spring xml">
+&lt;route&gt;
+  &lt;from uri=&quot;seda:jsonEntry&quot; /&gt;
+  &lt;convertBodyTo type=&quot;java.lang.String&quot; /&gt;
+
+  &lt;unmarshal&gt;
+    <b>&lt;xmljson elementName=&quot;item&quot; arrayName=&quot;list&quot; rootName=&quot;root&quot; /&gt;</b>
+  &lt;/unmarshal&gt;
+
+  <b>&lt;to uri=&quot;xslt:xslt_adapters/raw2cdm_adapter.xsl&quot; /&gt;</b>
+
+  &lt;unmarshal&gt;
+    <b>&lt;jaxb contextPath=&quot;com.google.developers.gdgfirenze.service&quot; /&gt;</b>
+  &lt;/unmarshal&gt;
+
+  &lt;to uri=&quot;seda:serviceEntry&quot; /&gt;
+&lt;/route&gt;
+</pre>
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2> La rotta TCP + ProtoBuf</h2>
+    </hgroup>
+    <article class="smaller">
+<pre class="prettyprint" data-lang="spring xml">
+&lt;route&gt;
+  <b>&lt;from uri=&quot;netty:tcp://0.0.0.0:10082/?decoders=#length-decoder&amp;amp;sync=false&quot; /&gt;</b>
+  &lt;unmarshal&gt;
+    <b>&lt;protobuf instanceClass=&quot;com.google.developers
+      .gdgfirenze.protobuf.SensormixProtos$SampleMessage&quot; /&gt;</b>
+  &lt;/unmarshal&gt;
+  <b>&lt;bean ref=&quot;sampleAdapter&quot; method=&quot;transform&quot; /&gt;</b>
+  &lt;to uri=&quot;seda:serviceEntry&quot; /&gt;
+&lt;/route&gt;
+
+<b>&lt;bean id=&quot;sampleAdapter&quot; 
+  class=&quot;com.google.developers.gdgfirenze.integration.SampleAdapter&quot; /&gt;</b>
+</pre>
+<pre class="prettyprint" data-lang="java">
+<b>package com.google.developers.gdgfirenze.integration;</b>
+
+public <b>class SampleAdapter</b> {
+  <b>public SamplesPayload transform(SampleMessage message)</b> {
+    SamplesPayload ret = new SamplesPayload();
+    // process 'SampleMessage' and return the adapted 'SamplesPayload'
+    return ret;
+  }
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+      <h2> L'output verso il servizio OSGi</h2>
+    </hgroup>
+    <article>
+<pre class="prettyprint" data-lang="spring xml">
+&lt;osgi:reference <b>id=&quot;sensormixService&quot;</b>
+    interface=&quot;com.google.developers.gdgfirenze.service.SensormixService&quot;
+    timeout=&quot;30000&quot; cardinality=&quot;1..1&quot; /&gt;
+
+&lt;route&gt;
+  &lt;from uri=&quot;seda:serviceEntry&quot; /&gt;
+  <b>&lt;to uri=&quot;bean:sensormixService?method=recordSamples(${body.samples})&quot; /&gt;</b>
+&lt;/route&gt;
+</pre>
+
+    </article>
+  </slide>
+  <!-- GWT -->
+  <slide class="segue header-green no-back">
+    <aside class="gdbar big-green"><img src="images/sensormix_focus_webapp.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Admin WebApp Bundle</h2>
+    </hgroup>
+  </slide>
+
+
+  <slide class="header-green">
+    <hgroup>
+      <h2>SensorMix GWT Web Application</h2>
+    </hgroup>
+    <article>
+      <p>Abbiamo visto che per il deploy di una Web Application GWT su Karaf/ServiceMix dobbiamo garantire che:</p>
+      <ul>
+        <li>Il WAR sia un bundle OSGi compliant</li>
+        <li>Che gwt-servlet.jar sia stata correttamente installata come bundle.</li>
+      </ul>
+      <p>Noi cosa abbiamo fatto?</p>
+    </article>
+  </slide>
+  
+  <slide class="header-green">
+    <hgroup>
+<h2>Configuriamo il maven-bundle-plugin</h2>
+    </hgroup>
+    <article class="smaller">
+<pre class="prettyprint" data-lang="pom.xml">
+&lt;instructions&gt;
+  &lt;Bundle-SymbolicName&gt;${project.artifactId}&lt;/Bundle-SymbolicName&gt;
+  &lt;Bundle-Description&gt;${project.description}&lt;/Bundle-Description&gt;
+
+  <b>&lt;Web-ContextPath&gt;/${project.artifactId}&lt;/Web-ContextPath&gt;</b>
+
+  <b>&lt;Bundle-ClassPath&gt;.,WEB-INF/classes&lt;/Bundle-ClassPath&gt;</b>
+
+  <b>&lt;Import-Package&gt;
+    com.google.gwt.user.client.rpc.*,
+    com.google.gwt.user.client.rpc.core.com.google.gwt.core.shared,
+    com.google.gwt.user.client.rpc.core.java.lang,
+    com.google.gwt.user.client.rpc.core.java.math,
+    com.google.gwt.user.client.rpc.core.java.sql,
+    com.google.gwt.user.client.rpc.core.java.util,
+    com.google.gwt.user.client.rpc.core.java.util.logging,
+    com.google.gwt.user.server.rpc.core.java.lang,
+    com.google.gwt.user.server.rpc.core.java.util,
+    !com.google.gwt.*.client.*,
+    *
+  &lt;/Import-Package&gt;</b>
+&lt;/instructions&gt;</pre>
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+<h2>Configuriamo il maven-war-plugin</h2>
+<h3>Ricordate lo skinny war?</h3>
+    </hgroup>
+    <article>
+<p>Si tolgono le dipendenze dalla lib:</p>
+<pre class="prettyprint" data-lang="pom.xml">
+&lt;packagingExcludes&gt;WEB-INF/lib/,
+             WEB-INF/classes/META-INF/&lt;/packagingExcludes&gt;
+</pre>
+
+<p>Si istruisce Maven di copiare il Manifest al posto giusto:</p>
+<pre class="prettyprint" data-lang="pom.xml">
+&lt;archive&gt;
+  &lt;manifestFile&gt;
+    ${project.build.outputDirectory}/META-INF/MANIFEST.MF
+  &lt;/manifestFile&gt;
+&lt;/archive&gt;
+</pre>
+    </article>
+  </slide>
+
+<slide class="header-green">
+    <hgroup>
+<h2>Importiamo il Canonical Data Model</h2>
+    </hgroup>
+    <article class="smaller">
+<p>Nel file SensormixAdminApp.gwt.xml:</p>
+<pre class="prettyprint" data-lang=".gwt.xml">
+  &lt;inherits name='com.google.developers.gdgfirenze.Sensormix' /&gt;
+</pre>
+
+<p>Nel pom.xml:</p>
+<pre class="prettyprint" data-lang="pom.xml">
+&lt;dependency&gt;
+  &lt;groupId&gt;com.google.developers.gdgfirenze&lt;/groupId&gt;
+  &lt;artifactId&gt;sensormix-datamodel-api&lt;/artifactId&gt;
+  &lt;version&gt;${project.version}&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;com.google.developers.gdgfirenze&lt;/groupId&gt;
+  &lt;artifactId&gt;sensormix-datamodel-api&lt;/artifactId&gt;
+  &lt;version&gt;${project.version}&lt;/version&gt;
+  <b>&lt;classifier&gt;sources&lt;/classifier&gt;</b>
+&lt;/dependency&gt;</pre>
+    </article>
+  </slide>
+
+
+
+  <slide class="header-green">
+    <hgroup>
+<h2>GWT RPC Plumbing diagram</h2>
+<h3>Siamo partiti da qui...</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/sensormix_gwt_1.png" alt="GWT RPC Plumbing diagram" title="GWT RPC Plumbing diagram" />
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+<h2>Sensormix RPC Plumbing diagram</h2>
+<h3>...per arrivare qui</h3>
+    </hgroup>
+<article class="flexbox vcenter">
+      <img src="images/sensormix_gwt_2.png" alt="Sensormix RPC Plumbing diagram" title="Sensormix RPC Plumbing diagram" />
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+<h2>GWT RPC in Sensormix</h2>
+<h3>Lato Client</h3>
+    </hgroup>
+    <article class="smaller">
+<p>Instanziare la service interface usando GWT.create():</p>
+<pre class="prettyprint" data-lang="java">
+GwtSensormixServiceAsync sensormixService 
+    = GWT.create(GwtSensormixService.class);
+</pre>
+<p>Fare la chiamata al servizio:</p>
+<pre class="prettyprint" data-lang="java">
+sensormixService.listSensorsIds(new AsyncCallback<List>() {
+  @Override
+  public void onFailure(Throwable caught) {
+    // handle the request failure
+  }
+
+  @Override
+  public void onSuccess(List result) {
+    // handle the response from the service
+  }
+});
+</pre>
+    </article>
+  </slide>
+
+  <slide class="header-green">
+    <hgroup>
+<h2>GWT RPC in Sensormix</h2>
+<h3>Lato Server</h3>
+    </hgroup>
+    <article class="smaller">
+<p>SensormixServiceProxy.java è un servizio GWT che usa un servizio OSGi. Nella inizializazione ottiene dei riferimenti al servizio utilizzando le API del Framework.</p>
+<pre class="prettyprint" data-lang="java">
+public void init() throws ServletException {
+
+  final BundleContext context = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
+  tracker = new ServiceTracker(context, SensormixService.class.getName(), null);
+  tracker.open();
+}
+</pre>
+
+<p>Come viene usata l’istanza del servizio OSGi?</p>
+<pre class="prettyprint" data-lang="java">
+private SensormixService getService() {
+  return (SensormixService) tracker.waitForService(10000);
+}
+
+public List&lt;String&gt; listSensorsIds() {
+  return getService().listSensorsIds();
+}
+</pre>
+    </article>
+  </slide>
+
+
+
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/logo_sensormix_c.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Cool Facts</h2>
+      <h3>Ovvero perchè ci piace questa architettura</h3>
+    </hgroup>
+  </slide>
+
+
+  <slide class="header-dark">
+    <hgroup>
+      <img style="float:right;margin-top:10px;" src="images/arduino_logo.png" alt="Arduino Logo" title="Arduino Logo" />
+      <h2>Integrazione di Arduino</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img style="height: 100%;" src="images/arduino_circuit.png" alt="Arduino Circuit" title="Arduino Circuit" />
+  </article>
+  </slide>
+
+  <slide class="header-dark">
+    <hgroup>
+      <img style="float:right;margin-top:10px;" src="images/arduino_logo.png" alt="Arduino Logo" title="Arduino Logo" />
+      <h2>Integrazione di Arduino</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img style="height: 100%;" src="images/arduino_sheet.png" alt="Arduino Sheet" title="Arduino Sheet" />
+    </article>
+  </slide>
+
+  <slide class="header-dark">
+    <hgroup>
+      <img style="float:right;"  src="images/android_logo.png" alt="Android Logo" title="Android Logo"  />
+      <h2> 
+        Integrazione di Android
+      </h2>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="java">
+
+        HttpPost httppost = new HttpPost(url.toString());
+        httppost.setHeader("Content-type", "application/json");
+
+        StringEntity se = new StringEntity(bodyForHttpPostRequest);
+        se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE,
+            "application/json"));
+        httppost.setEntity(se);
+
+        HttpResponse response = httpclient.execute(httppost);
+        String temp = EntityUtils.toString(response.getEntity());
+        logger.info("JSON post response: " + temp);
+
+      </pre>    
+    </article>
+  </slide>
+
+  <slide class="header-dark">
+    <hgroup>
+      <img style="float:right;"  src="images/android_logo.png" alt="Android Logo" title="Android Logo"  />
+      <h2> 
+        Integrazione di Android - NFC
+      </h2>
+    </hgroup>
+    <article  class="smaller">
+      <pre class="prettyprint" data-lang="java">
+
+      Tag tag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
+      StringBuilder id = new StringBuilder();
+      byte[] data = tag.getId();
+      for (int i = 0; i &lt; data.length; i++) {
+        id.append(String.format("%02x", data[i]));
+        if (i &lt; data.length - 1) {
+          id.append(":");
+        }
+      }
+      JSONObject jsonSamplePacket = new JSONObject();
+      JSONObject obj = new JSONObject();
+      jsonSamplePacket.put("sample", obj);
+      obj.put("device_id", "the device id");
+      obj.put("time", dateFormat.format(new Date()));
+      obj.put("nfc", id);
+      Intent intent = new Intent(this, DataSenderService.class);
+      intent.putExtra(DataSenderService.INTENT_EXTRA,
+          jsonSamplePacket.toString());
+      startService(intent);
+      </pre>    
+    </article>
+  </slide>
+
+
+
+  <slide class="header-dark">
+    <hgroup>
+      <h2>Installiamo ServiceMix</h2>
+    </hgroup>
+    <article class="flexbox">
+      <div class="build fade">
+        <img style="position: absolute;left:50%;margin-left:-420px;margin-top:-30px;" src="images/cool_install_servicemix_1.png" alt="" title="" />
+        <img style="position: absolute;left:50%;margin-left:-220px;margin-top:30px;" src="images/cool_install_servicemix_2.png" alt="" title="" />
+        <img style="position: absolute;left:50%;margin-left:-420px;margin-top:-30px;" src="images/cool_install_servicemix_3.png" alt="" title="" />
+        <img style="position: absolute;left:50%;margin-left:-410px;margin-top:-20px;" src="images/cool_install_servicemix_4.png" alt="" title="" />
+        <img style="position: absolute;left:50%;margin-left:-300px;margin-top:-10px;" src="images/cool_install_servicemix_5.png" alt="" title="" />
+        <img style="position: absolute;left:50%;margin-left:-420px;margin-top:-30px;" src="images/cool_install_servicemix_6.png" alt="" title="" />
+        <img style="position: absolute;left:50%;margin-left:-400px;margin-top:-20px;" src="images/cool_install_servicemix_7.png" alt="" title="" />
+        <img style="position: absolute;left:50%;margin-left:-380px;margin-top:-10px;" src="images/cool_install_servicemix_8.png" alt="" title="" />
+      </div>
+    </article>
+  </slide>
+
+  <slide class="header-dark">
+    <hgroup>
+      <h2>Creare una distribuzione della applicazione</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+        <img src="images/cool_dist_features.png" alt="" title="" />
+    </article>
+  </slide>
+
+  <slide class="header-dark">
+    <hgroup>
+      <h2>Le Karaf Features</h2>
+    </hgroup>
+    <article class="smaller">
+<pre class="prettyprint" data-lang="features.xml">
+&lt;features name=&#39;sensormix-1.0.0&#39;&gt;
+  &lt;feature name=&quot;sensormix-core&quot; version=&quot;1.0.0&quot;&gt;
+    &lt;bundle&gt;mvn:com.google.developers.gdgfirenze/sensormix-datamodel-api/1.0.0&lt;/bundle&gt;
+  &lt;/feature&gt;
+
+  &lt;feature name=&quot;sensormix-dataservice&quot; version=&quot;1.0.0&quot;&gt;
+    &lt;feature version=&quot;1.0.0&quot;&gt;sensormix-core&lt;/feature&gt;
+    &lt;feature&gt;spring-orm&lt;/feature&gt;
+    &lt;!-- ... --&gt;
+    &lt;bundle&gt;mvn:mysql/mysql-connector-java/5.1.26&lt;/bundle&gt;
+    &lt;bundle&gt;mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.commons-dbcp/1.4_3&lt;/bundle&gt;
+    &lt;bundle&gt;mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.javax-inject/1_2&lt;/bundle&gt;
+    &lt;bundle&gt;mvn:org.eclipse.persistence/javax.persistence/2.1.0&lt;/bundle&gt;
+    &lt;bundle&gt;mvn:org.eclipse.persistence/org.eclipse.persistence.jpa/2.5.0&lt;/bundle&gt;
+    &lt;!-- ... --&gt;
+    &lt;bundle&gt;mvn:com.google.developers.gdgfirenze/sensormix-dataservice-bundle/1.0.0&lt;/bundle&gt;
+  &lt;/feature&gt;
+
+  <b>&lt;feature name=&quot;sensormix&quot; version=&quot;1.0.0&quot;&gt;
+    &lt;feature version=&quot;1.0.0&quot;&gt;sensormix-dataservice&lt;/feature&gt;
+    &lt;feature version=&quot;1.0.0&quot;&gt;sensormix-webservice&lt;/feature&gt;
+  &lt;/feature&gt;</b>
+&lt;/features&gt;
+</pre>        
+    </article>
+  </slide>
+
+  <slide class="header-dark">
+    <hgroup>
+      <h2>Il Features Maven Plugin di Karaf</h2>
+    </hgroup>
+    <article class="smaller">
+<pre class="prettyprint" data-lang="features.xml">
+&lt;plugin&gt;
+  &lt;groupId&gt;org.apache.karaf.tooling&lt;/groupId&gt;
+  &lt;artifactId&gt;features-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;${features.plugin.version}&lt;/version&gt;
+  &lt;executions&gt;
+    &lt;execution&gt;
+      <b>&lt;id&gt;add-features-to-repo&lt;/id&gt;</b>
+      &lt;phase&gt;package&lt;/phase&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;add-features-to-repo&lt;/goal&gt;
+      &lt;/goals&gt;
+      &lt;configuration&gt;
+        &lt;descriptors&gt;
+          <b>&lt;descriptor&gt;com.google.developers.gdgfirenze
+                      /sensormix-deploy-features/1.0.0/xml/features&lt;/descriptor&gt;</b>
+        &lt;/descriptors&gt;
+        &lt;features&gt;
+          <b>&lt;feature&gt;sensormix/1.0.0&lt;/feature&gt;</b>
+        &lt;/features&gt;
+        <b>&lt;repository&gt;target/local-repo&lt;/repository&gt;</b>
+      &lt;/configuration&gt;
+    &lt;/execution&gt;
+  &lt;/executions&gt;
+&lt;/plugin&gt;
+</pre>        
+    </article>
+  </slide>
+
+  <slide class="header-dark">
+    <hgroup>
+      <h2>Installiamo SensorMix</h2>
+    </hgroup>
+    <article class="flexbox">
+      <div class="build fade">
+        <img style="position: absolute;left:50%;margin-left:-420px;margin-top:-30px;" src="images/cool_install_sensormix_1.png" alt="" title="" />
+        <!--<img style="position: absolute;left:50%;margin-left:-220px;margin-top:30px;" src="images/cool_install_sensormix_2.png" alt="" title="" />-->
+        <img style="position: absolute;left:50%;margin-left:-420px;margin-top:-30px;" src="images/cool_install_sensormix_3.png" alt="" title="" />
+        <!--<img style="position: absolute;left:50%;margin-left:-410px;margin-top:-20px;" src="images/cool_install_sensormix_4.png" alt="" title="" />-->
+        <img style="position: absolute;left:50%;margin-left:-420px;margin-top:-10px;" src="images/cool_install_sensormix_5.png" alt="" title="" />
+        <img style="position: absolute;left:50%;margin-left:-490px;margin-top:10px;" src="images/cool_install_sensormix_6.png" alt="" title="" />
+      </div>
+    </article>
+  </slide>
+
+
+  <slide class="header-dark">
+    <hgroup>
+      <h2>Kryo e Benchmark</h2>
+    </hgroup>
+    <article class="bigger">
+      <p>Si è scelto di utilizzare un’unica classe per tutti i sample (con un campo <code>byte[]</code> che contiene la serializzazione (Kryo) del sample).</p>
+
+      <p>Sfruttando l’astrazione di JPA sono stati fatti benchmark di occupazione e performance per supportare le scelte e validare la soluzione.</p>
+    </article>
+  </slide>
+
+  <slide class="header-dark">
+    <hgroup>
+      <h2>ServiceMix: Quanto overhead?</h2>
+      <h3>Il pacchetto ServiceMix occupa circa 65MB sul filesystem</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/cool_servicemix_footprint.jpg" alt="" title="" />
+    </article>
+  </slide>
+
+
+
+  <slide class="header-dark">
+    <hgroup>
+      <h2>Maven ed Eclipse</h2>
+    </hgroup>
+    <article class="bigger">
+      <p>SensorMix è stato sviluppato in <b>Team</b> utilizzando <b>Maven</b> ed <b>Eclipse</b>.</p>
+      <p>In particolare:</p>
+      <ul class="build">
+        <li>Sviluppo GWT integrato nello stesso Java IDE</li>
+        <li>Distribuzione tramite Karaf's Features Maven Plugin</li>
+        <li>Checkstyle e PMD per migliorare la cooperazione del Team</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="segue no-back nobackground">
+    <aside class="gdbar"><img src="images/logo_sensormix_c.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Conclusioni</h2>
+      <h3>Considerazioni finali e riferimenti bibliografici</h3>
+    </hgroup>
+  </slide>
+
+  <slide class="fill nobackground text-on-image" style="background-image: url(images/conclusion_issue.jpg)">
+    <hgroup>
+      <h2>Issue su GWT</h2>
+    </hgroup>
+    <article>
+      <h3>Serve GWT 2.6.0 che sia reso OSGi ready:</h3>
+      <ul class="build">
+        <li>per favore aiutateci, votate lo issue sulla Osgify di GWT: 
+          <ul><li><a href="http://goo.gl/GEuVBR">http://goo.gl/GEuVBR</a></li></ul></li>
+        <li>oppure lo issue su Jira per avere il bundle rilasciato da ServiceMix il prima possibile:<br/>
+          <ul><li><a href="http://goo.gl/jFsVcP">http://goo.gl/jFsVcP</a></li></ul></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Materiali</h2>
+    </hgroup>
+    <article class="bigger">
+      <dl>
+        <dt>Slides:</dt>
+        <dd><a href="http://cristcost.github.io/sensormix/">http://cristcost.github.io/sensormix/</a></dd>
+        <dt>Sensormix:</dt>
+        <dd><a href="https://github.com/cristcost/sensormix/">https://github.com/cristcost/sensormix/</a></dd>
+        <dt>Sensormix Android:</dt>
+        <dd><a href="https://github.com/cristcost/sensormix-android/">https://github.com/cristcost/sensormix-android/</a></dd>
+        <dt>Sensormix Arduino:</dt>
+        <dd><a href="https://github.com/michelefi/sensormix-arduino/">https://github.com/michelefi/sensormix-arduino/</a></dd>
+      </dl>
+    </article>
+  </slide>
+  
+  <slide class="fill white nobackground text-on-dark-image" style="background-image: url(images/conclusion_books.jpg)">
+    <hgroup>
+      <h2 class="white">Libri</h2>
+    </hgroup>
+    <article class="bigger">
+      <dl>
+        <dt>Camel in Action</dt><dd>C. Ibsen, J. Anstey - Manning</dd>
+        <dt>Enterprise Integration Patterns</dt><dd>G. Hohpe, B. Woolf - Addison Wesley</dd>
+        <dt>Spring DM in Action</dt><dd>A. Cogoluègnes, T. Templier, A. Piper - Manning</dd>
+        <dt>OSGi in Action</dt><dd>R. S. Hall, K. Pauls, S. McCulloch, D. Savage - Manning</dd>
+        <dt>OSGi In depth</dt><dd>Alexandre de Castro Alves - Manning</dd>
+      </dl>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Links</h2>
+    </hgroup>
+    <article class="bigger">
+      <dl>     
+      <dt>Apache Camel:</dt>
+      <dd><a href="http://camel.apache.org/">http://camel.apache.org/</a></dd>
+      <dt>Apache ServiceMix:</dt>
+      <dd><a href="http://servicemix.apache.org/">http://servicemix.apache.org/</a></dd>
+      <dt>Apache Karaf:</dt>
+      <dd><a href="http://karaf.apache.org/">http://karaf.apache.org/</a></dd>
+      <dt>GWT:</dt>
+      <dd><a href="http://www.gwtproject.org/">http://www.gwtproject.org/</a></dd>
+      </dl>
+    </article>
+  </slide>
+
+
+  <slide>
+    <article class="flexbox vcenter">
+      <div>
+        <h2 style="font-size:10em;">Q&amp;A</h2>
+      </div>
+    </article>
+  </slide>
+
+
+
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/logo_sensormix_c.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>&lt;Thank You!&gt;</h2>
+    </article>
+    <p class="auto-fadein">
+        Cristiano Costantini <span style="font-size:0.5em;">cristiano.costantini@gmail.com</span><br/>
+        Giuseppe Gerla <span style="font-size:0.5em;">giuseppe.gerla@gmail.com</span><br/>
+        Michele Ficarra <span style="font-size:0.5em;">miche.ficarra@gmail.com</span><br/>
+        Sergio Ciampi <span style="font-size:0.5em;">sergio.ciampi@gmail.com</span><br/>
+        Stefano Cigheri <span style="font-size:0.5em;">stefano.cigheri@gmail.com</span><br/>
+    </p>
+  </slide>
+
+  <slide class="logoslide dark nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/gdg_firenze_logo.png"></span>
+    </article>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<script>
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>
