@@ -23,6 +23,16 @@
 		interface="com.google.developers.gdgfirenze.service.SensormixService"
 		timeout="30000" cardinality="1..1" />
 
+	<bean id="length-decoder"
+		class="org.apache.camel.component.netty.ChannelHandlerFactories"
+		factory-method="newLengthFieldBasedFrameDecoder">
+		<constructor-arg value="2048" />
+		<constructor-arg value="0" />
+		<constructor-arg value="4" />
+		<constructor-arg value="0" />
+		<constructor-arg value="4" />
+	</bean>
+
 	<!-- Routes -->
 	<camelContext id="sampleInputIntegrationContext" xmlns="http://camel.apache.org/schema/spring">
 
@@ -30,6 +40,7 @@
 		<routeContextRef ref="jsonHttpProcessingRoutes" />
 		<routeContextRef ref="jsonProcessingRoutes" />
 		<routeContextRef ref="xmlAdapterRoutes" />
+		<routeContextRef ref="protobufProcessingRoutes" />
 
 		<!-- Input from JSON over HTTP -->
 		<route id="sensorMixHttpEntryRoute">
@@ -43,13 +54,20 @@
 			<to uri="seda:jsonEntry?waitForTaskToComplete=Never" />
 		</route>
 
+		<!-- Input from Protocol Buffer over TCP -->
+		<route id="sensorMixTcpEntryRoute">
+			<from
+				uri="netty:tcp://0.0.0.0:10082/?decoders=#length-decoder&amp;sync=false" />
+			<to uri="seda:protobufEntry?waitForTaskToComplete=Never" />
+		</route>
+
 		<!-- Output to the data service -->
 		<route id="sensorMixToDataManagerRoute">
 			<from uri="seda:normalizedJavaSample" />
 			<to uri="bean:sensormixService?method=recordSamples(${body.samples})" />
 			<filter>
 				<simple>${body.sensor} != null</simple>
-				<to uri="bean:mockService?method=registerSensor(${body.sensor})" />
+				<to uri="bean:sensormixService?method=registerSensor(${body.sensor})" />
 			</filter>
 		</route>
 	</camelContext>

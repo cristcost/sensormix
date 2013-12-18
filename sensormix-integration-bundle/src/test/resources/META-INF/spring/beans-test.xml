@@ -23,12 +23,19 @@
 	<bean id="mockService"
 		class="com.google.developers.gdgfirenze.integration.SensormixServiceMock" />
 
-<!-- 	<bean id="mockService" -->
-<!-- 	class="com.google.developers.gdgfirenze.integration.SensormixServiceMockJpa"  -->
-<!-- 		init-method="init" destroy-method="destroy"/> -->
-	
-		<bean id="testProcessor"
-		class="com.google.developers.gdgfirenze.integration.TestProcessor" />
+	<!-- <bean id="mockService" -->
+	<!-- class="com.google.developers.gdgfirenze.integration.SensormixServiceMockJpa" -->
+	<!-- init-method="init" destroy-method="destroy"/> -->
+
+	<bean id="length-decoder"
+		class="org.apache.camel.component.netty.ChannelHandlerFactories"
+		factory-method="newLengthFieldBasedFrameDecoder">
+		<constructor-arg value="2048" />
+		<constructor-arg value="0" />
+		<constructor-arg value="4" />
+		<constructor-arg value="0" />
+		<constructor-arg value="4" />
+	</bean>
 
 	<!-- Routes -->
 	<camelContext id="testIntegrationContext" xmlns="http://camel.apache.org/schema/spring">
@@ -37,27 +44,33 @@
 		<routeContextRef ref="jsonHttpProcessingRoutes" />
 		<routeContextRef ref="jsonProcessingRoutes" />
 		<routeContextRef ref="xmlAdapterRoutes" />
+		<routeContextRef ref="protobufProcessingRoutes" />
 
 		<!-- Input from JSON over HTTP -->
-		<route id="sensorMixHttpEntryRoute">		  
-			<from uri="jetty:http://0.0.0.0:10080/sensormixSamplesEndpoint" />			
+		<route id="sensorMixHttpEntryRoute">
+			<from uri="jetty:http://0.0.0.0:10080/sensormixSamplesEndpoint" />
 			<to uri="direct:jsonHttpEntry" />
 		</route>
 
 		<!-- Input from JSON over UDP -->
 		<route id="sensorMixUdpEntryRoute">
 			<from uri="mina2:udp://0.0.0.0:10081" />
-<!-- 			<to uri="log:rawUdp" /> -->
 			<to uri="seda:jsonEntry?waitForTaskToComplete=Never" />
+		</route>
+
+		<!-- Input from Protocol Buffer over TCP -->
+		<route id="sensorMixTcpEntryRoute">
+			<from
+				uri="netty:tcp://0.0.0.0:10082/?decoders=#length-decoder&amp;sync=false" />
+			<to uri="seda:protobufEntry?waitForTaskToComplete=Never" />
 		</route>
 
 		<!-- Output to the data service -->
 		<route id="sensorMixToDataManagerRoute">
 			<from uri="seda:normalizedJavaSample" />
- 			<to uri="bean:mockService?method=recordSamples(${body.samples})" />
+			<to uri="bean:mockService?method=recordSamples(${body.samples})" />
 			<filter>
 				<simple>${body.sensor} != null</simple>
-				<!-- <process ref="testProcessor"/>  -->
 				<to uri="bean:mockService?method=registerSensor(${body.sensor})" />
 			</filter>
 		</route>

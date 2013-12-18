@@ -12,13 +12,6 @@
 	<name>GDG Firenze :: Sensormix Checkstyle rules for Java Code</name>
 
 	<artifactId>sensormix-style</artifactId>
-	
-	<properties>
-		<!-- Do not self check the project of checks -->
-		<sourcecheck.skip>true</sourcecheck.skip>
-		<pmd.skip>true</pmd.skip>
-		<checkstyle.skip>true</checkstyle.skip>
-	</properties>
 
 	<dependencies>
 		<dependency>

@@ -16,6 +16,13 @@
 
 
 	<dependencies>
+		<!-- Dependency to resolve the SernsorMix data model for unmarshalling -->
+		<dependency>
+			<groupId>com.google.developers.gdgfirenze</groupId>
+			<artifactId>sensormix-datamodel-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-core</artifactId>
@@ -43,6 +50,21 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-netty</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-protobuf</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>${protobuf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-xmljson</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
@@ -53,12 +75,6 @@
 		</dependency>
 
 		<!-- Test dependencies -->
-		<dependency>
-			<groupId>com.google.developers.gdgfirenze</groupId>
-			<artifactId>sensormix-datamodel-api</artifactId>
-			<version>${project.version}</version>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-jdk14</artifactId>

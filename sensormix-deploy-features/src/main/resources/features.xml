@@ -37,7 +37,14 @@
     <bundle>mvn:org.eclipse.persistence/org.eclipse.persistence.jpa/${eclipselink.version}</bundle>
 
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-dataservice-bundle/${project.version}</bundle>
-	<bundle>mvn:com.google.developers.gdgfirenze/sensormix-karafcli-bundle/${project.version}</bundle>
+    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-karafcli-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="sensormix-memoryservice" version="${project.version}">
+    <feature version="${project.version}">sensormix-core</feature>
+
+    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-memoryservice-bundle/${project.version}</bundle>
+    <bundle>mvn:com.google.developers.gdgfirenze/sensormix-karafcli-bundle/${project.version}</bundle>
   </feature>
 
   <feature name="sensormix-webservice" version="${project.version}">
@@ -45,17 +52,27 @@
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-datawebservice-bundle/${project.version}</bundle>
   </feature>
 
-  <feature name="sensormix-integration" version="${project.version}">
-    <feature version="${project.version}">sensormix-dataservice</feature>
+  <feature name="sensormix-updates" version="${project.version}">
+    <bundle start-level="30" dependency='true'>mvn:org.apache.mina/mina-core/${mina.version}</bundle><!-- 2.0.7 -->
+    <bundle start-level='50' dependency='true'>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jaxb-impl/${smx-jaxb.version}</bundle><!-- 2.2.6_1 -->  
+  </feature>
 
-    <bundle>mvn:org.apache.mina/mina-core/${mina.version}</bundle><!-- 2.0.7 -->
-    <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jaxb-impl/${smx-jaxb.version}</bundle><!-- 2.2.6_1 -->
+  <feature name="sensormix-protobuf" version="${project.version}">
+    <bundle start-level="50" dependency='true'>mvn:com.google.protobuf/protobuf-java/${protobuf.version}</bundle>
+    <bundle start-level='50' dependency='true'>mvn:org.apache.camel/camel-protobuf/${camel.version}</bundle>
+  </feature>
+
+  <feature name="sensormix-integration" version="${project.version}">
+    <feature version="${project.version}">sensormix-updates</feature>
+    <feature version="${project.version}">sensormix-dataservice</feature>
 
     <feature>camel-jaxb</feature>
     <feature>camel-velocity</feature>
     <feature>camel-xmljson</feature>
     <feature>camel-jetty</feature>
     <feature>camel-mina2</feature>
+    <feature>sensormix-protobuf</feature> <!-- used instead of camel-protobuf to make use of protobuf 2.5.0 -->
+    <feature>camel-netty</feature>
 
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-integration-bundle/${project.version}</bundle>
   </feature>

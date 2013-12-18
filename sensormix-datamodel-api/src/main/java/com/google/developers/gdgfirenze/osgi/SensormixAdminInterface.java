@@ -12,7 +12,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.google.developers.gdgfirenze.service;
+package com.google.developers.gdgfirenze.osgi;
 
 /**
  * The Interface SensormixAdminInterface.
@@ -20,7 +20,17 @@ package com.google.developers.gdgfirenze.service;
  * Interface that exposes method for technical maintenance of the services.
  */
 public interface SensormixAdminInterface {
+  /**
+   * Set maintenance state.
+   *
+   * @param value true for maintenance state
+   */
   void setInMaintenace(boolean value);
 
+  /**
+   * Get maintenance state.
+   *
+   * @return true if the service is in maintenance
+   */
   boolean isInMaintenance();
 }
