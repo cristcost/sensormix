@@ -242,6 +242,8 @@
 							<id>validate</id>
 							<phase>validate</phase>
 							<configuration>
+								<!-- <includes>...include patterns...</includes> -->
+								<!-- <excludes>...exclude patterns...</excludes> -->
 								<configLocation>sensormix-checkstyle.xml</configLocation>
 								<consoleOutput>true</consoleOutput>
 								<failsOnError>true</failsOnError>
