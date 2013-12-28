@@ -37,34 +37,12 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring-security.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-
-		<!-- GWT Dependencies -->
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-user</artifactId>
-			<version>${gwt.version}</version>
-			<scope>provided</scope>
-			<exclusions>
-				<!-- Exclded as it is not used and spring would blame there is no provider 
-					for it -->
-				<exclusion>
-					<artifactId>validation-api</artifactId>
-					<groupId>javax.validation</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-servlet</artifactId>
-			<version>${gwt.version}</version>
-			<scope>runtime</scope>
+			<version>${spring-security.version}</version>
 		</dependency>
 
 		<!-- For debugging -->
@@ -116,49 +94,6 @@
 					<webResources>
 					</webResources>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>gwt-maven-plugin</artifactId>
-				<version>${gwt.plugin.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>compile</goal>
-							<!-- <goal>test</goal> -->
-							<!-- <goal>i18n</goal> -->
-							<goal>generateAsync</goal>
-						</goals>
-						<configuration>
-							<servicePattern>**/gwt/**/*Service.java</servicePattern>
-							<generateDirectory>${project.build.directory}/generated/src/main/java</generateDirectory>
-						</configuration>
-					</execution>
-				</executions>
-				<configuration>
-					<!-- <webappDirectory>${project.build.directory}/webapp</webappDirectory> -->
-					<style>PRETTY</style>
-					<!-- <runTarget>gwt.html</runTarget> -->
-					<!-- <hostedWebapp>${webappDirectory}</hostedWebapp> -->
-					<!-- <i18nMessagesBundle>net.cristcost.smvc.gwt.client.Messages</i18nMessagesBundle> -->
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.google.gwt</groupId>
-						<artifactId>gwt-dev</artifactId>
-						<version>${gwt.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>com.google.gwt</groupId>
-						<artifactId>gwt-codeserver</artifactId>
-						<version>${gwt.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>com.google.gwt</groupId>
-						<artifactId>gwt-user</artifactId>
-						<version>${gwt.version}</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
@@ -215,11 +150,16 @@
 						<Import-Package>
 							org.springframework.stereotype,
 							org.springframework.ui,
+							org.springframework.web.context,
 							org.springframework.web.bind.annotation,
 							org.springframework.web.servlet,
 							org.springframework.web.servlet.view,
 							org.springframework.web.filter,
 							org.springframework.osgi.web.context.support,
+							org.springframework.security.web,
+							org.springframework.security.web.authentication,
+							org.springframework.security.provisioning,
+							org.springframework.beans.factory.config,
 							com.google.gwt.user.client.rpc,
 							!com.google.gwt.*.client.*,
 							*
