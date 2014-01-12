@@ -59,6 +59,7 @@
 		<!-- Artifacts versions -->
 		<activemq.version>5.7.0</activemq.version>
 		<apacheds.version>1.5.7</apacheds.version>
+		<aspectj.version>1.7.4</aspectj.version>
 		<base64.version>2.3.8</base64.version>
 		<batik-transcoder.version>1.7-cristcost-00</batik-transcoder.version>
 		<batik.version>1.7</batik.version>
@@ -90,6 +91,7 @@
 		<jpa.version>1.0</jpa.version>
 		<json-simple.version>1.1.1</json-simple.version>
 		<json.version>20090211</json.version>
+		<jsr250.version>1.0</jsr250.version>
 		<jsr330.version>1</jsr330.version>
 		<jts.version>1.12</jts.version>
 		<junit.version>4.11</junit.version>
@@ -106,6 +108,7 @@
 		<servicemix.version>4.5.2</servicemix.version>
 		<servlet-api.version>2.5</servlet-api.version>
 		<slf4j.version>1.7.5</slf4j.version>
+		<smx-aspectj.version>1.7.4_1</smx-aspectj.version>
 		<smx-common-dbcp.version>1.4_3</smx-common-dbcp.version>
 		<smx-jaxb.version>2.2.6_1</smx-jaxb.version>
 		<smx-jsr330.version>1_2</smx-jsr330.version>
