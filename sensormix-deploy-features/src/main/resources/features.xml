@@ -52,7 +52,9 @@
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-datawebservice-bundle/${project.version}</bundle>
   </feature>
 
+  
   <feature name="sensormix-updates" version="${project.version}">
+    <!-- remove when upgradin to karaf 2.3.3 -->
     <bundle start-level="30" dependency='true'>mvn:org.apache.mina/mina-core/${mina.version}</bundle><!-- 2.0.7 -->
     <bundle start-level='50' dependency='true'>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jaxb-impl/${smx-jaxb.version}</bundle><!-- 2.2.6_1 -->  
   </feature>
@@ -81,7 +83,7 @@
     <feature version="${project.version}">sensormix-dataservice</feature>
     <feature>spring-dm-web</feature>
     <!--<bundle>mvn:com.google.gwt/gwt-servlet/${gwt.version}</bundle>-->
-    <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.gwt-servlet/2.6.0_1-SNAPSHOT</bundle>
+    <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.gwt-servlet/${smx-gwt.version}</bundle>
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-webgui-webapp/${project.version}/war</bundle>
   </feature>
 
@@ -90,7 +92,7 @@
     <feature>spring-dm-web</feature>
     
     <!--<bundle>mvn:com.google.gwt/gwt-servlet/${gwt.version}</bundle>-->
-    <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.gwt-servlet/2.6.0_1-SNAPSHOT</bundle>
+    <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.gwt-servlet/${smx-gwt.version}</bundle>
 
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-admin-webapp/${project.version}/war</bundle>
   </feature>

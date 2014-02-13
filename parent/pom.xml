@@ -111,6 +111,7 @@
 		<smx-aspectj.version>1.7.4_1</smx-aspectj.version>
 		<smx-common-dbcp.version>1.4_3</smx-common-dbcp.version>
 		<smx-jaxb.version>2.2.6_1</smx-jaxb.version>
+		<smx-gwt.version>2.6.0_1-SNAPSHOT</smx-gwt.version>
 		<smx-jsr330.version>1_2</smx-jsr330.version>
 		<smx-snmp4j.version>1.8.1_4</smx-snmp4j.version> <!-- 2.1.0_1 -->
 		<smx-ws-commons-util.version>1.0.2_2</smx-ws-commons-util.version>
@@ -134,7 +135,7 @@
 		<cxf.plugin.version>2.6.8</cxf.plugin.version>
 		<eclipse.plugin.version>2.9</eclipse.plugin.version>
 		<features.plugin.version>2.2.11</features.plugin.version>
-		<gwt.plugin.version>2.6.0-rc3</gwt.plugin.version>
+		<gwt.plugin.version>2.6.0</gwt.plugin.version>
 		<javadoc.plugin.version>2.9.1</javadoc.plugin.version>
 		<javancss.plugin.version>2.0</javancss.plugin.version>
 		<jaxws.plugin.version>2.2</jaxws.plugin.version>
