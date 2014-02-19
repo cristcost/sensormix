@@ -1,6 +1,6 @@
 SensorMix
 =========
-SensorMix is an example application for demonstrating use of Apache Camel and GWT on Apache Karaf or ServiceMix.
+SensorMix is an example application for demonstrating use of Apache Camel and GWT on Apache Karaf on ServiceMix.
 
 This application has been developed for supporting a tech talk organized by [GDG-Firenze](http://www.gdg-firenze.info/lista-eventi-italiani/osgi-camel-e-gwt). See [the slides of the event](http://cristcost.github.io/sensormix/) (soon they will be available in english).
 
