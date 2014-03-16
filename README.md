@@ -4,7 +4,7 @@ SensorMix is an example application for demonstrating use of Apache Camel and GW
 
 This application has been developed for supporting a tech talk organized by [GDG-Firenze](http://www.gdg-firenze.info/lista-eventi-italiani/osgi-camel-e-gwt). See [the slides of the event](http://cristcost.github.io/sensormix-slides/).
 
-Version 1.0.0 will be released after the release of [GWT 2.6.0](http://www.gwtproject.org/versions.html), and the project will be updated also after release of ~~Servicemix 4.6.0~~ [Servicemix 5.0.0](http://servicemix.apache.org/).
+Version 1.0.0 will be released after the release of [GWT 2.6.0](http://www.gwtproject.org/versions.html) and ~~the project will be updated also~~ after release of ~~Servicemix 4.6.0~~ [Servicemix 5.0.0](http://servicemix.apache.org/).
 
 ~~Running the application is tricky due to two main issues:~~
 * ~~gwt-servlet.jar lacks support for OSGi import and export packages.~~ Fixed with Servicemix GWT-Servelt OSGi bundle
