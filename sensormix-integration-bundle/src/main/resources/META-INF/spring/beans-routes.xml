@@ -73,12 +73,13 @@
 	<routeContext id="xmlAdapterRoutes" xmlns="http://camel.apache.org/schema/spring">
 		<route id="xmlAdapterRoute">
 			<from uri="seda:rawXmlEntry" />
+			<setHeader headerName="messageXmlTime">
+				<simple>${date:now:yyyy-MM-dd}T${date:now:HH:mm:ss.SSS}</simple>
+			</setHeader>
 			<to uri="xslt:xslt_adapters/raw2cdm_adapter.xsl" />
-
 			<unmarshal>
 				<jaxb contextPath="com.google.developers.gdgfirenze.service" />
 			</unmarshal>
-
 			<setHeader headerName="sensormixBodyType">
 				<simple>${body.getClass.getName}</simple>
 			</setHeader>
@@ -88,7 +89,6 @@
 			<setHeader headerName="sensormixSensor">
 				<simple>${body.sensor}</simple>
 			</setHeader>
-
 			<to uri="seda:normalizedJavaSample" />
 		</route>
 	</routeContext>
