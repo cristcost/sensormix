@@ -27,6 +27,7 @@
 
     <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.commons-dbcp/${smx-common-dbcp.version}</bundle>
     <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.javax-inject/${smx-jsr330.version}</bundle>
+    <bundle>mvn:org.objenesis/objenesis/${objenesis.version}</bundle>
     <bundle>mvn:com.esotericsoftware.kryo/kryo/${kryo.version}</bundle>
 
     <bundle>mvn:org.eclipse.persistence/javax.persistence/${jpa.eclipselink.version}</bundle>
