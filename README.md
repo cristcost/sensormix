@@ -7,7 +7,7 @@ This application has been developed for supporting a tech talk organized by [GDG
 Version 1.0.0 will be released after the release of [GWT 2.6.0](http://www.gwtproject.org/versions.html) and ~~Servicemix 4.6.0~~ [Servicemix 5.0.0](http://servicemix.apache.org/).
 
 ~~Running the application is tricky due to two main issues:~~
-* ~~gwt-servlet.jar lacks support for OSGi import and export packages.~~ Fixed with Servicemix GWT-Servelt OSGi bundle
+* ~~gwt-servlet.jar lacks support for OSGi import and export packages.~~ Fixed with [Servicemix GWT-Servelt OSGi bundle](https://issues.apache.org/jira/browse/SMX4-1634)
 * ~~servicemix 4.5.3 due to old version of mina and jaxb-impl bundles.~~ Ok in Servicemix 5.0.0 
 
 
