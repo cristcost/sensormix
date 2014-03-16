@@ -68,7 +68,7 @@ public class Launcher {
     context.addRoutes(new RouteBuilder() {
       @Override
       public void configure() {
-        from("jetty:http://0.0.0.0:8080/test").to("log:dump?showAll=true").choice().when(
+        from("jetty:http://0.0.0.0:10080/sensormixSamplesEndpoint").to("log:dump?showAll=true").choice().when(
             header(Exchange.HTTP_METHOD).in("POST", "PUT")).to(
             "file:target/incoming?fileName=msg-http-${date:now:yyyyMMdd_HHmmss_SSS}.js").end().setHeader(
             "Content-Type", constant("application/json")).to("velocity:response_template.vm");
