@@ -48,16 +48,8 @@
   </feature>
 
   <feature name="sensormix-webservice" version="${project.version}">
-    <feature version="${project.version}">sensormix-dataservice</feature>
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-datawebservice-bundle/${project.version}</bundle>
-  </feature>
-
-  
-  <feature name="sensormix-updates" version="${project.version}">
-    <!-- remove when upgradin to karaf 2.3.3 -->
-    <bundle start-level="30" dependency='true'>mvn:org.apache.mina/mina-core/${mina.version}</bundle><!-- 2.0.7 -->
-    <bundle start-level='50' dependency='true'>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jaxb-impl/${smx-jaxb.version}</bundle><!-- 2.2.6_1 -->  
-  </feature>
+  </feature> 
 
   <feature name="sensormix-protobuf" version="${project.version}">
     <bundle start-level="50" dependency='true'>mvn:com.google.protobuf/protobuf-java/${protobuf.version}</bundle>
@@ -65,7 +57,6 @@
   </feature>
 
   <feature name="sensormix-integration" version="${project.version}">
-    <feature version="${project.version}">sensormix-updates</feature>
     <feature version="${project.version}">sensormix-dataservice</feature>
 
     <feature>camel-jaxb</feature>
@@ -79,21 +70,18 @@
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-integration-bundle/${project.version}</bundle>
   </feature>
 
+  <!-- under development
   <feature name="sensormix-webgui" version="${project.version}">
     <feature version="${project.version}">sensormix-dataservice</feature>
     <feature>spring-dm-web</feature>
-    <!--<bundle>mvn:com.google.gwt/gwt-servlet/${gwt.version}</bundle>-->
     <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.gwt-servlet/${smx-gwt.version}</bundle>
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-webgui-webapp/${project.version}/war</bundle>
-  </feature>
+  </feature> -->
 
   <feature name="sensormix-admin" version="${project.version}">
     <feature version="${project.version}">sensormix-dataservice</feature>
     <feature>spring-dm-web</feature>
-    
-    <!--<bundle>mvn:com.google.gwt/gwt-servlet/${gwt.version}</bundle>-->
     <bundle>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.gwt-servlet/${smx-gwt.version}</bundle>
-
     <bundle>mvn:com.google.developers.gdgfirenze/sensormix-admin-webapp/${project.version}/war</bundle>
   </feature>
 
@@ -101,7 +89,7 @@
     <feature version="${project.version}">sensormix-dataservice</feature>
     <feature version="${project.version}">sensormix-webservice</feature>
     <feature version="${project.version}">sensormix-integration</feature>
-    <feature version="${project.version}">sensormix-webgui</feature>
+    <!-- <feature version="${project.version}">sensormix-webgui</feature> -->
     <feature version="${project.version}">sensormix-admin</feature>
   </feature>
 

@@ -66,6 +66,7 @@ public class Launcher {
     CamelContext context = new DefaultCamelContext(reg);
 
     context.addRoutes(new RouteBuilder() {
+      @Override
       public void configure() {
         from("jetty:http://0.0.0.0:8080/test").to("log:dump?showAll=true").choice().when(
             header(Exchange.HTTP_METHOD).in("POST", "PUT")).to(

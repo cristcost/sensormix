@@ -26,7 +26,7 @@
 		<dependency>
 			<groupId>org.apache.geronimo.specs</groupId>
 			<artifactId>geronimo-jpa_2.0_spec</artifactId>
-			<version>1.1</version>
+			<version>${geronimo-jpa2.version}</version>
 		</dependency>
 
 		<dependency>
@@ -61,7 +61,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.26</version>
+			<version>${mysql.connector.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -73,7 +73,7 @@
 		<dependency>
 			<groupId>org.apache.openjpa</groupId>
 			<artifactId>openjpa</artifactId>
-			<version>2.2.2</version>
+			<version>${openjpa.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
