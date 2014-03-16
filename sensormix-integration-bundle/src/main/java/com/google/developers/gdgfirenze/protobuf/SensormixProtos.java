@@ -65,6 +65,7 @@ public final class SensormixProtos {
       return defaultInstance;
     }
 
+    @Override
     public SampleMessage getDefaultInstanceForType() {
       return defaultInstance;
     }
@@ -130,6 +131,7 @@ public final class SensormixProtos {
       return com.google.developers.gdgfirenze.protobuf.SensormixProtos.internal_static_sensormix_SampleMessage_descriptor;
     }
 
+    @Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.google.developers.gdgfirenze.protobuf.SensormixProtos.internal_static_sensormix_SampleMessage_fieldAccessorTable
@@ -139,6 +141,7 @@ public final class SensormixProtos {
 
     public static com.google.protobuf.Parser<SampleMessage> PARSER =
         new com.google.protobuf.AbstractParser<SampleMessage>() {
+      @Override
       public SampleMessage parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -159,12 +162,14 @@ public final class SensormixProtos {
     /**
      * <code>required string device_id = 1;</code>
      */
+    @Override
     public boolean hasDeviceId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
      * <code>required string device_id = 1;</code>
      */
+    @Override
     public java.lang.String getDeviceId() {
       java.lang.Object ref = deviceId_;
       if (ref instanceof java.lang.String) {
@@ -182,6 +187,7 @@ public final class SensormixProtos {
     /**
      * <code>required string device_id = 1;</code>
      */
+    @Override
     public com.google.protobuf.ByteString
         getDeviceIdBytes() {
       java.lang.Object ref = deviceId_;
@@ -202,12 +208,14 @@ public final class SensormixProtos {
     /**
      * <code>required int64 time = 2;</code>
      */
+    @Override
     public boolean hasTime() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
      * <code>required int64 time = 2;</code>
      */
+    @Override
     public long getTime() {
       return time_;
     }
@@ -218,12 +226,14 @@ public final class SensormixProtos {
     /**
      * <code>optional int64 faces = 3;</code>
      */
+    @Override
     public boolean hasFaces() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
      * <code>optional int64 faces = 3;</code>
      */
+    @Override
     public long getFaces() {
       return faces_;
     }
@@ -234,6 +244,7 @@ public final class SensormixProtos {
       faces_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
+    @Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
@@ -250,6 +261,7 @@ public final class SensormixProtos {
       return true;
     }
 
+    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
@@ -266,6 +278,7 @@ public final class SensormixProtos {
     }
 
     private int memoizedSerializedSize = -1;
+    @Override
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
@@ -349,10 +362,12 @@ public final class SensormixProtos {
     }
 
     public static Builder newBuilder() { return Builder.create(); }
+    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(com.google.developers.gdgfirenze.protobuf.SensormixProtos.SampleMessage prototype) {
       return newBuilder().mergeFrom(prototype);
     }
+    @Override
     public Builder toBuilder() { return newBuilder(this); }
 
     @java.lang.Override
@@ -372,6 +387,7 @@ public final class SensormixProtos {
         return com.google.developers.gdgfirenze.protobuf.SensormixProtos.internal_static_sensormix_SampleMessage_descriptor;
       }
 
+      @Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.google.developers.gdgfirenze.protobuf.SensormixProtos.internal_static_sensormix_SampleMessage_fieldAccessorTable
@@ -397,6 +413,7 @@ public final class SensormixProtos {
         return new Builder();
       }
 
+      @Override
       public Builder clear() {
         super.clear();
         deviceId_ = "";
@@ -408,19 +425,23 @@ public final class SensormixProtos {
         return this;
       }
 
+      @Override
       public Builder clone() {
         return create().mergeFrom(buildPartial());
       }
 
+      @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.google.developers.gdgfirenze.protobuf.SensormixProtos.internal_static_sensormix_SampleMessage_descriptor;
       }
 
+      @Override
       public com.google.developers.gdgfirenze.protobuf.SensormixProtos.SampleMessage getDefaultInstanceForType() {
         return com.google.developers.gdgfirenze.protobuf.SensormixProtos.SampleMessage.getDefaultInstance();
       }
 
+      @Override
       public com.google.developers.gdgfirenze.protobuf.SensormixProtos.SampleMessage build() {
         com.google.developers.gdgfirenze.protobuf.SensormixProtos.SampleMessage result = buildPartial();
         if (!result.isInitialized()) {
@@ -429,6 +450,7 @@ public final class SensormixProtos {
         return result;
       }
 
+      @Override
       public com.google.developers.gdgfirenze.protobuf.SensormixProtos.SampleMessage buildPartial() {
         com.google.developers.gdgfirenze.protobuf.SensormixProtos.SampleMessage result = new com.google.developers.gdgfirenze.protobuf.SensormixProtos.SampleMessage(this);
         int from_bitField0_ = bitField0_;
@@ -450,6 +472,7 @@ public final class SensormixProtos {
         return result;
       }
 
+      @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.google.developers.gdgfirenze.protobuf.SensormixProtos.SampleMessage) {
           return mergeFrom((com.google.developers.gdgfirenze.protobuf.SensormixProtos.SampleMessage)other);
@@ -476,6 +499,7 @@ public final class SensormixProtos {
         return this;
       }
 
+      @Override
       public final boolean isInitialized() {
         if (!hasDeviceId()) {
           
@@ -488,6 +512,7 @@ public final class SensormixProtos {
         return true;
       }
 
+      @Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -512,12 +537,14 @@ public final class SensormixProtos {
       /**
        * <code>required string device_id = 1;</code>
        */
+      @Override
       public boolean hasDeviceId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
        * <code>required string device_id = 1;</code>
        */
+      @Override
       public java.lang.String getDeviceId() {
         java.lang.Object ref = deviceId_;
         if (!(ref instanceof java.lang.String)) {
@@ -532,6 +559,7 @@ public final class SensormixProtos {
       /**
        * <code>required string device_id = 1;</code>
        */
+      @Override
       public com.google.protobuf.ByteString
           getDeviceIdBytes() {
         java.lang.Object ref = deviceId_;
@@ -586,12 +614,14 @@ public final class SensormixProtos {
       /**
        * <code>required int64 time = 2;</code>
        */
+      @Override
       public boolean hasTime() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
        * <code>required int64 time = 2;</code>
        */
+      @Override
       public long getTime() {
         return time_;
       }
@@ -619,12 +649,14 @@ public final class SensormixProtos {
       /**
        * <code>optional int64 faces = 3;</code>
        */
+      @Override
       public boolean hasFaces() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
        * <code>optional int64 faces = 3;</code>
        */
+      @Override
       public long getFaces() {
         return faces_;
       }
@@ -680,6 +712,7 @@ public final class SensormixProtos {
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
+        @Override
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
             com.google.protobuf.Descriptors.FileDescriptor root) {
           descriptor = root;
