@@ -111,7 +111,7 @@
 		<osgi.version>4.3.1</osgi.version>
 		<powermock.version>1.5.4</powermock.version>
 		<protobuf.version>2.5.0</protobuf.version>
-		<saxon.version>9.5.1-4</saxon.version>
+		<saxon.version>9.5.1-2</saxon.version>
 		<selenium.version>2.4.0</selenium.version>
 		<servicemix.version>5.0.0</servicemix.version>
 		<servlet-api.version>2.5</servlet-api.version>
@@ -121,7 +121,7 @@
 		<smx-gwt.version>2.6.0_1</smx-gwt.version>
 		<smx-jaxb.version>2.2.6_1</smx-jaxb.version>
 		<smx-jsr330.version>1_2</smx-jsr330.version>
-		<smx-saxon.version>9.5.1-4_1</smx-saxon.version>
+		<smx-saxon.version>9.5.1-2_1</smx-saxon.version>
 		<smx-snmp4j.version>1.8.1_4</smx-snmp4j.version> <!-- 2.1.0_1 -->
 		<smx-ws-commons-util.version>1.0.2_2</smx-ws-commons-util.version>
 		<smx-xmlrpc-client.version>3.1.3_1</smx-xmlrpc-client.version>
