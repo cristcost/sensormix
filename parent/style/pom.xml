@@ -9,7 +9,7 @@
 		<version>1-SNAPSHOT</version>
 	</parent>
 
-	<name>GDG Firenze :: Sensormix Checkstyle rules for Java Code</name>
+	<name>GDG Firenze :: Sensormix Parent :: Checkstyle rules for Java Code</name>
 
 	<artifactId>sensormix-style</artifactId>
 

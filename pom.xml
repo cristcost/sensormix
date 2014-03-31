@@ -18,6 +18,8 @@
 	<name>GDG Firenze :: Sensormix Main project</name>
 
 	<modules>
+		<module>parent</module>
+
 		<module>sensormix-datamodel-api</module>
 		<module>sensormix-dataservice-bundle</module>
 		<module>sensormix-karafcli-bundle</module>

@@ -3,7 +3,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<name>GDG Firenze :: Sensormix Team and Maven Config</name>
+	<name>GDG Firenze :: Sensormix Parent :: Team, Properties and Plugin Management</name>
 
 	<groupId>com.google.developers.gdgfirenze</groupId>
 	<artifactId>sensormix-parent</artifactId>
